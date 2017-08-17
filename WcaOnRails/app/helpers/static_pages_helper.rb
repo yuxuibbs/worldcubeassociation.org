@@ -1,12 +1,9 @@
+# frozen_string_literal: true
+
 module StaticPagesHelper
   def format_team_members(team)
-    leader_team = :"#{team}_leader"
-    User.where(team => true).order(leader_team => :desc, name: :asc).map do |u|
-      s = u.name
-      if u.send(leader_team)
-        s += " (leader)"
-      end
-      s
-    end.join(", ")
+    team.current_members.includes(:user).order(team_leader: :desc).order("users.name asc").map do |u|
+      u.user.name + (u.team_leader ? " (leader)" : "")
+    end.to_sentence
   end
 end

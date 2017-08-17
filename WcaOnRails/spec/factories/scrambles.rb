@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :scramble do
     eventId "333"
-    roundId "f"
+    roundTypeId "f"
     groupId "a"
     isExtra false
     scrambleNum 0

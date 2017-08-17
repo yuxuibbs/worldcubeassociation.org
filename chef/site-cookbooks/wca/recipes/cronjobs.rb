@@ -1,12 +1,21 @@
 username, repo_root = WcaHelper.get_username_and_repo_root(self)
+secrets = WcaHelper.get_secrets(self)
 
 admin_email = "admin@worldcubeassociation.org"
 path = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 
-db_dump_folder = "#{repo_root}/secrets/wca_db"
-dump_command = "#{repo_root}/scripts/db.sh dump #{db_dump_folder}"
+secrets_folder = "#{repo_root}/secrets"
+db_dump_folder = "#{secrets_folder}/wca_db"
+dump_db_command = "#{repo_root}/scripts/db.sh dump #{db_dump_folder}"
+dump_gh_command = "github-backup --incremental --fork --private --all -t #{secrets['GITHUB_BACKUP_ACCESS_TOKEN']} --organization thewca -o #{secrets_folder}/github-thewca"
+backup_command = "#{dump_db_command} && #{dump_gh_command}"
+if node.chef_environment == "production"
+  backup_command += " && #{repo_root}/scripts/backup.sh"
+end
 unless node.chef_environment.start_with?("development")
-  cron "db backup" do
+  execute "pip2 install github-backup"
+
+  cron "backup" do
     minute '0'
     hour '0'
     weekday '1'
@@ -14,11 +23,20 @@ unless node.chef_environment.start_with?("development")
     path path
     mailto admin_email
     user username
-    if node.chef_environment == "production"
-      command "#{dump_command} && #{repo_root}/scripts/backup.sh"
-    else
-      command dump_command
-    end
+    command backup_command
+  end
+end
+
+unless node.chef_environment.start_with?("development")
+  cron "hourly schedule rails work" do
+    minute '0'
+    hour '*'
+    weekday '*'
+
+    path path
+    mailto admin_email
+    user username
+    command "(cd #{repo_root}/WcaOnRails; RACK_ENV=production bin/rake work:schedule)"
   end
 end
 
@@ -32,7 +50,7 @@ unless node.chef_environment.start_with?("development")
   cron "cronned results scripts" do
     minute '0'
     hour '4'
-    weekday '1,3,5'
+    weekday '*'
 
     path path
     mailto admin_email
@@ -41,8 +59,6 @@ unless node.chef_environment.start_with?("development")
     command init_php_commands.last
   end
 end
-
-init_php_commands << "(cd #{repo_root}/webroot/results/admin/; time SERVER_NAME=wca REQUEST_URI='doit=live' php compute_auxiliary_data.php)"
 
 # Run init-php-results on our first provisioning, but not on subsequent provisions.
 lockfile = '/tmp/php-results-initialized'

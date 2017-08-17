@@ -1,27 +1,69 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :competition do
     sequence(:name) { |n| "Foo Comp #{n} 2015" }
 
     cityName "San Francisco"
     countryId "USA"
+    currency_code "USD"
     information "Information!"
+    latitude { rand(-90_000_000..90_000_000) }
+    longitude { rand(-180_000_000..180_000_000) }
 
-    day = 1.year.ago
-    start_date day.strftime("%F")
-    end_date day.strftime("%F")
+    transient do
+      starts 1.year.ago
+      ends { starts }
+      event_ids { %w(333 333oh) }
+    end
 
-    eventSpecs "333 333oh"
+    start_date { starts.nil? ? nil : starts.strftime("%F") }
+    end_date { ends.nil? ? nil : ends.strftime("%F") }
+
+    trait :future do
+      starts 1.week.from_now
+    end
+
+    trait :ongoing do
+      starts Time.now
+    end
+
+    trait :past do
+      starts 1.week.ago
+    end
+
+    trait :results_posted do
+      results_posted_at Time.now
+    end
+
+    trait :with_competitor_limit do
+      competitor_limit_enabled true
+      competitor_limit 100
+      competitor_limit_reason "The hall only fits 100 competitors."
+    end
+
+    events { Event.where(id: event_ids) }
+
     venue "My backyard"
     venueAddress "My backyard street"
-    website "https://www.worldcubeassociation.org"
-    showAtAll true
+    external_website "https://www.worldcubeassociation.org"
+    showAtAll false
+    isConfirmed false
+
+    guests_enabled true
 
     trait :with_delegate do
-      delegates { [ FactoryGirl.create(:delegate) ] }
+      delegates { [FactoryGirl.create(:delegate)] }
     end
 
     trait :with_organizer do
-      organizers { [ FactoryGirl.create(:user) ] }
+      organizers { [FactoryGirl.create(:user)] }
+    end
+
+    trait :with_delegate_report do
+      after(:create) do |competition|
+        FactoryGirl.create :delegate_report, :posted, competition: competition
+      end
     end
 
     use_wca_registration false
@@ -37,6 +79,25 @@ FactoryGirl.define do
     trait :confirmed do
       with_delegate
       isConfirmed true
+    end
+
+    trait :not_visible do
+      showAtAll false
+    end
+
+    trait :visible do
+      with_delegate
+      showAtAll true
+    end
+
+    trait :entry_fee do
+      base_entry_fee_lowest_denomination 1000
+      currency_code "AUD"
+      # This is an actual test stripe account set up
+      # for testing Stripe payments, and is connected
+      # to the WCA Stripe account. For more inforamtion, see
+      # https://github.com/thewca/worldcubeassociation.org/wiki/Payments-with-Stripe
+      connected_stripe_account_id "acct_19ZQVmE2qoiROdto"
     end
   end
 end

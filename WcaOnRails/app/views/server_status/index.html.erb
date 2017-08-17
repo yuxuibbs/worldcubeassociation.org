@@ -1,0 +1,71 @@
+<% provide(:title, 'Server Status') %>
+<div class="container">
+  <h1><%= yield(:title) %></h1>
+
+  <h4>Page views by locale</h4>
+  <ol>
+    <% @locale_stats.each do |locale, count| %>
+      <li>
+        <% data = Locales::AVAILABLE[locale] %>
+        <%= flag_icon data[:flag_id], 16 %>
+        <%= data[:name] %>
+        <%= count %> views
+      </li>
+    <% end %>
+  </ol>
+
+  <h4>Diagnostics</h4>
+  <% if @everything_good %>
+    <%= alert :success, "We're fine. We're all fine here, now, thank you. How are you?" %>
+  <% else %>
+    <%= alert :danger, "Check below, something may be wrong." %>
+  <% end %>
+
+  <% kind_class = @oldest_job_that_should_have_run_by_now ? "danger" : "success" %>
+  <div class="panel panel-<%= kind_class %>">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span class="label label-<%= kind_class %>">Jobs</span>
+
+        <% if @oldest_job_that_should_have_run_by_now %>
+          Uh oh!
+          Job <%= @oldest_job_that_should_have_run_by_now.id %> was created
+          <%= time_ago_in_words @oldest_job_that_should_have_run_by_now.created_at %>
+          ago and still has not run.
+          <%= @jobs_that_should_have_run_by_now.count %>
+          <%= "job".pluralize(@jobs_that_should_have_run_by_now.count) %>
+          <%= "is".pluralize(@jobs_that_should_have_run_by_now.count) %>
+          waiting to run.
+
+        <% else %>
+          Looking good!
+        <% end %>
+      </h3>
+    </div>
+  </div>
+
+  <% kind_class = @regulations_load_error ? "danger" : "success" %>
+  <div class="panel panel-<%= kind_class %>">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <span class="label label-<%= kind_class %>">Regulations</span>
+        <% if @regulations_load_error %>
+          Error while loading regulations: <%= @regulations_load_error %>.
+        <% else %>
+          Looking good!
+        <% end %>
+      </h3>
+    </div>
+  </div>
+
+  <%= alert :info do
+    sha1 = `git rev-parse HEAD`
+    {
+        "PID": Process.pid,
+        "Uptime": duration_to_s(Time.now - WcaOnRails::BOOTED_AT),
+        "Git commit": link_to(sha1.first(7), "https://github.com/thewca/worldcubeassociation.org/commit/#{sha1}")
+    }.map { |key, value| "#{key}: #{value}" }.join(" #{icon "circle"} ").html_safe
+  end %>
+
+  <%= link_to icon("language", "Translations status"), translations_status_path, class: "btn btn-primary" %>
+</div>

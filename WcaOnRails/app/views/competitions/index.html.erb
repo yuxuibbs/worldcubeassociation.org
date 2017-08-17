@@ -1,17 +1,22 @@
-<% provide(:title, 'Competitions') %>
+<% provide(:title, t('.title')) %>
+<% provide(:include_gmaps, true) %>
 
 <div class="container">
-  <h1><%= yield(:title) %></h1>
+  <h2><%= yield(:title) %></h2>
 
-  <%= link_to "New competition", new_competition_path %>
-  <table class="table">
-    <% @competitions.each do |competition| %>
-      <tr>
-        <td><%= competition.id %></td>
-        <td><%= competition.name %></td>
-        <td><%= link_to "Edit", admin_edit_competition_path(competition) %></td>
-        <td><%= link_to "Results", "/results/competition.php?competitionId=#{competition.id}" %></td>
-      </tr>
-    <% end %>
-  </table>
+  <%= form_tag competitions_path, method: :get, remote: true, class: "competition-select form-inline #{@display}", id: "competition-query-form" do %>
+    <%= render 'index_form' %>
+  <% end %>
+
+  <div id="search-results" class="row competitions-<%= @display %>">
+    <div id="loading">
+      <div class="spinner-wrapper"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+    </div>
+    <div id="competitions-list">
+      <%= render 'index_competitions_list', competitions: @competitions %>
+    </div>
+    <div class="col-xs-12 col-md-12">
+      <div id="competitions-map"></div>
+    </div>
+  </div>
 </div>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -9,9 +11,22 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  # Show full error reports.
+  config.consider_all_requests_local = true
+
+  # Enable/disable caching. By default caching is disabled.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=172800',
+    }
+  else
+    config.action_controller.perform_caching = false
+
+    config.cache_store = :null_store
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -23,8 +38,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {
     protocol: root_url.scheme,
     host: root_url.host,
-    port: root_url.port
+    port: root_url.port,
   }
+
+  config.action_mailer.perform_caching = false
 
   # Setup for mailcatcher (http://mailcatcher.me/)
   config.action_mailer.delivery_method = :smtp
@@ -41,20 +58,27 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
-  # yet still be able to expire them through the digest params.
-  config.assets.digest = true
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
-  # Adds additional error checking when serving assets at runtime.
-  # Checks for improperly declared sprockets dependencies.
-  # Raises helpful error messages.
-  config.assets.raise_runtime_errors = true
-
+  # One can activate/test the fallback to English using:
+  config.i18n.fallbacks = true
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # http://help.papertrailapp.com/kb/configuration/unicorn/
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger.const_get('DEBUG')
-  config.log_level = :debug
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+
+    # See https://github.com/thewca/worldcubeassociation.org/pull/1452. This seems to be something
+    # Bullet asks us to include, but isn't necessary, and including it causes a huge performance problem.
+    Bullet.add_whitelist type: :n_plus_one_query, class_name: "Registration", association: :competition_events
+  end
+
+  # Use an evented file watcher to asynchronously detect changes in source code,
+  # routes, locales, etc. This feature depends on the listen gem.
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
-  default from: "notifications@worldcubeassociation.org"
+  default from: WcaOnRails::Application.config.default_from_address
   layout 'mailer'
+  helper :application
 end

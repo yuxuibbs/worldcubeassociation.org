@@ -1,16 +1,13 @@
+# frozen_string_literal: true
+
 class PollsController < ApplicationController
   before_action :authenticate_user!
-  before_action -> { redirect_unless_user(:can_create_poll?) }, only: [:new, :create, :update, :destroy]
-  before_action -> { redirect_unless_user(:can_vote_in_poll?) }, only: [:index, :vote, :results]
+  before_action -> { redirect_to_root_unless_user(:can_create_poll?) }, only: [:new, :create, :update, :destroy]
+  before_action -> { redirect_to_root_unless_user(:can_vote_in_poll?) }, only: [:index, :vote, :results]
 
   def index
-    if current_user.can_create_poll?
-      @polls = Poll.all
-    else
-      @polls = Poll.where(confirmed: true)
-    end
-    @open_polls = @polls.reject &:poll_is_over?
-    @closed_polls = @polls.select &:poll_is_over?
+    @polls = current_user.can_create_poll? ? Poll.all : Poll.confirmed
+    @closed_polls, @open_polls = @polls.partition(&:over?)
   end
 
   def new
@@ -25,7 +22,6 @@ class PollsController < ApplicationController
     @poll = Poll.new(poll_params)
     @poll.multiple = false
     @poll.deadline = Date.today + 15
-    @poll.confirmed = false
     @poll.comment = ""
     if @poll.save
       flash[:success] = "Created new poll"
@@ -56,7 +52,7 @@ class PollsController < ApplicationController
   def destroy
     @poll = Poll.find(params[:id])
 
-    if !@poll.confirmed && @poll.destroy
+    if !@poll.confirmed? && @poll.destroy
       flash[:success] = "Deleted poll"
       redirect_to polls_path
     else
@@ -66,10 +62,17 @@ class PollsController < ApplicationController
   end
 
   def poll_params
-    poll_params = params.require(:poll).permit(:question, :comment, :multiple, :deadline, :confirmed, poll_options_attributes: [:id, :description, :_destroy])
-    if params[:commit] == "Confirm" && current_user.can_create_poll?
-      poll_params[:confirmed] = true
+    params.require(:poll).permit(
+      :question,
+      :comment,
+      :multiple,
+      :deadline,
+      :confirmed_at,
+      poll_options_attributes: [:id, :description, :_destroy],
+    ).tap do |poll_params|
+      if params[:commit] == "Confirm" && current_user.can_create_poll?
+        poll_params[:confirmed_at] = Time.now
+      end
     end
-    return poll_params
   end
 end

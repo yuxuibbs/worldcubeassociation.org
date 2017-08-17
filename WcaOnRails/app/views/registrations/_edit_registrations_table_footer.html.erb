@@ -1,0 +1,26 @@
+<tfoot>
+  <tr>
+    <td colspan="4">
+      <%= render "registration_info_people", registrations: registrations %>
+    </td>
+    <% country_count = registrations.map(&:country).uniq.length %>
+    <td><%= t('registrations.list.country_plural', count: country_count) %></td>
+    <td></td>
+    <% if @show_events %>
+      <% @competition.events.each do |event| %>
+        <td><%= registrations.select { |r| r.events.include?(event) }.length %></td>
+      <% end %>
+    <% end %>
+    <td></td>
+    <td>
+      <% if @competition.guests_enabled? %>
+        <%# We need to convert `registrations` to an array here rather than computing the sum directly in the database.
+            The reason is that we include `registration_competition_events` table which results in having duplicated registrations
+            in the result set, thus the produced sum is too large.
+            See: https://github.com/thewca/worldcubeassociation.org/issues/678#issuecomment-222386567 %>
+        <%= registrations.to_a.sum(&:guests) %>
+      <% end %>
+    </td>
+    <td colspan="3"></td>
+  </tr>
+</tfoot>

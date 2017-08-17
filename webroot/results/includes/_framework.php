@@ -93,14 +93,14 @@ function getCompetition ( $id ) {
       return $competition;
 }
 
-function roundCellName ( $roundId ) {
-  $round = getRound( $roundId );
+function roundCellName ( $roundTypeId ) {
+  $round = getRound( $roundTypeId );
   return $round['cellName'];
 }
 
-function getRound ( $roundId ) {
+function getRound ( $roundTypeId ) {
   foreach( getAllRounds() as $round )
-    if( $round['id'] == $roundId )
+    if( $round['id'] == $roundTypeId )
       return $round;
 }
 
@@ -124,10 +124,14 @@ function competitionDate ( $competition ) {
   $date = $month ? $months[$month] : '&nbsp;';
   if( $day )
     $date .= " $day";
+  if( $endYear != $year )
+    $date .= " $year";
   if( $endMonth != $month )
     $date .= " - " . $months[$endMonth] . " $endDay";
   elseif( $endDay != $day )
     $date .= "-$endDay";
+  if( $endYear )
+    $date .= " $endYear";
   return $date;
 }
 
@@ -135,8 +139,11 @@ function competitionDate ( $competition ) {
 
 function chosenRegionName ( $visibleWorld = false ) {
   global $chosenRegionId;
-  if ( !$chosenRegionId && $visibleWorld ) return 'World';
-  return preg_replace( '/^_/', '', $chosenRegionId );
+  if ( !$chosenRegionId && $visibleWorld )
+    return 'World';
+  if( preg_match( '/^_/', $chosenRegionId ) )
+    return substr($chosenRegionId, 1);
+  return dbQuery( "SELECT name FROM Countries WHERE id='$chosenRegionId'" )[0]['name'];
 }
 
 function chosenEventName () {
@@ -178,7 +185,7 @@ function yearCondition () {
 
 function regionCondition ( $countrySource ) {
   global $chosenRegionId;
-  
+
   if( preg_match( '/^(world)?$/i', $chosenRegionId ))
     return '';
 
@@ -205,6 +212,7 @@ function wcaDate ( $format='r', $timestamp=false ) {
 function genderText ($gender) {
   if ($gender == 'm') return 'Male';
   if ($gender == 'f') return 'Female';
+  if ($gender == 'o') return '';
   return '';
 }
 

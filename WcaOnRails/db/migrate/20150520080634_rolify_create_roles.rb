@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RolifyCreateRoles < ActiveRecord::Migration
   def change
     create_table(:roles) do |t|
@@ -13,7 +15,7 @@ class RolifyCreateRoles < ActiveRecord::Migration
     end
 
     add_index(:roles, :name)
-    add_index(:roles, [ :name, :resource_type, :resource_id ])
-    add_index(:devise_users_roles, [ :devise_user_id, :role_id ])
+    add_index(:roles, [:name, :resource_type, :resource_id])
+    add_index(:devise_users_roles, [:devise_user_id, :role_id])
   end
 end

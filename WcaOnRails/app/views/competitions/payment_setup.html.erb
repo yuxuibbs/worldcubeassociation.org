@@ -1,0 +1,32 @@
+<% provide(:title, @competition.name) %>
+
+<%= render layout: 'nav' do %>
+  <h1>Accept Registration Payments</h1>
+
+  <%= alert :warning do %>
+    Please make sure the currency you have selected is supported by your Stripe
+    account! The supported currencies depends on the country where the Stripe
+    account is based, you can check them <%= link_to "here", "https://support.stripe.com/questions/which-currencies-does-stripe-support#supportedcurrencies", target: '_blank' %>.
+  <% end %>
+
+  <% if @competition.connected_stripe_account_id.nil? %>
+    <p>
+      In order to accept payments for this competition, you need to connect
+      your own Stripe account with the WCA Stripe account by clicking the
+      button below. If you don't already have your own Stripe account you can
+      still click on the button below and it will guide you through the
+      process.
+    </p>
+    <p>
+      Connecting your Stripe account gives the WCA website the ability to
+      create charges, and issue refunds directly on your Stripe account.
+    </p>
+    <%= link_to icon("cc-stripe", "Connect with Stripe"), @authorize_url, class: "btn btn-primary" %>
+
+  <% else %>
+    <p>
+      This competition is set up to accept payments through Stripe.
+      If you ever want to disconnect your account, you can do so from your Stripe account dashboard (please note it will revoke access for all competitions using the account).
+    </p>
+  <% end %>
+<% end %>

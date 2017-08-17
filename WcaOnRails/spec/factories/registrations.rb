@@ -1,29 +1,41 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :registration do
-    transient do
-      competition { FactoryGirl.create(:competition, :registration_open) }
-      user { FactoryGirl.create(:user, :wca_id) }
-    end
-    competitionId { competition.id }
-    user_id { user ? user.id : nil }
-    eventIds "333"
-    guests ""
+    association :competition, factory: [:competition, :registration_open]
+    association :user, factory: [:user, :wca_id]
+    guests 10
     comments ""
+    transient do
+      events { competition.events }
+    end
+    competition_events { competition.competition_events.where(event: events) }
 
     trait :accepted do
-      status "a"
+      accepted_at Time.now
+    end
+
+    trait :deleted do
+      deleted_at Time.now
     end
 
     trait :pending do
-      status "p"
+      accepted_at nil
     end
 
-    factory :userless_registration do
-      name { Faker::Name.name }
-      email { Faker::Internet.email }
-      birthday "2015-04-30"
-      after :create do |registration|
-        registration.update_column(:user_id, nil)
+    trait :newcomer do
+      association :user, factory: [:user]
+    end
+
+    trait :paid do
+      after(:create) do |registration|
+        FactoryGirl.create :registration_payment, registration: registration, amount_lowest_denomination: registration.competition.base_entry_fee_lowest_denomination
+      end
+    end
+
+    trait :unpaid do
+      after(:create) do |registration|
+        FactoryGirl.create :registration_payment, registration: registration
       end
     end
   end

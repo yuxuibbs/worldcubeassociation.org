@@ -1,5 +1,6 @@
-class Vote < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Vote < ApplicationRecord
   belongs_to :user
   belongs_to :poll
 
@@ -22,7 +23,7 @@ class Vote < ActiveRecord::Base
 
   validate :must_have_at_least_one_option
   def must_have_at_least_one_option
-    if poll_options.length == 0
+    if poll_options.empty?
       errors.add(:poll_options, "can't be empty")
     end
   end
@@ -36,16 +37,15 @@ class Vote < ActiveRecord::Base
 
   validate :poll_must_be_confirmed
   def poll_must_be_confirmed
-    if poll && !poll.confirmed
+    if poll && !poll.confirmed?
       errors.add(:poll_id, "poll is not confirmed")
     end
   end
 
   validate :poll_must_still_be_open
   def poll_must_still_be_open
-    if poll && poll.poll_is_over?
+    if poll && poll.over?
       errors.add(:poll_id, "poll is closed")
     end
   end
-
 end

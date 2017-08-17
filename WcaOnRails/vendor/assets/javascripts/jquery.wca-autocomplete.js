@@ -15,10 +15,12 @@
       var posts_search = $(that).hasClass("wca-autocomplete-posts_search");
 
       var delimiter = ',';
-      var searchFields = [];
-      searchFields = searchFields.concat([ 'wca_id', 'name' ]); // user search fields
-      searchFields = searchFields.concat([ 'id', 'name', 'cellName', 'cityName', 'countryId' ]); // competition search fields
-      searchFields = searchFields.concat([ 'title', 'body' ]); // post search fields
+      var searchFields = _.uniq([
+        'wca_id', 'name', // user search fields
+        'id', 'cellName', 'cityName', 'countryId', 'name', // competition search fields
+        'title', 'body', // post search fields
+        'id', 'content_html', // regulation search fields
+      ]);
 
       var url;
       var defaultSearchData = {};
@@ -47,7 +49,7 @@
         var toHtmlByClass = {
           user: function(user) {
             // Copied from app/views/shared/user.html.erb
-            var $div = $('<div class="wca-user"><span class="avatar-thumbnail"></span> <span class="name"></span> <span class="wca-id"></span></div>');
+            var $div = $('<div class="wca-user"> <div class="avatar-thumbnail"></div> <div class="info"><div class="name"></div><div class="wca-id"></div></div> </div>');
             $div.find(".name").text(user.name);
             $div.find(".avatar-thumbnail").css('background-image', 'url("' + user.avatar.thumb_url + '")');
             if(user.wca_id) {
@@ -59,17 +61,24 @@
           },
 
           competition: function(competition) {
-            var $div = $('<div class="wca-autocomplete-competition"><span class="name"></span><span class="cityName"></span>, <span class="countryId"></span> (<span class="id"></span>)</div>');
+            var $div = $('<div class="wca-autocomplete-competition"><span class="name"></span><i class="flag f16"></i> <span class="city"></span> (<span class="id"></span>)</div>');
             $div.find(".id").text(competition.id);
             $div.find(".name").text(competition.name);
-            $div.find(".cityName").text(competition.cityName);
-            $div.find(".countryId").text(competition.countryId);
+            $div.find(".city").text(competition.city);
+            $div.find(".flag").addClass(competition.country_iso2.toLowerCase());
             return $div[0].outerHTML;
           },
 
           post: function(post) {
             var $div = $('<div class="wca-autocomplete-post"><span class="title"></span></div>');
             $div.find(".title").text(post.title);
+            return $div[0].outerHTML;
+          },
+
+          regulation: function(regulation) {
+            var $div = $('<div class="wca-autocomplete-regulation"><span class="id"></span>: <span class="content_html"></span></div>');
+            $div.find(".id").text(regulation.id);
+            $div.find(".content_html").text(wca.stripHtmlTags(regulation.content_html))
             return $div[0].outerHTML;
           },
 

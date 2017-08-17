@@ -1,4 +1,4 @@
-<div class="panel <%= post.sticky? ? "panel-info" : "panel-default" %>">
+<div class="panel <%= post.sticky? ? "panel-info" : "panel-default" %> panel-wca-post">
   <div class="panel-heading">
     <h3 class="panel-title">
       <% if render_permalink %>
@@ -6,13 +6,13 @@
       <% else %>
         <%= post.title %>
       <% end %>
-      <% if user_signed_in? && current_user.can_admin_results? %>
+      <% if current_user&.can_create_posts? %>
         <span class="pull-right">
           <%= link_to post.edit_path do %>
             <span class="glyphicon glyphicon-pencil"></span>
           <% end %>
           <% if post.deletable %>
-            <%= link_to post_path(post.slug), method: "delete", data: { confirm: I18n.t(:confirm_delete_post) } do %>
+            <%= link_to post_path(post.slug), method: "delete", data: { confirm: I18n.t('posts.confirm_delete_post') } do %>
               <span class="glyphicon glyphicon-trash"></span>
             <% end %>
           <% end %>
@@ -23,9 +23,9 @@
   <div class="panel-body">
     <div>
       <% if post.author %>
-        <em>Announced by <%= post.author.name %> on <%= wca_local_time(post.created_at) %></em>
+        <em><%= t 'posts.announcement_info_html', author_name: post.author.name, date_time: wca_local_time(post.created_at) %></em>
       <% end %>
     </div>
-    <%=md post.body %>
+    <%=md render_teaser ? post.body_teaser : post.body_full %>
   </div>
 </div>

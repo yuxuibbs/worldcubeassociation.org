@@ -1,23 +1,34 @@
 <% provide(:title, 'Users') %>
 
 <div class="container">
-  <h1><%= yield(:title) %></h1>
+  <h2><%= yield(:title) %></h2>
 
-  <%= grid(@users_grid) do |g|
+  <div id="users-query-fields" class="form-inline bs-table-query-fields">
+    <div id="search-box" class="form-group">
+      <div class="input-group">
+        <%= content_tag :span, icon("search"), class: "input-group-addon",
+                               data: { toggle: "tooltip", placement: "top" },
+                               title: "Type name, WCA ID, email, or country. Use a space to separate them." %>
+        <%= text_field_tag :search, params[:search], class: "form-control" %>
+      </div>
+    </div>
+  </div>
 
-    g.column name: "WCA ID", attribute: "wca_id"
-    g.column name: "Name", attribute: "name"
-    g.column name: "Email", attribute: "email" do |user|
-      opts = {}
-      unless user.confirmed_at
-        opts[:class] = "unconfirmed-email"
-        opts[:title] = "Email not confirmed"
-      end
-      [ user.email, opts ]
-    end
+  <%= wca_table table_class: "users-table",
+                data: { toggle: "table", pagination: "true", side_pagination: "server", url: users_url,
+                        query_params: "usersTableAjax.queryParams", ajax: "usersTableAjax.doAjax",
+                        sort_name: "name", undefined_text: "" } do %>
+    <thead>
+      <tr>
+        <th class="wca-id" data-field="wca_id" data-sortable="true">WCA ID</th>
+        <th class="name" data-field="name" data-sortable="true">Name</th>
+        <th class="country" data-field="country" data-sortable="true">Country</th>
+        <th class="email" data-field="email" data-sortable="true">Email</th>
+        <th class="edit" data-field="edit"></th>
 
-    g.column do |user|
-      link_to('Edit', edit_user_path(user))
-    end
-  end -%>
+        <!-- Extra column for .table-greedy-last-column -->
+        <th></th>
+      </tr>
+    </thead>
+  <% end %>
 </div>

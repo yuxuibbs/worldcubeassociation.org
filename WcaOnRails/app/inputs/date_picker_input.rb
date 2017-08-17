@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatePickerInput < SimpleForm::Inputs::StringInput
   def input(wrapper_options)
     set_html_options
@@ -5,12 +7,32 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
 
     template.content_tag :div, class: 'input-group date datetimepicker' do
       input = super(wrapper_options) # leave StringInput do the real rendering
-      input_button + input + utc_addon
+      input + utc_addon
     end
   end
 
   def input_html_classes
-    super.push ''   # 'form-control'
+    super.push '' # 'form-control'
+  end
+
+  def self.date_options_base
+    {
+      locale: I18n.locale.to_s,
+      format: self.picker_pattern,
+      dayViewHeaderFormat: DatePickerInput.date_view_header_format,
+    }
+  end
+
+  def self.display_pattern
+    I18n.t('datepicker.dformat')
+  end
+
+  def self.picker_pattern
+    I18n.t('datepicker.pformat')
+  end
+
+  def self.date_view_header_format
+    I18n.t('datepicker.dayViewHeaderFormat')
   end
 
   private
@@ -30,41 +52,25 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   def set_html_options
     input_html_options[:type] = 'text'
     input_html_options[:data] ||= {}
-    input_html_options[:data].merge!(date_options: date_options)
+    input_html_options[:data][:date_options] = date_options
+    input_html_options[:placeholder] = input_placeholder
   end
 
   def set_value_html_option
     return unless value.present?
-    input_html_options[:value] ||= I18n.localize(value, format: display_pattern)
+    input_html_options[:value] ||= value.is_a?(String) ? value : I18n.localize(value, format: self.class.display_pattern)
   end
 
   def value
     object.send(attribute_name) if object.respond_to? attribute_name
   end
 
-  def display_pattern
-    I18n.t('datepicker.dformat', default: '%Y-%m-%d')
-  end
-
-  def picker_pattern
-    I18n.t('datepicker.pformat', default: 'YYYY-MM-DD')
-  end
-
-  def date_view_header_format
-    I18n.t('dayViewHeaderFormat', default: 'MMMM YYYY')
-  end
-
-  def date_options_base
-    {
-        locale: I18n.locale.to_s,
-        format: picker_pattern,
-        dayViewHeaderFormat: date_view_header_format
-    }
-  end
-
   def date_options
     custom_options = input_html_options[:data][:date_options] || {}
-    date_options_base.merge!(custom_options)
+    self.class.date_options_base.merge!(custom_options)
   end
 
+  def input_placeholder
+    I18n.t('common.date_placeholder')
+  end
 end

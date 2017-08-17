@@ -58,6 +58,7 @@ $styles->add('links.css');
 if(isset($is_admin) && $is_admin) {
   $styles->add('admin.css');
 }
+$styles->add('cubing-icons.css');
 
 if(isset($jQuery_chosen) && $jQuery_chosen) {
   $scripts->add('selectize.min.js');
@@ -102,7 +103,7 @@ print $styles->getHTMLAll();
               <ul class="dropdown-menu" role="menu">
                 <li><a href="/about"><i class="fa fa-file-text fa-fw"></i> About the WCA</a></li>
                 <li><a href="/delegates"><i class="fa fa-sitemap fa-fw"></i> WCA Delegates</a></li>
-                <li><a href="/organisations"><i class="fa fa-flag fa-fw"></i> National Organisations</a></li>
+                <li><a href="/organizations"><i class="fa fa-flag fa-fw"></i> National Organizations</a></li>
                 <li class="divider"></li>
                 <li><a href="/faq"><i class="fa fa-question-circle fa-fw"></i> Frequently Asked Questions</a></li>
                 <li><a href="/contact"><i class="fa fa-envelope fa-fw"></i> Contact Information</a></li>

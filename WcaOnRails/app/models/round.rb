@@ -1,102 +1,65 @@
-class Round
-  attr_accessor :id, :rank, :name, :cellName, :valid
-  alias_method :valid?, :valid
+# frozen_string_literal: true
 
-  @@all = []
-  @@all_by_id = {}
-  def initialize(attributes={})
-    @id = attributes[:id]
-    @rank = attributes[:rank]
-    @name = attributes[:name]
-    @cellName = attributes[:cellName]
-    @valid = attributes[:valid]
-    if @valid
-      @@all << self
-      @@all_by_id[self.id] = self
+class Round < ApplicationRecord
+  belongs_to :competition_event
+  has_one :competition, through: :competition_event
+  has_one :event, through: :competition_event
+  belongs_to :format
+
+  serialize :time_limit, TimeLimit
+  validates_associated :time_limit
+
+  serialize :cutoff, Cutoff
+  validates_associated :cutoff
+
+  serialize :advancement_condition, AdvancementCondition
+  validates_associated :advancement_condition
+
+  MAX_NUMBER = 4
+  validates_numericality_of :number,
+                            only_integer: true,
+                            greater_than_or_equal_to: 1,
+                            less_than_or_equal_to: MAX_NUMBER
+
+  validate do
+    unless event.preferred_formats.find_by_format_id(format_id)
+      errors.add(:format, "'#{format_id}' is not allowed for '#{event.id}'")
     end
   end
 
-  def self.find(id)
-    @@all_by_id[id] or raise "Unrecognized round id"
+  validate do
+    if final_round? && advancement_condition
+      errors.add(:advancement_condition, "cannot be set on a final round")
+    end
   end
 
-  def self.find_by_id(id)
-    @@all_by_id[id] || Round.new(id: id, rank: 0, name: "Invalid", cellName: "Invalid", valid: false)
+  def final_round?
+    competition_event.rounds.last == self
   end
 
-  def self.all
-    @@all
+  def name
+    I18n.t("round.name", event: event.name, number: self.number)
   end
 
-  [
+  def time_limit_to_s
+    time_limit.to_s(self)
+  end
+
+  def cutoff_to_s
+    cutoff ? cutoff.to_s(self) : ""
+  end
+
+  def advancement_condition_to_s
+    advancement_condition ? advancement_condition.to_s(self) : ""
+  end
+
+  def to_wcif
     {
-      id: 'h',
-      rank: 10,
-      name: 'Combined qualification',
-      cellName: 'Combined qualification',
-    },
-    {
-      id: '0',
-      rank: 19,
-      name: 'Qualification round',
-      cellName: 'Qualification',
-    },
-    {
-      id: 'd',
-      rank: 20,
-      name: 'Combined First round',
-      cellName: 'Combined First',
-    },
-    {
-      id: '1',
-      rank: 29,
-      name: 'First round',
-      cellName: 'First',
-    },
-    {
-      id: 'b',
-      rank: 39,
-      name: 'B Final',
-      cellName: 'B Final',
-    },
-    {
-      id: '2',
-      rank: 50,
-      name: 'Second round',
-      cellName: 'Second',
-    },
-    {
-      id: 'e',
-      rank: 59,
-      name: 'Combined Second round',
-      cellName: 'Combined Second',
-    },
-    {
-      id: 'g',
-      rank: 70,
-      name: 'Combined Third round',
-      cellName: 'Combined Third',
-    },
-    {
-      id: '3',
-      rank: 79,
-      name: 'Semi Final',
-      cellName: 'Semi Final',
-    },
-    {
-      id: 'c',
-      rank: 90,
-      name: 'Combined Final',
-      cellName: 'Combined Final',
-    },
-    {
-      id: 'f',
-      rank: 99,
-      name: 'Final',
-      cellName: 'Final',
-    },
-  ].each do |round_json|
-    round_json[:valid] = true
-    Round.new(round_json)
+      "id" => "#{event.id}-#{self.number}",
+      "format" => self.format_id,
+      "timeLimit" => time_limit&.to_wcif,
+      "cutoff" => cutoff&.to_wcif,
+      "advancementCondition" => advancement_condition&.to_wcif,
+    }
   end
 end

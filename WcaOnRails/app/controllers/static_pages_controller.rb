@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include ActionView::Helpers::AssetTagHelper
 class StaticPagesController < ApplicationController
   def home
@@ -13,7 +15,7 @@ class StaticPagesController < ApplicationController
     @delegates_without_senior_delegates = User.where(delegate_status: ["candidate_delegate", "delegate"], senior_delegate: nil)
   end
 
-  def organisations
+  def organizations
   end
 
   def contact

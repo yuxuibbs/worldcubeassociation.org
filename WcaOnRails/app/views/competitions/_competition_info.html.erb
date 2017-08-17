@@ -1,0 +1,108 @@
+<div class="row competition-info">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt><%= t '.date' %></dt>
+      <dd><%= wca_date_range(competition.start_date, competition.end_date) %></dd>
+
+      <dt><%= t '.city' %></dt>
+      <dd><%= competition.city_and_country %></dd>
+
+      <dt><%= t '.venue' %></dt>
+      <dd><%=md competition.venue %></dd>
+
+      <dt class="text-muted"><%= t '.address' %></dt>
+      <dd><%= link_to_google_maps_place competition.venueAddress, competition.latitude_degrees, competition.longitude_degrees %></dd>
+
+      <% if competition.venueDetails.present? %>
+        <dt class="text-muted"><%= t '.details' %></dt>
+        <dd><%=md competition.venueDetails %></dd>
+      <% end %>
+
+      <dt><%= t '.website' %></dt>
+      <dd><%= link_to "#{competition.name} website", competition.website, target: "_blank" %></dd>
+
+      <% if competition.organizers.length > 0 %>
+        <dt><%= t('.organizer_plural', count: competition.organizers.length) %></dt>
+        <dd>
+          <%= users_to_sentence competition.organizers, include_email: false %>
+        </dd>
+      <% end %>
+
+      <dt><%= t('.delegate', count: competition.delegates.length) %></dt>
+      <dd>
+        <%= users_to_sentence competition.delegates, include_email: true %>
+      </dd>
+
+      <dt><%= t '.contact' %></dt>
+      <dd>
+        <% if competition.contact.present? %>
+          <%=md competition.contact %>
+        <% else %>
+          <%= mail_to competition.managers.map(&:email).join(","), icon("envelope"), subject: "Question about #{competition.name}", target: "_blank", class: "hide-new-window-icon" %>
+        <% end %>
+      </dd>
+
+      <% if competition.competitor_limit_enabled? %>
+        <dt><%= t '.competitor_limit' %></dt>
+        <dd><%= competition.competitor_limit %></dd>
+      <% end %>
+
+      <% if competition.has_fees? %>
+        <dt><%= t '.entry_fee' %></dt>
+        <dd><%= humanized_money_with_symbol competition.base_entry_fee %></dd>
+        <% competition.competition_events.each do |competition_event| %>
+          <% if competition_event.has_fee? %>
+            <dt><%= competition_event.event.name %></dt>
+            <dd><%= humanized_money_with_symbol competition_event.fee %></dd>
+          <% end %>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt><%= t '.information' %></dt>
+      <dd><%=md competition.information %></dd>
+    </dl>
+
+    <dl class="dl-horizontal">
+      <dt><%= t '.events' %></dt>
+      <dd class="competition-events-list">
+        <% @competition.events.each do |event| %>
+          <%= cubing_icon event.id, data: { toggle: "tooltip", placement: "top", container: "body" }, title: event.name %>
+        <% end %>
+      </dd>
+    </dl>
+
+    <% media = competition.media.accepted %>
+    <% [:report, :article, :multimedia].each do |media_type| %>
+      <% media_of_type = media.send(media_type).order(timestampDecided: :desc) %>
+      <% if media_of_type.length > 0 %>
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse-<%= media_type.to_s %>" class="collapsed">
+                <%= media_type.to_s.capitalize.pluralize(media_of_type.length) %>
+                <span class="badge"><%= media_of_type.length %></span>
+                <span class="collapse-indicator"></span>
+              </a>
+            </h4>
+          </div>
+
+          <div id="collapse-<%= media_type.to_s %>" class="panel-collapse collapse">
+            <ul class="list-group">
+              <% media_of_type.each do |medium| %>
+                <%= link_to medium.text, medium.uri, class: "list-group-item", target: "_blank" %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+      <% end %>
+    <% end %>
+
+  </div>
+</div>

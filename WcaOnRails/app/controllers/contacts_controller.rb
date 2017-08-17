@@ -1,41 +1,42 @@
+# frozen_string_literal: true
+
 class ContactsController < ApplicationController
-  def wrc
-    @contact = Contact.new
-  end
-
-  def wrc_create
-    @contact = Contact.new(params[:contact])
-    @contact.request = request
-    @contact.to_email = "wrc@worldcubeassociation.org"
-    @contact.subject = "WRC Contact Form"
-    maybe_send_email success_url: contact_wrc_url, fail_view: :wrc
-  end
-
   def website
-    @contact = Contact.new
+    @contact = WebsiteContact.new(your_email: current_user&.email)
   end
 
   def website_create
-    @contact = Contact.new(params[:contact])
+    @contact = WebsiteContact.new(params[:website_contact])
     @contact.request = request
     @contact.to_email = "contact@worldcubeassociation.org"
-    @contact.subject = "WCA Website Comments"
+    @contact.subject = DateTime.now.strftime("WCA Website Comments by #{@contact.name} on %d %b %Y at %R")
     maybe_send_email success_url: contact_website_url, fail_view: :website
+  end
+
+  def dob
+    @contact = DobContact.new(your_email: current_user&.email)
+  end
+
+  def dob_create
+    @contact = DobContact.new(params[:dob_contact])
+    @contact.request = request
+    @contact.to_email = "results@worldcubeassociation.org"
+    @contact.subject = "WCA DOB change request by #{@contact.name}"
+    maybe_send_email success_url: contact_dob_url, fail_view: :dob
   end
 
   private def maybe_send_email(success_url: nil, fail_view: nil)
     if !@contact.valid?
-      flash.now[:danger] = "Invalid fields, please correct errors below."
       render fail_view
     elsif !verify_recaptcha
       # Convert flash to a flash.now, since we're about to render, not redirect.
       flash.now[:recaptcha_error] = flash[:recaptcha_error]
       render fail_view
     elsif @contact.deliver
-      flash[:success] = 'Thank you for your message. We will contact you soon!'
+      flash[:success] = I18n.t('contacts.messages.success')
       redirect_to success_url
     else
-      flash.now[:danger] = 'Error sending message.'
+      flash.now[:danger] = I18n.t('contacts.messages.delivery_error')
       render fail_view
     end
   end

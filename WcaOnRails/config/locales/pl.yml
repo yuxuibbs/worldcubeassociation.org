@@ -1,0 +1,2564 @@
+pl:
+  countries:
+    #original_hash: 3f8c9de
+    XA: Wiele Państw (Azja)
+    #original_hash: 090f3ce
+    XE: Wiele Państw (Europa)
+    #original_hash: 459f987
+    XS: Wiele Państw (Ameryka Południowa)
+    #original_hash: 918c53a
+    MO: Makau
+    #original_hash: 2f488ff
+    HK: Hong Kong
+    #original_hash: 4e8bd04
+    KR: Korea
+  continents:
+    #original_hash: 1d35114
+    AfR: Afryka
+    #original_hash: a173e72
+    AsR: Azja
+    #original_hash: 576347e
+    ER: Europa
+    #original_hash: 247ce5d
+    NAR: Ameryka Północna
+    #original_hash: 3642950
+    OcR: Oceania
+    #original_hash: b1ffb4c
+    SAR: Ameryka Południowa
+  events:
+    #original_hash: 3732390
+    '222': Kostka 2x2x2
+    #original_hash: bfbe360
+    '333': Kostka Rubika
+    #original_hash: 2ee5b5a
+    '444': Kostka 4x4x4
+    #original_hash: b7a99fa
+    '555': Kostka 5x5x5
+    #original_hash: 4e3ea57
+    '666': Kostka 6x6x6
+    #original_hash: b567fc4
+    '777': Kostka 7x7x7
+    #original_hash: 29d5411
+    333bf: 3x3x3 Bez patrzenia
+    #original_hash: 31ed23f
+    333oh: 3x3x3 Jedną ręką
+    #original_hash: 0a5e7bf
+    333fm: 3x3x3 Liczba ruchów
+    #original_hash: be41d70
+    333ft: 3x3x3 Stopami
+    #original_hash: d542376
+    minx: Megaminx
+    #original_hash: 8216a66
+    pyram: Pyraminx
+    #original_hash: 1551a2c
+    sq1: Square-1
+    #original_hash: 23c2fdf
+    clock: Rubik's Clock
+    #original_hash: 64a56a2
+    skewb: Skewb
+    #original_hash: 5bae501
+    444bf: 4x4x4 Bez patrzenia
+    #original_hash: aea5216
+    555bf: 5x5x5 Bez patrzenia
+    #original_hash: cedbf87
+    333mbf: 3x3x3 Liczba kostek bez patrzenia
+    #original_hash: 3988358
+    magic: Rubik's Magic
+    #original_hash: c962425
+    mmagic: Master Magic
+    #original_hash: c6ad2af
+    333mbo: 'Kostka Rubika: Liczba kostek bez patrzenia stary styl'
+  rounds:
+    '0':
+      #original_hash: 4d618bb
+      name: Runda kwalifikacyjna
+      #original_hash: 2ffe44e
+      cellName: Kwalifikacje
+    '1':
+      #original_hash: 1e725b6
+      name: Pierwsza runda
+      #original_hash: 916a78d
+      cellName: Pierwsza
+    '2':
+      #original_hash: 985c8d0
+      name: Druga runda
+      #original_hash: 2a4bcae
+      cellName: Druga
+    '3':
+      #original_hash: e2f74d2
+      name: Półfinał
+      #original_hash: e2f74d2
+      cellName: Półfinał
+    b:
+      #original_hash: 327c999
+      name: Finał B
+      #original_hash: 327c999
+      cellName: Finał B
+    c:
+      #original_hash: b2d26f4
+      name: Finał Kombinowany
+      #original_hash: b2d26f4
+      cellName: Finał Kombinowany
+    d:
+      #original_hash: c6136b1
+      name: Pierwsza Runda Kombinowana
+      #original_hash: dffa9ea
+      cellName: Pierwsza Kombinowana
+    e:
+      #original_hash: 659c53f
+      name: Druga Runda Kombinowana
+      #original_hash: b6e1e1c
+      cellName: Druga Kombinowana
+    f:
+      #original_hash: 672b22c
+      name: Finał
+      #original_hash: 672b22c
+      cellName: Finał
+    g:
+      #original_hash: e861dcf
+      name: Trzecia Runda Kombinowana
+      #original_hash: 86f4b05
+      cellName: Trzecia Kombinowana
+    h:
+      #original_hash: 4c66ad0
+      name: Kwalifikacje Kombinowane
+      #original_hash: 4c66ad0
+      cellName: Kwalifikacje Kombinowane
+  round:
+    #original_hash: 66e902f
+    name: '%{event} Runda %{number}'
+  advancement_condition:
+    #original_hash: 6381d11
+    ranking: 'Najlepsze %{ranking} osób awansuje do %{next_round_number}. rundy'
+    #original_hash: 31ad77c
+    percent: 'Najlepsze %{percent}% osób awansuje do %{next_round_number}. rundy'
+    attempt_result:
+      #original_hash: 2f332eb
+      time: 'Najlepszy czas ≤ %{time}  awansuje do %{next_round_number}. rundy'
+      #original_hash: efa4ad1
+      moves: >-
+        Najlepsze ułożenie ≤ %{moves} ruchów awansuje do %{next_round_number}.
+        rundy
+      #original_hash: 29f8453
+      points: >-
+        Najlepszy wynik ≥ %{points} punktów awansuje do %{next_round_number}.
+        rundy
+  cutoff:
+    #original_hash: 38a40f6
+    time:
+      zero: '%{count} prób na uzyskanie ≤ %{time}'
+      one: '%{count} próba na uzyskanie ≤ %{time}'
+      few: '%{count} próby na uzyskanie ≤ %{time}'
+      many: '%{count} prób na uzyskanie ≤ %{time}'
+      other: '%{count} próby na uzyskanie ≤ %{time}'
+    #original_hash: 6f99fa6
+    moves:
+      zero: '%{count} prób na uzyskanie ≤ %{moves} ruchów'
+      one: '%{count} próba na uzyskanie ≤ %{moves} ruchów'
+      few: '%{count} próby na uzyskanie ≤ %{moves} ruchów'
+      many: '%{count} prób na uzyskanie ≤ %{moves} ruchów'
+      other: '%{count} próby na uzyskanie ≤ %{moves} ruchów'
+    #original_hash: 1c7c5f1
+    points:
+      zero: '%{count} prób na uzyskanie ≥ %{points} punktów'
+      one: '%{count} próba na uzyskanie ≥ %{points} punktów'
+      few: '%{count} próby na uzyskanie ≥ %{points} punktów'
+      many: '%{count} prób na uzyskanie ≥ %{points} punktów'
+      other: '%{count} próby na uzyskanie ≥ %{points} punktów'
+  time_limit:
+    cumulative:
+      #original_hash: 9da5a3e
+      one_round: '%{time} łączenie'
+      #original_hash: c01adfa
+      across_rounds: '%{time} łącznie na %{rounds}'
+  common:
+    #original_hash: 2513cf0
+    continent: Kontynent
+    #original_hash: d523ebb
+    country: Państwo
+    #original_hash: 0154c0d
+    here: tutaj
+    #original_hash: 77003d0
+    best: Najlepszy
+    #original_hash: dd11868
+    single: Najlepsze
+    #original_hash: 15f86c0
+    average: Średnia
+    #original_hash: e7f6fc5
+    solves: Ułożenia
+    date:
+      #original_hash: acb6273
+      no_date: Brak daty
+    user:
+      #original_hash: 603a218
+      wca_id: WCA ID
+      #original_hash: e0f64f7
+      citizen_of: Narodowości
+    #original_hash: 3fc0ba1
+    all_regions: Wszystkie regiony
+    errors:
+      #original_hash: 81f344a
+      invalid: niepoprawny
+    #original_hash: 49d0140
+    days:
+      zero: 0 dni
+      one: 1 dzień
+      few: '%{count} dni'
+      many: '%{count} dni'
+      other: '%{count} dni'
+    #original_hash: 203e1b3
+    these_events:
+      zero: 0 konkurencji
+      one: ta konkurencja
+      few: 'te %{count} konkurencje'
+      many: 'te %{count} konkurencji'
+      other: 'te %{count} konkurencji'
+    #original_hash: 51ef7d4
+    search_site: Szukaj
+    #original_hash: d3f8f7b
+    date_placeholder: RRRR-MM-DD
+    #original_hash: 52249b5
+    datetime_placeholder: 'RRRR-MM-DD GG:MM'
+  delegate_statuses:
+    #original_hash: 28ec02d
+    candidate_delegate: Kandydat na Delegata
+    #original_hash: 12ab214
+    delegate: Delegat
+    #original_hash: d463c23
+    senior_delegate: Starszy Delegat
+    #original_hash: 660ee15
+    board_member: Członek Zarządu
+  oauth:
+    applications:
+      #original_hash: 0c4ea38
+      your_apps: Twoje Aplikacje OAuth
+      #original_hash: 6403f2b
+      new: Nowy
+      #original_hash: 709a232
+      name: Nazwa
+      #original_hash: f6f1389
+      callback_url: Adres Wywołania Zwrotnego
+      #original_hash: 89ff312
+      owner: Właściciel
+      #original_hash: 557031c
+      application_id: ID Aplikacji
+      #original_hash: c3cd636
+      actions: Akcje
+      #original_hash: f4e7a87
+      secret: Secret
+      #original_hash: c23540e
+      scopes: Zakresy
+      #original_hash: 3b0d449
+      callback_urls: Adresy Wywołania Zwrotnego
+  activerecord:
+    attributes:
+      user:
+        #original_hash: eeb6920
+        name: Pełne imię
+        #original_hash: 603a218
+        wca_id: WCA ID
+        #original_hash: cb77bea
+        unconfirmed_wca_id: Niepotwierdzone WCA ID
+        #original_hash: 8ed8874
+        login: Email albo WCA ID
+        #original_hash: 1528d10
+        country_iso2: Narodowość
+        #original_hash: ab58155
+        dob: Data urodzenia
+        #original_hash: ab58155
+        dob_verification: Data urodzenia
+        #original_hash: 8a754c6
+        gender: Płeć
+        #original_hash: 84add5b
+        email: Email
+        #original_hash: 8be3c94
+        password: Hasło
+        #original_hash: 19dff4d
+        current_password: Obecne hasło
+        #original_hash: 786b8af
+        password_confirmation: Potwierdzenie hasła
+        #original_hash: ced7b30
+        remember_me: Zapamiętaj mnie
+        #original_hash: 102efae
+        pending_avatar: Prześlij nowe zdjęcie profilowe
+        #original_hash: 58e0c56
+        remove_avatar: Usuń zdjęcie profilowe
+        #original_hash: 9af9099
+        results_notifications_enabled: >-
+          Zawiadom mnie mailowo, kiedy moje wyniki z zawodów pojawią się na
+          stronie.
+        #original_hash: de60ab8
+        delegate_status: Status delegata
+        #original_hash: 0f21717
+        region: Region
+        #original_hash: a10b651
+        location_description: Opis lokalizacji
+        #original_hash: 8961d3b
+        phone_number: Numer telefonu
+        #original_hash: 7044004
+        notes: Uwagi
+        #original_hash: 57eaf24
+        user_preferred_events: Preferowane konkurencje
+      competition:
+        #original_hash: 89f89c0
+        id: ID
+        #original_hash: 7f3d889
+        isConfirmed: Nie pozwól organizatorom na edytowanie tych zawodów
+        #original_hash: d493e6a
+        showAtAll: Uczyń zawody publicznie widocznymi
+        #original_hash: 709a232
+        name: Nazwa
+        #original_hash: b649210
+        cellName: Skrócona nazwa zawodów
+        #original_hash: d523ebb
+        countryId: Państwo
+        #original_hash: 25b7b06
+        cityName: Nazwa miasta
+        #original_hash: 67cd406
+        venue: Miejsce
+        #original_hash: 486f8fb
+        venueAddress: Adres miejsca
+        #original_hash: 08767af
+        venueDetails: Szczegóły dotyczące miejsca
+        #original_hash: ff99f5b
+        start_date: Data początkowa
+        #original_hash: 89d10cd
+        end_date: Data końcowa
+        #original_hash: 2e8a57c
+        external_website: Strona internetowa
+        #original_hash: 692e1f9
+        generate_website: >-
+          Chciałbym używać strony WCA zamiast zewnętrznej w celu zapewnienia
+          dodatkowych informacji.
+        #original_hash: dd88e47
+        base_entry_fee_lowest_denomination: Podstawowa wysokość wpisowego
+        #original_hash: 28a6fbb
+        currency_code: Kod waluty
+        #original_hash: 5b2fe69
+        delegate_ids: Delegat/delegaci WCA
+        #original_hash: 958562e
+        organizer_ids: Organizator/organizatorzy
+        #original_hash: b37456c
+        contact: Kontakt
+        #original_hash: 0eb5ed5
+        information: Informacje
+        #original_hash: 87b7d5f
+        use_wca_registration: Chciałbym używać systemu rejestracji zawodników na stronie WCA
+        #original_hash: a2dfcf8
+        competitor_limit_enabled: >-
+          Chciałbym określić limit zawodników, którzy mogą wziąć udział w
+          zawodach.
+        #original_hash: 749f4c9
+        competitor_limit: Maksymalna liczba zawodników
+        #original_hash: 4a8b6f1
+        competitor_limit_reason: Powód określenia limitu zawodników
+        #original_hash: 3c23a67
+        guests_enabled: Goście
+        #original_hash: 089cbfd
+        receive_registration_emails: 'Zawiadom mnie mailowo, kiedy ktoś zarejestruje się na te zawody'
+        #original_hash: d4aeed9
+        registration_open: Rejestracja otwarta
+        #original_hash: f8153a2
+        registration_close: Rejestracja zamknięta
+        #original_hash: d7020f4
+        remarks: Uwagi
+        #original_hash: c305010
+        clone_tabs: >-
+          Chciałbym również sklonować wszystkie zakładki z dodatkowymi
+          informacjami
+        #original_hash: c5497bc
+        competition_events: Konkurencje
+        #original_hash: 71c8461
+        enable_donations: >-
+          Chcę włączyć możliwość przekazywania darowizn jako dodatek do
+          wpisowego podczas rejestracji
+        #original_hash: 4baf44b
+        championship_type: Rodzaj mistrzostw
+      registration:
+        #original_hash: 3c23a67
+        guests: Goście
+        #original_hash: fce06e2
+        comments: Komentarze
+        #original_hash: dc9d458
+        paid_entry_fees: Zapłacono
+        #original_hash: bae7d5b
+        status: Status
+        #original_hash: 709a232
+        name: Imię
+        #original_hash: a6b9d69
+        birthday: Data urodzenia
+        #original_hash: c5497bc
+        registration_competition_events: Konkurencje
+      competition_tab:
+        #original_hash: 4f9be05
+        content: Zawartość
+        #original_hash: 709a232
+        name: Nazwa
+      delegate_report:
+        #original_hash: 983d541
+        discussion_url: Adres dyskusji na Grupach dyskusyjnych Google
+        #original_hash: 65a9b28
+        schedule_url: Adres do harmonogramu
+        #original_hash: 36155d4
+        equipment: Wyposażenie
+        #original_hash: 67cd406
+        venue: Miejsce
+        #original_hash: 519255a
+        organization: Organizacja
+        #original_hash: 5e326b1
+        incidents: Incydenty
+        #original_hash: d7020f4
+        remarks: Uwagi
+      person:
+        #original_hash: 8c41ae8
+        wca_id: Osoba
+        #original_hash: d523ebb
+        countryId: Państwo
+        #original_hash: ab58155
+        dob: Data urodzenia
+        #original_hash: 8a754c6
+        gender: Płeć
+        #original_hash: 709a232
+        name: Imię
+      poll:
+        #original_hash: 002ff59
+        question: Pytanie
+        #original_hash: 2b12f36
+        deadline: Deadline
+      post:
+        #original_hash: 768e0c1
+        title: Tytuł
+        #original_hash: 718a7e8
+        body: Treść
+        #original_hash: 6f915a2
+        sticky: Przypięty
+        #original_hash: 848eed0
+        tags: Tagi
+        #original_hash: fb4002e
+        show_on_homepage: Wyświetl na stronie głównej
+      team:
+        #original_hash: 709a232
+        name: Nazwa
+        #original_hash: 55f8ebc
+        description: Opis
+      vote:
+        #original_hash: 153d7a5
+        comment: Komentarz
+  simple_form:
+    #original_hash: 5397e05
+    'yes': Tak
+    #original_hash: 816c52f
+    'no': Nie
+    required:
+      #original_hash: 1a77d41
+      text: wymagane
+      #original_hash: df58248
+      mark: '*'
+      #original_hash: da39a3e
+      html: ''
+    error_notification:
+      #original_hash: d70e9cb
+      default_message: 'Proszę przejrzeć problemy poniżej:'
+    hints:
+      user:
+        #original_hash: 87e1e6f
+        dob: Wprowadź swoją datę urodzenia w formacie RRRR-MM-DD
+        #original_hash: d0bb74a
+        name: >-
+          Wprowadź swoje pełne imię poprawnie, na przykład <strong>Jan
+          Kowalski</strong>. Nie zdrobniale jak <strong>j kowalski</strong>.
+        #original_hash: c03b949
+        email: >-
+          Zmiana twojego adresu email będzie wymagać potwierdzenia nowego
+          adresu.
+        #original_hash: 8a91e53
+        pending_avatar: >-
+          Po przesłaniu nowego zdjęcia profilowego, będziesz musiał zaczekać, aż
+          Zespół do Spraw Wyników go zaakceptuje.
+        #original_hash: da39a3e
+        country_iso2: ''
+        #original_hash: da39a3e
+        current_password: ''
+        #original_hash: da39a3e
+        delegate_status: ''
+        #original_hash: da39a3e
+        dob_verification: ''
+        #original_hash: da39a3e
+        gender: ''
+        #original_hash: da39a3e
+        login: ''
+        #original_hash: da39a3e
+        password: ''
+        #original_hash: da39a3e
+        password_confirmation: ''
+        #original_hash: da39a3e
+        region: ''
+        #original_hash: da39a3e
+        remember_me: ''
+        #original_hash: da39a3e
+        results_notifications_enabled: ''
+        #original_hash: da39a3e
+        unconfirmed_wca_id: ''
+        #original_hash: da39a3e
+        wca_id: ''
+        #original_hash: da39a3e
+        location_description: ''
+        #original_hash: da39a3e
+        phone_number: ''
+        #original_hash: da39a3e
+        notes: ''
+      competition:
+        #original_hash: 2c812a0
+        name: >-
+          Pełna nazwa zawodów kończąca się rokiem (np. Danish Open 2016).
+          Upewnij się, że słowa są zapisane wielką literą. Nazwa może zawierać
+          tylko znaki alfanumeryczne, myślniki (-), ampersandy (&), kropki (.),
+          dwukropki (:), apostrofy (') i spacje ( ).
+        #original_hash: 525fcc8
+        cellName: >-
+          Krótka nazwa służąca do wyświetlania. Jeżeli nazwa zawodów jest już
+          krótka, możesz użyć ją ponownie (np. Euro 2016).
+        #original_hash: bce4589
+        cityName: >-
+          Nazwa miasta gdzie zawody mają miejsce. Nie powinna zawierać nazwy
+          państwa (np. Warszawa).
+        #original_hash: 3d99319
+        information: >-
+          Informacje o limicie zawodników, wysokości wpisowego dla zawodników i
+          widzów oraz inne istotne szczegóły dla ludzi zainteresowanych braniem
+          udziału lub oglądaniem.
+        #original_hash: 0708400
+        delegate_ids: Delegaci WCA dla tych zawodów.
+        #original_hash: 517d376
+        organizer_ids: >-
+          Organizatorzy zawodów (potrzebują konta, aby mogli być wyświetleni
+          tutaj).
+        #original_hash: cabe7fb
+        external_website: >-
+          Strona internetowa zawodów. Musi być poprawnym adresem url,
+          zawierającym protokół http(s).
+        #original_hash: 9965635
+        registration_open: 'Zauważ: Daty startowa i końcowa rejestracji są w czasie UTC.'
+        #original_hash: f688881
+        remarks: >-
+          Informacje które chcesz przesłać Zarządowi. Na przykład powody, dla
+          których zawody zostały zgłoszone z mniejszym niż miesięczne
+          wyprzedzeniem, jeśli tak było w tej sytuacji.
+        #original_hash: da39a3e
+        clone_tabs: ''
+        #original_hash: da39a3e
+        countryId: ''
+        #original_hash: da39a3e
+        end_date: ''
+        #original_hash: da39a3e
+        generate_website: ''
+        #original_hash: 950a7ea
+        base_entry_fee_lowest_denomination: >-
+          Bazowe wpisowe na zawody. To wpisowe będzie wyświetlane na stronie
+          informacyjnej zawodów i stronie rejestracji, jeżeli jest używana.
+        #original_hash: 866bc05
+        currency_code: Kod waluty w której wyrażone jest wpisowe.
+        #original_hash: da39a3e
+        guests_enabled: ''
+        #original_hash: da39a3e
+        enable_donations: ''
+        #original_hash: da39a3e
+        id: ''
+        #original_hash: da39a3e
+        isConfirmed: ''
+        #original_hash: da39a3e
+        receive_registration_emails: ''
+        #original_hash: da39a3e
+        registration_close: ''
+        #original_hash: da39a3e
+        showAtAll: ''
+        #original_hash: da39a3e
+        start_date: ''
+        #original_hash: da39a3e
+        use_wca_registration: ''
+        #original_hash: c0ab502
+        competitor_limit_enabled: >-
+          Obecnie ta liczba jest wyłącznie nieformalna i nie powstrzymuje
+          większej ilości osób przed zarejestrowaniem się. Pracujemy nad
+          dodaniem pełnego wsparcia dla właściwego przebiegu rejestracji z
+          limitem zawodników.
+        #original_hash: b9bc84d
+        competitor_limit: Liczba zawodników dopuszczona do udziału w zawodach.
+        #original_hash: 32951f9
+        competitor_limit_reason: Jaki jest powód wyznaczenia limitu zawodników dla tych zawodów?
+        #original_hash: da39a3e
+        venueAddress: ''
+        #original_hash: da39a3e
+        championship_type: ''
+      website_contact:
+        #original_hash: da39a3e
+        message: ''
+        #original_hash: da39a3e
+        name: ''
+        #original_hash: da39a3e
+        your_email: ''
+      dob_contact:
+        #original_hash: da39a3e
+        name: ''
+        #original_hash: da39a3e
+        your_email: ''
+        #original_hash: da39a3e
+        wca_id: ''
+        #original_hash: 8723825
+        dob: Twoja poprawna data urodzenia w formacie RRRR-MM-DD
+        #original_hash: 2029dde
+        document: >-
+          Aby potwierdzić swoją tożsamość i poprawną datę urodzenia, musisz
+          załączyć zdjęcie jakiegokolwiek legalnego dokumentu (dowodu
+          osobistego, prawa jazdy, legitymacji studenckiej lub szkolnej,
+          paszportu, aktu urodzenia, ...), na którym zarówno twoje imię jak i
+          data urodzenia są widoczne i zrozumiałe dla osoby posługującej się
+          językiem angielskim.
+      post:
+        #original_hash: 53c16eb
+        body: >-
+          Używaj tagu &lt;!-- break --&gt; aby pokazać podgląd postu na stronie
+          głównej. Każdy post na stronie głównej pokaże cały tekst powyżej tego
+          rozdzielacza. Właściwy post wyświetli całą treść.
+        #original_hash: da39a3e
+        sticky: ''
+        #original_hash: da39a3e
+        title: ''
+        #original_hash: da39a3e
+        tags: ''
+        #original_hash: 0e3764f
+        show_on_homepage: >-
+          Uwaga! To nie jest bezpieczne w przypadku prywatnych danych, jedynie
+          zapobiega bałaganowi na stronie domowej. Posty, które nie są
+          wyświetlone na stronie głównej, są wciąż dostępne publicznie poprzez
+          odpowiedni link z tagami.
+      delegate_report:
+        #original_hash: 4eefb60
+        schedule_url: >-
+          Pełny adres do opublikowanego harmonogramu (np.
+          mistrzostwapolski2016.kostkarubika.org#schedule)
+        #original_hash: 1a68719
+        equipment: >-
+          Liczba i rodzaj timerów oraz wyświetlaczy użytych na zawodach. Proszę
+          usunąć te linie wyposażenia, które nie zostały użyte.
+        #original_hash: 4658dd9
+        venue: >-
+          Opisz pomieszczenia, oświetlenie, dostępność dla publiczności,
+          rozmieszczeniu stref (układania, mieszania, oczekiwania, rejestracji
+          wyników), czy zostały przygotowane różne sceny przeznaczone do
+          układania, problemy, które się pojawiły (np. hałas) i w jaki sposób je
+          rozwiązałeś. Prosimy, bądź zwięzły i nie zgłaszaj nieistotnych
+          szczegółów.
+        #original_hash: f8de509
+        organization: >-
+          Opisz zespół organizacyjny oraz w jaki sposób pracował on podczas
+          zawodów, ich doświadczenie i zauważalny postęp w ich pracy, jeżeli
+          takowy miał miejsce, ponadto czy zachowywali się oni profesjonalnie i
+          aktywnie. Napisz o problemach, które się pojawiły (np. opóźnienia w
+          harmonogramie) i w jaki sposób oni je rozwiązali. Prosimy, bądź
+          zwięzły i nie zgłaszaj nieistotnych szczegółów.
+        #original_hash: 715f020
+        incidents: >-
+          Zgłoś wszystkie incydenty, które uważasz za warte wspomnienia. Numeruj
+          incydenty poczynając od 1., co pozwoli innym delegatom komentować,
+          odnosząc się do nich po odpowiednim numerze. Prosimy, wspominaj tylko
+          konkretne przypadki, nie ogólne zdarzenia (np. zwyczajne +2 i DNF).
+          Nie wahaj się pytać o zdanie innych delegatów lub WRC na
+          któregokolwiek z nich. Jeżeli chciałbyś zaangażować WDC w dowolny z
+          nich, jasno zaznacz tę prośbę.
+        #original_hash: f30abdc
+        remarks: >-
+          Opisz inne szczegóły, którymi chciałbyś się podzielić (np. postępy,
+          regresję wewnątrz społeczności, przyszłe plany związany z danym
+          regionem). Jeżeli ze względu na zwięzłość pominąłeś w poprzednich
+          sekcjach coś, co chciałbyś powiedzieć, nie wahaj się zamieścić ich
+          tutaj.
+        #original_hash: da39a3e
+        discussion_url: ''
+      competition_tab:
+        #original_hash: e396d28
+        name: 'Przykłady: Dojazd, Płatność, Nagrody, Zakwaterowanie'
+        #original_hash: da39a3e
+        content: ''
+      person:
+        #original_hash: 498f4c5
+        dob: Data urodzenia powinna mieć format RRRR-MM-DD.
+        #original_hash: da39a3e
+        countryId: ''
+        #original_hash: da39a3e
+        gender: ''
+        #original_hash: da39a3e
+        name: ''
+        #original_hash: da39a3e
+        person1_wca_id: ''
+        #original_hash: da39a3e
+        person2_wca_id: ''
+        #original_hash: da39a3e
+        wca_id: ''
+      poll:
+        #original_hash: da39a3e
+        comment: ''
+        #original_hash: da39a3e
+        multiple: ''
+        #original_hash: da39a3e
+        question: ''
+      registration:
+        #original_hash: da39a3e
+        comments: ''
+        #original_hash: da39a3e
+        guests: ''
+        #original_hash: da39a3e
+        status: ''
+      team:
+        #original_hash: da39a3e
+        friendly_id: ''
+      vote:
+        #original_hash: da39a3e
+        comment: ''
+    options:
+      registration:
+        status:
+          #original_hash: 61a0572
+          accepted: Zaakceptowana
+          #original_hash: a6b2452
+          pending: Lista oczekujących
+          #original_hash: 441bda6
+          deleted: Usunięta
+      competition:
+        guests_enabled:
+          #original_hash: cb8809d
+          'true': Pytaj o gości
+          #original_hash: f8c2332
+          'false': NIE pytaj o gości
+  mail_form:
+    attributes:
+      contact_form:
+        #original_hash: 709a232
+        name: Imię
+        #original_hash: 3fa6f5f
+        your_email: Twój adres email
+      website_contact:
+        #original_hash: 68f4145
+        message: Wiadomość
+      dob_contact:
+        #original_hash: 390edfa
+        wca_id: Twoje WCA ID
+        #original_hash: 51d0597
+        dob: Poprawna data urodzenia
+        #original_hash: e214b8a
+        document: Dokument
+    errors:
+      dob_contact:
+        #original_hash: 79ccfe2
+        dob_invalid: jest błednie sformatowana
+  errors:
+    messages:
+      #original_hash: dc2367c
+      wrong_size: 'ma zły rozmiar (powinien być %{file_size})'
+      #original_hash: 1531237
+      size_too_small: 'jest zbyt małe (powinno mieć co najmniej %{file_size})'
+      #original_hash: a2a43b3
+      size_too_big: 'jest zbyt duże (powinno mieć co najwyżej %{file_size})'
+  devise:
+    failure:
+      #original_hash: 1186218
+      invalid: 'Niepoprawny adres email, WCA ID lub hasło.'
+      #original_hash: 1186218
+      not_found_in_database: 'Niepoprawny adres email, WCA ID lub hasło.'
+  wca:
+    errors:
+      messages:
+        #original_hash: e88f903
+        form_error:
+          zero: Formularz nie zawiera błędów.
+          one: 'Formularz zawiera jeden błąd:'
+          few: 'Formularz zawiera %{count} błędy:'
+          many: 'Formularz zawiera %{count} błędów:'
+          other: 'Formularz zawiera %{count} błędów:'
+    doorkeeper:
+      applications:
+        help:
+          #original_hash: eb5567a
+          scopes_html: >-
+            Oddziel zakresy spacjami. Pozostaw puste w celu użycia domyślnego
+            zakresu/zakresów. Spójrz <a
+            href="https://github.com/thewca/worldcubeassociation.org/blob/master/WcaOnRails/config/initializers/doorkeeper.rb#L2-L9"
+            target="_blank">tutaj</a>, aby zobaczyć listę wspieranych zakresów.
+      scopes:
+        #original_hash: 1920e95
+        public: >-
+          Mieć dostęp do twoich publicznych danych (imię, WCA ID, płeć,
+          obywatelstwo i zdjęcie profilowe)
+        #original_hash: d4003be
+        dob: Mieć dostęp do twojej daty urodzin
+        #original_hash: 17aa24f
+        email: Mieć dostęp do twojego adresu email
+        #original_hash: e0d0654
+        manage_competitions: 'Zarządzać nadchodzącymi zawodami, które organizujesz.'
+    devise:
+      #original_hash: 06184f5
+      no_account: Nie posiadasz konta?
+      #original_hash: a268696
+      have_competed: Brałem udział w zawodach WCA.
+      #original_hash: dcd1d70
+      have_never_competed: Nigdy nie brałem udziału w zawodach WCA.
+      #original_hash: 86a60c9
+      let_us_know: 'Prosimy, daj nam znać czy kiedykolwiek brałeś udział w zawodach WCA.'
+      #original_hash: f9f512b
+      welcome_back: >-
+        Witaj ponownie! Aby utworzyć twoje konto, musimy znać WCA ID, z którym
+        brałeś udział w zawodach.
+      #original_hash: 669fb57
+      welcome: >-
+        Witaj! Zanim będziesz mógł wziąć udział w swoich pierwszych zawodach
+        WCA, potrzebujemy kilka dodatkowych informacji. Pamiętaj, że twoja data
+        urodzin nigdy nie zostanie ujawniona bez twojej zgody.
+      gender:
+        #original_hash: 3f3a489
+        male: Mężczyzna
+        #original_hash: b7c17e9
+        female: Kobieta
+        #original_hash: 6e6a6f2
+        other_gender: Inna
+  layouts:
+    navigation:
+      #original_hash: 0eb5ed5
+      information: Informacje
+      #original_hash: 9ac918a
+      about: O WCA
+      #original_hash: d8fd3e4
+      delegates: Delegaci WCA
+      #original_hash: 37b8fdc
+      organizations: Organizacje Regionalne
+      #original_hash: d790b40
+      faq: Często Zadawane Pytania
+      #original_hash: a34b69f
+      contact: Informacje kontaktowe
+      #original_hash: 4fa8cc8
+      tools: Narzędzia
+      #original_hash: 83fce83
+      logo: Logo
+      #original_hash: db98a68
+      competitions: Zawody
+      #original_hash: 6a72085
+      all: Wszystkie
+      #original_hash: 775d458
+      my_competitions: Moje Zawody
+      #original_hash: 32fde96
+      new_competition: Nowe Zawody
+      #original_hash: 612e12d
+      results: Wyniki
+      #original_hash: f5fe73c
+      rankings: Rankingi
+      #original_hash: e51c552
+      records: Rekordy
+      #original_hash: f3cf96e
+      persons: Osoby
+      #original_hash: 5b72b5a
+      my_results: Moje Wyniki
+      #original_hash: 2086b21
+      statistics: Statystyki
+      #original_hash: 82dabd0
+      multimedia: Multimedia
+      #original_hash: 4fd2a7f
+      db_export: Eksport Bazy Danych
+      #original_hash: 1fa73f3
+      regulations: Regulacje
+      #original_hash: 141d1d7
+      guidelines: Wytyczne
+      #original_hash: c4622c3
+      scrambles: Algorytmy Mieszające
+      #original_hash: 90ccd64
+      history: Historia
+      #original_hash: 8ad8302
+      translations: Tłumaczenia
+      #original_hash: b8be3d1
+      administration: Administracja
+      #original_hash: b7ee3c4
+      manage_users: Zarządzaj użytkownikami
+      #original_hash: 12ab214
+      delegate: Delegat
+      #original_hash: 2f4bd74
+      panel: Panel
+      #original_hash: d3a928c
+      results_team: Zespół do spraw wyników
+      #original_hash: 4e7afeb
+      results_admin: Admin
+      #original_hash: f158a5a
+      results_phpmyadmin: phpMyAdmin
+      #original_hash: aee74b8
+      new_post: Nowy post
+      #original_hash: 0d67445
+      team_leader: Lider zespołu
+      #original_hash: dc1649a
+      sign_out: Wyloguj
+      #original_hash: 753a22b
+      notifications: Powiadomienia
+      #original_hash: 15141ea
+      edit_profile: Edytuj profil
+      #original_hash: d93d10f
+      api: API
+      #original_hash: 5524aab
+      manage_app: Zarządzaj swoimi aplikacjami
+      #original_hash: 0e8b212
+      manage_auth_app: Zarządzaj swoimi autoryzowanymi aplikacjami
+  users:
+    update_locale:
+      #original_hash: 4cde9bc
+      success: Język zaktualizowany.
+      #original_hash: dcc2f49
+      failure: Aktualizacja profilu nie powiodła się.
+      #original_hash: c29870c
+      unavailable: Żądany język nie jest dostępny.
+    claim_wca_id:
+      #original_hash: f28bf87
+      title: Podepnij WCA ID
+      #original_hash: 1b44f6d
+      competition: zawody
+      #original_hash: b396bfa
+      already_have_html: 'Masz już WCA ID %{wca_id}.'
+      #original_hash: 87f1062
+      already_claimed_html: >-
+        Zażądałeś podpięcia WCA ID %{wca_id}. Skontaktuj się z %{delegate},
+        jeżeli masz jakieś pytania.
+      #original_hash: 0660b5d
+      info_competed_before: >-
+        Jeżeli już brałeś udział w zawodach, możesz zażądać połączenia twojego
+        WCA ID z twoim kontem.
+      #original_hash: 7d605f8
+      info_never_competed_html: >-
+        Jeżeli nigdy przedtem nie startowałeś, pojedź na %{comp}! WCA ID
+        zostanie stworzone dla ciebie, kiedy twoje wyniki z pierwszych zawodów
+        zostaną opublikowane.
+      #original_hash: f28bf87
+      submit_value: Poproś o podpięcie WCA ID
+    edit_avatar_thumbnail:
+      #original_hash: 79f14eb
+      current: 'Obecna miniaturka:'
+      #original_hash: b42ba27
+      new: 'Nowa miniaturka:'
+      #original_hash: efc007a
+      save: Zapisz
+    edit:
+      #original_hash: 9239ee2
+      general: Ogólne
+      #original_hash: 84add5b
+      email: Adres email
+      #original_hash: 9dfd349
+      preferences: Preferencje
+      #original_hash: 8be3c94
+      password: Hasło
+      #original_hash: 3fc6dbe
+      member_of: Członek
+      #original_hash: 42619dd
+      preferred_events_desc: >-
+        Wybór twoich preferowanych konkurencji przyspiesza rejestrację na
+        zawody.
+      #original_hash: b402e03
+      please_fix_profile: >-
+        W celu zarejestrowania się na zawody musisz rozwiązać następujące
+        problemy:
+      #original_hash: ff4fc02
+      profile: Profil
+      #original_hash: 7b2c7f1
+      approve: Zatwierdź
+      #original_hash: 85de4b8
+      unconfirmed_email: 'Adres email należący do tego konta (%{email}) nie został potwierdzony.'
+      #original_hash: 8a770cf
+      pending_mail_confirmation: 'To konto oczekuje potwierdzenia nowego adresu email %{email}.'
+      #original_hash: 0340b0b
+      pending_avatar_confirmation: To konto oczekuje zatwierdzenia nowego zdjęcia profilowego.
+      #original_hash: 7b06f03
+      pending_claim_confirmation_html: >-
+        To konto oczekuje, aż %{delegate} zatwierdzi prośbę podpięcia WCA ID
+        %{wca_id}.
+      #original_hash: fc7269a
+      pending_claim_mail_confirmation_html: >-
+        Ten użytkownik złożył prośbę podpięcia WCA ID %{wca_id}. Jego delegat
+        %{delegate} zostanie powiadomiony o tym żądaniu jak tylko przynależący
+        do tego konta adres email zostanie potwierdzony.
+      #original_hash: 1cde7e6
+      your_thumbnail: 'Twoja miniaturka:'
+      #original_hash: af18820
+      edit_thumbnail: Kliknij aby edytować miniaturkę
+      #original_hash: cf65c6e
+      manage_pending: Zarządzaj zdjęciami profilowymi oczekującymi na akceptację
+      #original_hash: 2d2ae5d
+      have_no_wca_id_html: >-
+        Nie masz jeszcze przydzielonego WCA ID. Jeżeli brałeś już udział w
+        zawodach, poproś o połączenie twojego WCA ID z kontem %{here}!
+      #original_hash: 29e25b5
+      have_wca_id_html: 'Twoje WCA ID to %{link_id}.'
+      cannot_edit:
+        #original_hash: 8501c74
+        msg: >-
+          Nie możesz zmienić swojego imienia, daty urodzin, płci oraz państwa.
+          Powód: %{reason}. Skontaktuj się z twoim <a
+          href='%{delegate_url}'>delegatem</a>, jeżeli potrzebujesz zmienić
+          którekolwiek z nich.
+        reason:
+          #original_hash: 370ff12
+          assigned: masz przydzielone WCA ID
+          #original_hash: 1c4670f
+          registered: zarejestrowałeś się na zawody
+      #original_hash: fe7122d
+      guidelines_confirmation: 'Potwierdzam, że wybrane zdjęcie profilowe spełnia wszystkie wytyczne.'
+      #original_hash: d677ceb
+      confirm_guidelines: >-
+        Zapoznaj się z wytycznymi dotyczącymi zdjęć profilowych i wybierz
+        odpowiednie zdjęcie.
+      #original_hash: efc007a
+      save: Zapisz
+      #original_hash: 58e0c56
+      remove_avatar: Usuń zdjęcie profilowe
+      #original_hash: 4bd25cf
+      remove_avatar_confirm: 'Czy jesteś pewien, że chcesz usunąć swoje zdjęcie profilowe?'
+      #original_hash: 141d1d7
+      guidelines: Wytyczne
+      avatar_guidelines:
+        #original_hash: 255f28c
+        '1': Wszystkie zdjęcia profilowe powinny być obrazami prawdziwych osób.
+        #original_hash: 9126b0c
+        '2': Osoba na zdjęciu powinna przedstawiać ciebie.
+        #original_hash: de9b742
+        '3': >-
+          Jeżeli na zdjęciu jest więcej niż jedna osoba, powinno być jasne,
+          która z nich to ty.
+        #original_hash: 4083c00
+        '4': 'Twoja głowa, ale niekoniecznie cała twarz, powinna być widoczna.'
+        #original_hash: ebbbf8a
+        '5': >-
+          Zdjęcie profilowe nie może zawierać tekstu innego niż zwyczajny tekst
+          znajdujący się w tle.
+        #original_hash: cc5f23a
+        '6': Zdjęcie profilowe musi być wysłane w popranej orientacji.
+    errors:
+      #original_hash: 094b763
+      not_found: nie znaleziono
+      #original_hash: 49a6fe4
+      already_assigned: już przypisane do innego użytkownika
+      #original_hash: 51650d2
+      dob_incorrect_html: >-
+        nie zgadza się z danymi w naszej bazie. Jeżeli jesteś pewien, że
+        podajesz popraną datę we właściwym formacie (RRR-MM-DD), prosimy o
+        kontakt z Zespołem do Spraw Wyników przy użyciu <a
+        href="%{dob_form_path}">tego specjalnego formularza</a>.
+      #original_hash: 0fbcefd
+      unique: nie może się powtarzać
+      #original_hash: 26f70ed
+      dob_past: musi być w przeszłości
+      #original_hash: f599dc5
+      must_be_senior: musi być starszym delegatem
+      #original_hash: 2e582eb
+      must_not_be_present: nie może być obecne
+      #original_hash: b2c4ecc
+      senior_has_delegate: nie może zdegradować starszego delegata z podległymi delegatami
+      #original_hash: 48653a9
+      already_have_id: >-
+        nie możesz poprosić o podpięcie WCA ID ponieważ masz już WCA ID
+        %{wca_id}
+      #original_hash: 2684f33
+      wca_id_no_birthdate_html: >-
+        Nie mamy zapisanej daty urodzin dla tego WCA ID. Prosimy o kontakt z
+        Zespołem do Spraw Wyników przy użyciu <a href="%{dob_form_path}">tego
+        specjalnego formularza</a>.
+      #original_hash: 51fa5a4
+      wca_id_no_gender_html: >-
+        Nie mamy zapisanej płci dla tego WCA ID. Prosimy o skontaktowanie się z
+        <a href='mailto:results@worldcubeassociation.org'
+        target='_blank'>Zespołem do spraw wyników</a> w celu rozwiązania tego
+        problemu.
+      #original_hash: 87ee245
+      wca_id_no_citizenship_html: >-
+        Nie mamy zapisanej narodowości dla tego WCA ID. Prosimy o skontaktowanie
+        się z <a href='mailto:results@worldcubeassociation.org'
+        target='_blank'>Zespołem do spraw wyników</a> w celu rozwiązania tego
+        problemu.
+      #original_hash: c3839bc
+      wca_id_no_name_html: >-
+        Nie mamy zapisanego imienia dla tego WCA ID. Prosimy o skontaktowanie
+        się z <a href='mailto:results@worldcubeassociation.org'
+        target='_blank'>Zespołem do spraw wyników</a> w celu rozwiązania tego
+        problemu.
+      #original_hash: 49083d8
+      board_member_cannot_resign: >-
+        Nie możesz zrezygnować ze swojej roli jako członek zarządu! Znajdź
+        innego członka zarządu, aby cię usunął.
+      #original_hash: d02c03b
+      avatar_requires_wca_id: 'wymaga, aby WCA ID było przydzielone'
+    successes:
+      messages:
+        #original_hash: 31bd401
+        account_updated: Konto zaktualizowane
+        #original_hash: 49e5851
+        wca_id_claimed: >-
+          Pomyślnie wysłano prośbę podpięcia WCA ID %{wca_id}. Sprawdź swojego
+          emaila i poczekaj, aż %{user} je zaakceptuje.
+        #original_hash: dc89669
+        account_updated_confirm: >-
+          Konto zaktualizowane, wysłano maila na adres %{email}, w celu
+          potwierdzenia nowego adresu email.
+    select_nearby_delegate:
+      #original_hash: 2b11120
+      select_delegate_html: >-
+        W celu przypisania tobie twojego WCA ID, potrzebujemy <a
+        href='%{link_delegate}' target='_blank'>delegata WCA</a>, który
+        potwierdzi twoją tożsamość. Prosimy o wprowadzenie twojej daty narodzin
+        oraz wybranie delegata, który twoim zdaniem zna cię najlepiej.
+      #original_hash: d69cf94
+      already_assigned_html: >-
+        WCA ID %{link_id} jest już przypisane do innego konta. Jeżeli uważasz,
+        że wynika to z błędu, skontaktuj się ze swoim lokalnym <a
+        href='%{link_delegate}' target='_blank'>WCA delegatem</a>.
+      #original_hash: d26bfdc
+      missing_dob_html: 'WCA ID %{link_id} nie ma przypisanej daty narodzin.'
+      #original_hash: 5be6803
+      contact_results_team_html: >-
+        Prosimy o skontaktowanie się z <a
+        href='mailto:results@worldcubeassociation.org' target='_blank'>Zespołem
+        do spraw wyników</a> w celu rozwiązania tego problemu.
+      #original_hash: 92aa857
+      unknown_wca_id_html: 'WCA ID %{link_id} nie istnieje.'
+  registrations:
+    errors:
+      #original_hash: 44ab952
+      need_name: Wymaga imienia
+      #original_hash: 6f64c57
+      need_gender: Wymaga płci
+      #original_hash: ebf1ecb
+      need_dob: Wymaga daty urodzin
+      #original_hash: d84a54f
+      need_country: Wymaga państwa
+      #original_hash: cec28a0
+      comp_not_found: Zawody nieznalezione
+      #original_hash: cb763b8
+      registration_closed: Rejestracja na zawody jest zamknięta
+      #original_hash: e0bb243
+      cannot_be_deleted_and_accepted: Rejestracja nie może zostać usunięta i zaakceptowania na raz.
+      #original_hash: a38d024
+      must_register: musisz się zarejestrować na co najmniej jedną konkurencję
+    registration_info_people:
+      #original_hash: bdf1f11
+      newcomer:
+        zero: nowicjuszy
+        one: nowicjusz
+        few: nowicjuszy
+        many: nowicjuszy
+        other: nowicjuszy
+      #original_hash: bc010e3
+      returner:
+        zero: uczestniczących wcześniej
+        one: uczestniczący wcześniej
+        few: uczestniczących wcześniej
+        many: uczestniczących wcześniej
+        other: uczestniczących wcześniej
+      #original_hash: b7da17a
+      person:
+        zero: osób
+        one: osoba
+        few: osoby
+        many: osób
+        other: osób
+    flash:
+      #original_hash: da7ec53
+      not_using_wca: Te zawody nie używają systemu rejestracji WCA
+      #original_hash: d528030
+      accepted_and_mailed:
+        zero: >-
+          Rejestracje zaakceptowane! Powiadomienia zostały wysłane drogą
+          mailową.
+        one: >-
+          Rejestracja zaakceptowana! Powiadomienia zostały wysłane drogą
+          mailową.
+        few: >-
+          Rejestracje zaakceptowane! Powiadomienia zostały wysłane drogą
+          mailową.
+        many: >-
+          Rejestracje zaakceptowane! Powiadomienia zostały wysłane drogą
+          mailową.
+        other: >-
+          Rejestracje zaakceptowane! Powiadomienia zostały wysłane drogą
+          mailową.
+      #original_hash: 42ea8de
+      rejected_and_mailed:
+        zero: Rejestracje przeniesione na listę oczekujących.
+        one: Rejestracja przeniesiona na listę oczekujących.
+        few: Rejestracje przeniesione na listę oczekujących.
+        many: Rejestracje przeniesione na listę oczekujących.
+        other: Rejestracje przeniesione na listę oczekujących.
+      #original_hash: a360b31
+      deleted_and_mailed:
+        zero: Rejestracje zostały usunięte
+        one: Rejestracja zostały usunięte
+        few: Rejestracje zostały usunięte
+        many: Rejestracje zostały usunięte
+        other: Rejestracje zostały usunięte
+      #original_hash: c3aa289
+      single_deletion_and_mail: 'Usunięto rejestrację i wysłano maila na adres %{mail}'
+      #original_hash: d8f067f
+      cannot_delete: Nie możesz usunąć swojej rejestracji.
+      #original_hash: 82b3899
+      updated: Zaktualizowano rejestrację
+      #original_hash: 856484a
+      failed: Nie można zaktualizować rejestracji
+      #original_hash: 016b4ae
+      deleted: 'Pomyślnie usunięto twoją rejestrację na %{comp}'
+      #original_hash: 648424f
+      registered: Pomyślnie zarejestrowano!
+    edit_registration:
+      #original_hash: 2d15eae
+      title: '%{person} na %{comp}'
+    mailer:
+      #original_hash: 72e2180
+      regards_html: 'Z poważaniem, %{people}.'
+      new:
+        #original_hash: 6fb638c
+        mail_subject: 'Zarejestrowałeś się na %{comp_name}'
+        #original_hash: 8374583
+        registered_html: 'Właśnie zarejestrowałeś się na %{comp_name}.'
+        #original_hash: 9238412
+        on_waiting_list: >-
+          Jesteś obecnie na liście oczekujących, na której znajduje się
+          %{n_total} %{people}.
+        #original_hash: 5dd5905
+        approval_info_html: >-
+          Zostaniesz poinformowany drogą mailową, gdy twoja rejestracja zostanie
+          zaakceptowana. Rejestracje nie są akceptowane automatycznie. Aby
+          zobaczyć kryteria akceptacji odwiedź stronę zawodów lub skontaktuj się
+          z ich organizatorami. Możesz również sprawdzić status swojej
+          rejestracji %{here}.
+      accepted:
+        #original_hash: 34515b5
+        mail_subject: 'Twoja rejestracja na %{comp_name} została zaakceptowana.'
+        #original_hash: 24d2883
+        message_html: >-
+          Twoja rejestracja na %{comp_name} została zaakceptowana. Jak zwykle
+          możesz sprawdzić jej status %{here}.
+        #original_hash: 1852cbf
+        see_you_soon: 'Nie możemy doczekać się zobaczenia cię na %{comp_name}!'
+      pending:
+        #original_hash: e48d8bd
+        mail_subject: 'Zostałeś przeniesiony na listę oczekujących na %{comp_name}'
+        #original_hash: 6fd0a8e
+        moved_html: >-
+          Twoja rejestracja na %{comp_name} została przeniesiona na listę
+          oczekujących. Możliwe powody:
+        causes:
+          #original_hash: eadfc0d
+          accepted: Została zaakceptowana przypadkowo
+          #original_hash: 2ac6d84
+          withdrawal: Poprosiłeś o jej wycofanie
+        #original_hash: 8f7358f
+        email_if_error: >-
+          Jeżeli uważasz, że jest to błąd, prosimy o odpowiedzenie na tego
+          maila.
+      deleted:
+        #original_hash: 268e248
+        mail_subject: 'Twoja rejestracja na %{comp_name} została usunięta.'
+        #original_hash: f66ae63
+        message_html: 'Twoja rejestracja na %{comp_name} została usunięta. Możliwe przyczyny:'
+        causes:
+          #original_hash: 978944c
+          missing_info: Nie wysłałeś wszystkich wymaganych danych
+          #original_hash: 788f2ec
+          incomplete: >-
+            Nie spełniłeś wymagań rejestracyjnych (na przykład nie zapłaciłeś
+            wpisowego)
+          #original_hash: 1e225f0
+          registrations_full: Limit zawodników został osiągnięty i nie ma więcej dostępnych miejsc
+          #original_hash: 0d4cce9
+          multiple_registrations: Zarejestrowałeś się dwa lub więcej razy
+    list:
+      #original_hash: 8b7631c
+      title: 'Rejestracje na %{comp}'
+      #original_hash: 5301648
+      edit: Edytuj
+      #original_hash: 0ab725c
+      country_plural:
+        zero: 0 państw
+        one: 1 państwo
+        few: '%{count} państwa'
+        many: '%{count} państw'
+        other: '%{count} państw'
+      #original_hash: 1feee0e
+      export_csv: Eksportuj jako CSV
+      #original_hash: 84add5b
+      email: Adres email
+      #original_hash: 7b2c7f1
+      approve: Zaakceptuj
+      #original_hash: 2b03b59
+      reject: Odrzuć
+      #original_hash: f6fdbe4
+      delete: Usuń
+      #original_hash: 92d40dc
+      waiting_list: Lista oczekujących
+      #original_hash: 06f7d1a
+      approved_registrations: Zaakceptowane rejestracje
+      #original_hash: bff04e8
+      deleted_registrations: Usunięte rejestracje
+      #original_hash: ac5d958
+      not_paid: Nie opłacone
+      registered:
+        #original_hash: 2c2f473
+        without_stripe: Data rejestracji
+        #original_hash: fca3213
+        with_stripe: Data płatności
+      #original_hash: ce53c71
+      payment_requested_on: 'Data realizacji płatności: %{date}'
+      #original_hash: b25928c
+      total: Łącznie
+    new_registration:
+      #original_hash: 8b9f726
+      title: 'Zarejestruj się na %{comp}'
+    #original_hash: 7cae988
+    registered_with_account_html: >-
+      Ta osoba zarejestrowała się za pomocą konta. Możesz edytować jej dane
+      osobowe %{here}.
+    #original_hash: ada2e9e
+    sign_in: Zaloguj
+    #original_hash: 5d45a00
+    profile: profil
+    #original_hash: 801b3e9
+    panel_title: Szczegóły dotyczące rejestracji
+    #original_hash: c0063c3
+    register: Zarejestruj się!
+    #original_hash: f484f15
+    refund: Zwrot Płatności
+    #original_hash: a9af643
+    update: Zaktualizuj Rejestrację
+    #original_hash: f6fdbe4
+    delete: Usuń
+    #original_hash: b72119a
+    delete_confirm: 'Czy jesteś pewien, że chcesz usunąć swoją rejestrację?'
+    #original_hash: cfc4865
+    delete_registration: Usuń rejestrację.
+    #original_hash: e9ddc6e
+    will_open_html: 'Rejestracja zostanie otwarta za <strong>%{days}</strong> w %{time}.'
+    #original_hash: 34eb009
+    will_close_html: 'Rejestracja zostanie zamknięta <strong>%{days}</strong> o %{time}.'
+    #original_hash: dc8a520
+    closed_html: 'Rejestracja została zamknięta <strong>%{days}</strong> temu o %{time}.'
+    #original_hash: 2e7024d
+    please_sign_in_past_html: >-
+      %{sign_in}, aby sprawdzić status swojej rejestracji. Jeżeli nie masz
+      jeszcze konta WCA, możesz założyć je %{here}, ale jest z późno, aby
+      zarejestrować się na te zawody.
+    #original_hash: 7753b2e
+    please_sign_in_not_yet_open_html: >-
+      %{sign_in}, aby sprawdzić status swojej rejestracji. Jeżeli nie masz
+      jeszcze konta WCA, możesz założyć je %{here}, ale rejestracja na te zawody
+      nie jest jeszcze otwarta.
+    #original_hash: 4f84af0
+    please_sign_in_html: >-
+      %{sign_in}, aby zarejestrować się na %{comp}. Jeżeli nie masz jeszcze
+      konta WCA, możesz założyć je %{here}.
+    #original_hash: 89b4e7f
+    greeting: 'Cześć, %{name}!'
+    #original_hash: fb34a17
+    please_fix_profile_html: >-
+      W celu zarejestrowania się na %{comp}, musisz rozwiązać następujące
+      problemy z twoim %{profile}:
+    #original_hash: 855ca9c
+    can_register: 'Możesz się zarejestrować na %{comp} poniżej.'
+    #original_hash: 4167ed7
+    check_registration_information: >-
+      Prosimy o sprawdzenie informacji na temat rejestracji, w celu dowiedzenia
+      się czy należy zrobić coś jeszcze, na przykład wpłacić wpisowe.
+    #original_hash: 88ac7c3
+    have_registered: >-
+      Wysłałeś zgłoszenie rejestracyjne na %{comp}. Możesz zobaczyć dane swojej
+      rejestracji poniżej.
+    #original_hash: 3c9141f
+    contact_organizer: 'Skontaktuj się z organizatorem, jeżeli chciałbyś wprowadzić jakąś zmianę.'
+    #original_hash: 59354fd
+    waiting_list: >-
+      Aby twoja rejestracja została zaakceptowana, może być konieczne zapłacenie
+      wpisowego. Sprawdź stronę zawodów w celu uzyskania szczegółowych
+      informacji.
+    #original_hash: 58b1a3c
+    accepted: Twoja rejestracja została zaakceptowana!
+    #original_hash: 70de60f
+    entry_fees_fully_paid: 'Zapłaciłeś %{paid}, co w pełni pogrywa koszty wpisowego.'
+    #original_hash: 2e5d1b9
+    will_pay_here: Zapłacisz je po wysłaniu swojej rejestracji
+    #original_hash: b7ef562
+    wont_pay_here: >-
+      Sprawdź informacje dotyczące zawodów w celu uzyskania instrukcji o
+      sposobie płatności
+    payment_form:
+      #original_hash: 4de825f
+      title: Wpisowe
+      hints:
+        #original_hash: bf3a39e
+        donation: 'Opcjonalna darowizna, która trafi wyłącznie do zespołu organizacyjnego'
+      labels:
+        #original_hash: 948ec72
+        entry_fees: Wpisowe
+        #original_hash: 2c09302
+        donation: Darowizna
+      alerts:
+        #original_hash: a34940e
+        not_a_number: Prosimy o wprowadzenie poprawnej kwoty.
+        #original_hash: 707b9ca
+        amount_too_low: Całkowita kwota nie może być mniejsza niż wymagana opłata wpisowa.
+    #original_hash: 8607a87
+    payment_button_text: Zapłać swoje wpisowe za pomocą karty
+    #original_hash: 4cf01a2
+    preferred_events_prompt_html: >-
+      Aby przyspieszyć rejestrację w przyszłości, możesz ustawić swoje
+      preferowane konkurencje %{link}.
+    #original_hash: 67d8734
+    preferred_events_populated_html: >-
+      Automatycznie zaznaczyliśmy twoje preferowane konkurencje, które możesz
+      edytować %{link}.
+  competitions:
+    messages:
+      #original_hash: 7b80062
+      not_visible: Te zawody nie są publicznie widoczne.
+      #original_hash: c1d4926
+      name_too_long: >-
+        Nazwa zawodów jest dłuższa niż 32 znaki. Wolimy krótsze i bylibyśmy
+        wdzięczni, jeżeli mógłbyś ją zmienić.
+      #original_hash: 1a20fae
+      must_have_events: >-
+        Prosimy o dodanie co najmniej jednej konkurencji przed potwierdzeniem
+        zawodów.
+      #original_hash: e390250
+      create_success: Pomyślnie utworzono nowe zawody!
+      #original_hash: afe3a23
+      results_preview_alert: 'Oglądasz wyniki, które nie zostały jeszcze wysłane.'
+      #original_hash: 07de612
+      upload_results: >-
+        Zawody są zakończone, pracujemy nad przesłaniem wyników tak szybko jak
+        to możliwe!
+      #original_hash: a0168ee
+      in_progress: 'Te zawody właśnie trwają. Wróć po %{date}, aby zobaczyć wyniki!'
+      #original_hash: 3322400
+      tooltip_registered: Jesteś zarejestrowany.
+      #original_hash: f2d092f
+      tooltip_waiting_list: Jesteś obecnie na liście oczekujących.
+      #original_hash: 9ecd976
+      confirmed_visible: Te zawody są potwierdzone i publicznie widoczne
+      #original_hash: fa186a9
+      confirmed_not_visible: 'Te zawody są potwierdzone, ale niewidoczne publicznie'
+      #original_hash: a66bbe3
+      not_confirmed_visible: 'Te zawody nie są potwierdzone, ale są widoczne publicznie'
+      #original_hash: 0f44e45
+      not_confirmed_not_visible: Te zawody nie są potwierdzone oraz nie są widoczne publicznie
+      #original_hash: a821396
+      stripe_connected: >-
+        Pomyślnie podłączono twoje konto Stripe i możesz teraz otrzymywać opłaty
+        wpisowego na te zawody.
+      #original_hash: 0a4bb53
+      stripe_not_connected: Wystąpił problem i nie mogliśmy podłączyć twojego konta Stripe.
+    my_competitions:
+      #original_hash: 5c6d3ea
+      title: Moje zawody
+      #original_hash: 1fa5a4b
+      disclaimer: >-
+        Tylko zawody, które używają systemu rejestracji WCA, będą pokazane
+        tutaj. Jeżeli twoje zawody nie są widoczne tutaj, sprawdź listę
+        zawodników na stronie internetowej danych zawodów.
+      #original_hash: 94a2fc8
+      past_competitions: Minione zawody
+    competition_info:
+      #original_hash: eb9a4bc
+      date: Data
+      #original_hash: 4271627
+      city: Miasto
+      #original_hash: 67cd406
+      venue: Miejsce
+      #original_hash: d70f93d
+      address: Adres
+      #original_hash: dc3decb
+      details: Szczegóły
+      #original_hash: 2e8a57c
+      website: Strona internetowa
+      #original_hash: 680567f
+      organizer_plural:
+        zero: Organizatorzy
+        one: Organizator
+        few: Organizatorzy
+        many: Organizatorzy
+        other: Organizatorzy
+      #original_hash: 6afa61e
+      delegate:
+        zero: Delegatów WCA
+        one: Delegat WCA
+        few: Delegatów WCA
+        many: Delegatów WCA
+        other: Delegatów WCA
+      #original_hash: b37456c
+      contact: Kontakt
+      #original_hash: 32946e9
+      competitor_limit: Limit Zawodników
+      #original_hash: a428739
+      entry_fee: Wpisowe
+      #original_hash: 0eb5ed5
+      information: Informacje
+      #original_hash: c5497bc
+      events: Konkurencje
+    index:
+      #original_hash: db98a68
+      title: Zawody
+      #original_hash: 6a72085
+      all_events: Wszystkie
+      #original_hash: 6d76b81
+      all_years: Z wszystkich lat
+      #original_hash: 719ea39
+      clear: Wyczyść
+      #original_hash: a1fffaa
+      list: Lista
+      #original_hash: ab478f3
+      map: Mapa
+      #original_hash: 0f21717
+      region: Region
+      #original_hash: bce0641
+      search: Wyszukaj
+      #original_hash: 769bb19
+      state: Kiedy
+      #original_hash: 4e9f7a3
+      present: Obecne
+      #original_hash: 76eec76
+      recent: Niedawne
+      #original_hash: 405c12f
+      past: Minione
+      #original_hash: 081ae3f
+      custom: W przedziale
+      #original_hash: 3f66052
+      from_date: Od
+      #original_hash: ae79ea1
+      to_date: Do
+      #original_hash: 52c30f8
+      past_from: 'Minione z %{year}'
+      #original_hash: 7cff459
+      past_all: Minione ze wszystkich lat
+      titles:
+        #original_hash: 69447c9
+        in_progress: Zawody w trakcie
+        #original_hash: 9e66032
+        past: 'Minione zawody z %{year}'
+        #original_hash: f628f0e
+        past_all: Minione zawody z wszystkich lat
+        #original_hash: cbe8a54
+        recent: 'Niedawne zawody (ostatnie %{count} dni)'
+        #original_hash: 914742f
+        upcoming: Nadchodzące zawody
+        #original_hash: 8b57693
+        custom: Zawody w wybranym przedziale czasowym
+      #original_hash: 6684214
+      no_access: Nie masz dostępu do tej strony!
+      tooltips:
+        hourglass:
+          #original_hash: b5183e1
+          ended: 'Zakończone %{days} temu'
+          #original_hash: 1dccb27
+          in_progress: W trakcie!
+          #original_hash: 1157462
+          posted: Wyniki są przesłane!
+          #original_hash: 89bcc37
+          starts_in: 'Zaczyna się w ciągu %{days}'
+        #original_hash: ccd2db9
+        search: Nazwa lub miasto
+        #original_hash: 3bc8082
+        recent: 'Ostatnie %{count} dni'
+      #original_hash: 8b09d74
+      no_comp_found: Nie znaleziono żadnych zawodów.
+      #original_hash: 7008166
+      no_comp_match: >-
+        Nie znaleźliśmy żadnych zawodów mających %{events}! Spróbuj zmniejszyć
+        liczbę szukanych konkurencji.
+    my_competitions_table:
+      #original_hash: 5301648
+      edit: Edytuj
+      #original_hash: dddbe64
+      registrations: Zarejestrowani
+      #original_hash: 4f98e6d
+      results_up: Wyniki są przesłane!
+      #original_hash: 87ab5db
+      report: Zobacz Raport Delegata
+      #original_hash: b4ca252
+      edit_report: Edytuj raport
+      #original_hash: e590657
+      missing_report: Twój raport nie został jeszcze wysłany!
+      #original_hash: 7fc0b5f
+      no_upcoming_competitions_html: 'Nie masz obecnie nadchodzących zawodów! Sprawdź %{link}.'
+      #original_hash: e0f66bb
+      competitions_list: listę zawodów
+      #original_hash: 9104a03
+      no_past_competitions: Nie masz minionych zawodów.
+    competition_form:
+      #original_hash: e879b0b
+      board: Zarząd
+      #original_hash: f957dcb
+      supports_md_html: >-
+        Możliwe jest używanie języka <a
+        href='https://daringfireball.net/projects/markdown/basics'
+        target='_blank'>Markdown</a>
+      #original_hash: 9d9126e
+      venue_html: >-
+        Miejsce, gdzie odbywają się zawody. %{md}. Na przykład:
+        [Spodek](www.spodekkatowice.pl)
+      #original_hash: 2651d1a
+      venue_details_html: >-
+        Szczegóły na temat miejsca (np. Na pierwszym piętrze, podążaj za
+        znakami). %{md}.
+      #original_hash: b727e58
+      contact_html: >-
+        Opcjonalne informacje kontaktowe. Jeżeli nie wypełnisz tego pola, adresy
+        email organizatorów zostaną wyświetlone publicznie. %{md}. Przykład:
+        [Tekst do wyświetlenia](mailto:ktoś@email.com)
+      #original_hash: c5497bc
+      events: Konkurencje
+      #original_hash: ae66391
+      unoff_events: Konkurencje które nie są już oficjalne
+      #original_hash: 815d5c3
+      locked_edit_html: >-
+        Te zawody są widoczne publicznie i edycja jest zablokowana. Jeżeli
+        potrzebujesz wprowadzić jakieś zmiany, skontaktuj się z %{board}.
+      #original_hash: ce33e21
+      confirmed_not_visible_html: >-
+        Potwierdziłeś te zawody, ale nie są one jeszcze widoczne publicznie.
+        Poczekaj aż %{board} uczyni je widocznymi.
+      #original_hash: e94cba8
+      is_visible: >-
+        Te zawody są publicznie widoczne, wszystkie zmiany jakich dokonasz,
+        ukażą się publicznie!
+      #original_hash: 34862bb
+      awaiting_confirmation_html: >-
+        Wypełnij wszystkie pola i kliknij "Potwierdź", kiedy będziesz gotowy,
+        aby %{board} zatwierdził te zawody.
+      #original_hash: 7586b02
+      submit_modify_value: Modyfikuj Konkurencje
+      #original_hash: 8966fd0
+      submit_create_value: Utwórz Zawody
+      #original_hash: 40b0dfd
+      submit_update_value: Aktualizuje Zawody
+      #original_hash: 04a2122
+      submit_confirm_value: Potwierdź
+      #original_hash: f6fdbe4
+      submit_delete_value: Usuń
+      #original_hash: 1ca19b1
+      submit_confirm: >-
+        Czy jesteś pewien, że jesteś godowy na potwierdzenie? Po potwierdzeniu,
+        nie będziesz w stanie zmieniać żadnych informacji. Sprawdź swojego
+        emaila po wykonaniu tej czynności, w celu zweryfikowania, że Zarząd
+        został powiadomiony.
+      #original_hash: 4c7deb7
+      submit_delete: >-
+        Czy jesteś pewien, że chcesz usunąć te zawody? Od tej akcji nie ma
+        odwrotu.
+      #original_hash: 8ebebca
+      coordinates: Koordynaty
+      #original_hash: a672984
+      add_championship: Dodaj mistrzostwa
+    errors:
+      #original_hash: f7ef9f6
+      invalid_name_message: >-
+        może zawierać tylko znaki alfanumeryczne, myślniki (-), ampersandy (&),
+        kropki (.), dwukropki (:), apostrofy (') i spacje ( )
+      #original_hash: 8e8f765
+      cannot_manage: Nie można zarządzać zawodami.
+      #original_hash: 0acc454
+      cannot_delete_public: 'Nie można usunąć zawodów, które są publicznie widoczne.'
+      #original_hash: 3935fd6
+      cannot_delete_confirmed: Nie można usunąć potwierdzonych zawodów.
+      #original_hash: 191df37
+      must_contain_event: musi zawierać co najmniej jedną konkurencję
+      #original_hash: 112490b
+      must_contain_delegate: musi posiadać co najmniej jednego delegata WCA
+      #original_hash: 0b2b56b
+      not_all_delegates: nie wszyscy są delegatami
+      #original_hash: 43a23c2
+      registration_close_after_open: rejestracja musi zostać zamknięta później niż otwarta
+      #original_hash: 43a83a9
+      end_date_before_start: Data końcowa nie może być przed datą początkową.
+      #original_hash: be3933b
+      span_too_many_days: 'Zawody nie mogą trwać więcej niż %{max_days} dni.'
+      #original_hash: cdcd288
+      invalid_currency_code: Wybrany kod waluty jest nieprawidłowy
+    new:
+      #original_hash: 1208df7
+      create_competition: Utwórz zawody
+      #original_hash: c02a415
+      note_clone: >-
+        Aby sklonować istniejące zawody, odwiedź ich stronę na WCA i kliknij
+        "Klonuj" w pasku menu.
+    update_events:
+      #original_hash: 00204fa
+      update_success: Pomyślnie zaktualizowano konkurencje zawodów.
+    update:
+      #original_hash: 5fb2f57
+      save_success: Pomyślnie zapisano zawody.
+      #original_hash: 9d1649e
+      confirm_success: >-
+        Pomyślnie potwierdzono zawody. Sprawdź swojego emaila i poczekaj, aż
+        Zarząd je ogłosi!
+      #original_hash: 28567f0
+      delete_success: 'Pomyślnie usunięto zawody %{id}.'
+    time_until_competition:
+      #original_hash: b0f330f
+      competition_in: 'Zawody są w ciągu %{n_days}.'
+      #original_hash: e6e096a
+      competition_was: 'Zawody były %{n_days} temu.'
+    nearby_competitions:
+      #original_hash: 241801a
+      competitions:
+        zero: Brak zawodów
+        one: 1 zawody
+        few: '%{count} zawodów'
+        many: '%{count} zawodów'
+        other: '%{count} zawodów'
+      #original_hash: e3528ec
+      label: 'Pobliskie zawody (w ciągu %{days} dni i w obrębie %{kms} km)'
+      #original_hash: 3446062
+      label_admin: 'Ostatnie %{days} dni'
+      #original_hash: 07a1cf0
+      nearby_admin: '%{x_competitions} w obrębie %{kms} km i %{days} dni.'
+      #original_hash: feefb46
+      no_comp_nearby: Nie ma pobliskich zawodów!
+      #original_hash: 7e76950
+      no_date_yet: Jeszcze nie przypisałeś żadnej daty do tych zawodów.
+      #original_hash: 82a95d2
+      no_location_yet: Jeszcze nie przypisałeś żadnej lokalizacji dla tych zawodów.
+      #original_hash: 9eb8f46
+      within: 'W ciągu %{days} dni'
+      #original_hash: d97d1ee
+      show: Pokaż
+      #original_hash: 709a232
+      name: Nazwa
+      #original_hash: adc24b7
+      delegates: Delegaci
+      #original_hash: eb9a4bc
+      date: Data
+      #original_hash: d219c68
+      location: Lokalizacja
+      #original_hash: 4232080
+      distance: Dystans
+      #original_hash: 51de2b8
+      before: przed
+      #original_hash: 405906c
+      after: po
+    #original_hash: 06b01c4
+    announcements: Ogłoszenia
+    #original_hash: 5b9523f
+    upload_results: Prześlij wyniki
+    #original_hash: 47dfd90
+    post_announcement: Wyślij ogłoszenie o zawodach
+    show:
+      #original_hash: b0fe391
+      general_info: Ogólne informacje
+    nav:
+      menu:
+        #original_hash: 612e12d
+        results: Wyniki
+        #original_hash: 02ae2bd
+        podiums: Podia
+        #original_hash: 6a72085
+        all: Wszystkie
+        #original_hash: aaefdb6
+        by_person: Według Osoby
+        #original_hash: 4b631f6
+        info: Informacje
+        #original_hash: 5301648
+        edit: Edytuj
+        #original_hash: d8cdb57
+        clone: Klonuj
+        #original_hash: 2b92094
+        orga_view: Widok organizatora
+        #original_hash: c6171f8
+        event_view: Zarządzaj konkurencjami
+        #original_hash: 6f7aef9
+        payment_view: Konfiguracja płatności
+        #original_hash: 76bfdcf
+        admin_view: Widok administratora
+        #original_hash: a857eb4
+        tabs: Zarządzaj zakładkami
+        #original_hash: 4c9f914
+        delegate_report: Raport delegata
+        #original_hash: b233e77
+        registration: Rejestracja
+        #original_hash: d672995
+        register: Zarejestruj się
+        #original_hash: 855bd26
+        competitors: Zawodnicy
+    results_table:
+      #original_hash: 3e9a6b5
+      wca_profile: Profil WCA
+      #original_hash: ad8919a
+      event: Konkurencja
+      #original_hash: ec7b598
+      round: Runda
+      #original_hash: 709a232
+      name: Imię
+  competition_tabs:
+    headers:
+      #original_hash: 2a4d562
+      tabs: Zakładki
+      #original_hash: 709a232
+      name: Nazwa
+    form_elements:
+      #original_hash: 90f8dcb
+      create_button: Utwórz zakładkę
+      #original_hash: 8d5b6f9
+      goto_button: 'Przejdź do zakładki %{tab_name}'
+      #original_hash: 6f23a36
+      new_tab: Nowa zakładka
+      #original_hash: 5301648
+      edit: Edytuj
+      #original_hash: fb91e24
+      update: Zaktualizuj
+      #original_hash: f6fdbe4
+      delete: Usuń
+      #original_hash: 14e49c1
+      confirm_delete: 'Jesteś pewien, że chcesz usunąć zakładkę %{tab_name}?'
+      #original_hash: ce1bf0b
+      back_to_tabs: Powrót do zakładek
+    new:
+      #original_hash: 73ed8c2
+      new_tab_title: 'Nowa zakładka dla %{comp_name}'
+    index:
+      #original_hash: a857eb4
+      tabs_list_title: Zarządzaj zakładkami
+      #original_hash: 40f9491
+      tabs_introduction_text: >-
+        Tutaj możesz dodawać i edytować zakładki, które są pokazywane na stronie
+        informacyjnej zawodów.
+    edit:
+      #original_hash: 5f1f5b8
+      edit_tab_title: 'Edytuj zakładkę %{tab_name}'
+  notifications:
+    #original_hash: 10bcdbd
+    connect_wca_id: Połącz swoje WCA ID ze swoim kontem!
+  persons:
+    index:
+      #original_hash: 5934b4c
+      name_or_wca_id: Części imienia lub WCA ID
+      #original_hash: 709a232
+      name: Imię
+      #original_hash: d523ebb
+      country: Państwo
+      #original_hash: 02ae2bd
+      podiums: Podia
+      #original_hash: 56656a0
+      no_persons_found: Żadna osoba nie spełnia podanych kryteriów.
+    show:
+      #original_hash: 1e43436
+      previously: Poprzednio
+      #original_hash: 79b6788
+      in_memoriam: Ku Pamięci
+      #original_hash: 4bc65e0
+      completed_solves: Ukończone Ułożenia
+      #original_hash: fc78642
+      personal_records: Obecne Rekordy Osobiste
+      #original_hash: e631f13
+      odd_rank_reason: >-
+        Brakująca pozycja w rankingu lub gorsza pozycja w kraju niż na
+        kontynencie jest spowodowana zmianą kraju. Wyniki z poprzedniego regionu
+        nie są brane pod uwagę w rankingu obecnego regionu.
+      #original_hash: a91508f
+      championship_podiums: Tytuły Mistrzowskie
+      #original_hash: 3746f3b
+      wc_podiums: Podia na Mistrzostwach Świata
+      #original_hash: c32a014
+      place: Miejsce
+      #original_hash: ddb18c1
+      medal_collection: Kolekcja Medalowa
+      #original_hash: 9e69e13
+      record_collection: Kolekcja Rekordowa
+      medals:
+        #original_hash: c57604d
+        gold: Złote
+        #original_hash: 8697f43
+        silver: Srebrne
+        #original_hash: af31025
+        bronze: Brązowe
+      #original_hash: 1917f4f
+      competition: Zawody
+      #original_hash: 612e12d
+      results: Wyniki
+      #original_hash: e51c552
+      records: Rekordy
+      #original_hash: ab478f3
+      competitions_map: Mapa
+      #original_hash: a99cec5
+      world_records: Historia Rekordów Świata
+      #original_hash: 2d36a49
+      continental_records: Historia Rekordów Kontynentu
+      #original_hash: 3ce631e
+      national_records: Historia Rekordów Kraju
+  posts:
+    #original_hash: 2a7da42
+    confirm_delete_post: 'Czy jesteś pewien, że chcesz usunąć ten post? Ta akcja jest nieodwracalna.'
+    #original_hash: 3dcbf6d
+    announcement_info_html: 'Ogłoszone przez %{author_name}, %{date_time}'
+  contacts:
+    website:
+      #original_hash: ac2ac3d
+      title: Formularz Kontaktowy Strony WCA
+      #original_hash: 9039572
+      description_html: >-
+        Używaj tego formularza wyłącznie w calu wysyłania pytań, komentarzy i
+        sugestii dotyczących strony. <a href="%{contact_path}">Inne
+        zapytania</a> powinny być kierowane do odpowiednich zespołów.
+      #original_hash: c70a890
+      submit: Wyślij wiadomość
+    dob:
+      #original_hash: 907ac6c
+      title: Formularz Prośby o Zmianę Daty Urodzenia
+      #original_hash: 8a4ced5
+      description: >-
+        Używaj tego formularza, jeżeli twoja data urodzenia w naszej bazie
+        danych różni się od prawdziwej.
+      #original_hash: 563d056
+      important_message_html: >-
+        <span class="text-danger">WAŻNE</span>: Załącz zdjęcie jakiegokolwiek
+        <u>legalnego dokumentu</u>  (dowodu osobistego, prawa jazdy,
+        paszportu...) na którym widać twoje imię oraz datę urodzenia.
+      #original_hash: 19c17ec
+      submit: Poproś o zmianę
+    messages:
+      #original_hash: 41948b9
+      success: Dziękujemy za twoją wiadomość. Skontaktujemy się z tobą niedługo!
+      #original_hash: 8e3a9da
+      delivery_error: Błąd podczas wysyłania wiadomości.
+  faq:
+    #original_hash: d790b40
+    title: Często Zadawane Pytania
+    #original_hash: 3451241
+    contact_html: 'Jeżeli żadna z tych odpowiedzi nie pomogła, prosimy %{contact_us}!'
+    #original_hash: 6cf2723
+    contact_us: skontaktuj się z nami
+    #original_hash: 9100be3
+    search_for_competition: 'Wyszukaj zawody tutaj:'
+    #original_hash: cba12bc
+    already_logged_in: Masz już konto WCA i jesteś obecnie zalogowany.
+    #original_hash: 5b7fa52
+    create_an_account: 'Możesz utworzyć konto %{here}.'
+    #original_hash: f8c910c
+    claim_your_wca_id: 'Możesz podpiąć swoje WCA ID %{here}.'
+    #original_hash: 4dfb4c7
+    create_an_account_and_claim: >-
+      Utwórz konto %{here}. Po wykonaniu tej czynności, zaloguj się, korzystając
+      ze swojego nowego konta, zostaniesz poproszony o podpięcie swojego WCA ID.
+    answers:
+      '1':
+        #original_hash: f79b522
+        title: Jak uzyskam WCA ID i profil WCA?
+        content:
+          #original_hash: b645fe1
+          '1': >-
+            Jeżeli nigdy wcześniej nie uczestniczyłeś, udaj się na <a
+            href='/competitions'>zawody</a>! WCA ID i profil WCA zostaną
+            stworzone dla ciebie, kiedy wyniki z twoich pierwszych zawodów
+            zostaną opublikowane.
+      '2':
+        #original_hash: eb948e7
+        title: Jak mam znaleźć zawody WCA?
+        content:
+          #original_hash: d195cec
+          '1': Sprawdź naszą listę <a href='/competitions'>zawodów</a>.
+      '3':
+        #original_hash: af6ad12
+        title: >-
+          Jak mogę zarejestrować się na zawody? Do kogo mogę się zwrócić, jeżeli
+          będę miał jakiekolwiek problemy podczas rejestrowania się na zawody?
+        content:
+          #original_hash: 7b91db1
+          '1': >-
+            Wiele zawodów przeprowadza rejestrację tutaj - na stronie WCA, ale
+            część z nich posiada własne systemy. Powinieneś skontaktować się z
+            organizatorami zawodów, w których chcesz uczestniczyć, aby uzyskać
+            bardziej szczegółowe informacje. %{comp_search_form}
+      '4':
+        #original_hash: 9a5ae28
+        title: >-
+          Jakie wymagania należy spełniać, aby móc wciąć udział w zawodach WCA?
+          Co muszę wiedzieć przed startowaniem w nich?
+        content:
+          #original_hash: 3bb4e11
+          '1': >-
+            Generalnie, nie ma wielu wymagań stawianych osobie, która chce brać
+            udział w zawodach WCA. Jednak od wszystkich uczestników zawodów
+            oczekuje się dobrego zrozumienia <a
+            href='https://www.worldcubeassociation.org/regulations/'>regulaminu
+            WCA</a>. Jeżeli angielski nie jest twoim językiem ojczystym i masz
+            problem ze zrozumieniem tego dokumentu, prosimy o przeczytanie <a
+            href='https://www.worldcubeassociation.org/regulations/translations/'>Tłumaczeń</a>.
+          #original_hash: da99893
+          '2': >-
+            Dodatkowo pragniemy polecić spojrzenie na <a target='_blank'
+            href='http://www.cubingusa.com/ctutorial.php'>kurs zawodnika
+            stworzony przez Cubing USA</a>, który daje kilka bardzo dobrych
+            wskazówek dla nowicjuszy.
+      '5':
+        #original_hash: 3b657aa
+        title: W jaki sposób mogę mieć zawody WCA zorganizowane w swoim mieście?
+        content:
+          #original_hash: 3d4eb1c
+          '1': >-
+            Jeżeli jesteś zainteresowany organizacją zawodów, jest wysoce
+            wskazanym wciąć udział w co najmniej jednych lub dwóch zawodach jako
+            uczestnik, w celu zdobycia doświadczenia.
+          #original_hash: be305b8
+          '2': >-
+            Zawody WCA muszą być dostosowane do <a target='_blank'
+            href='https://www.worldcubeassociation.org/regulations/'>regulaminu
+            WCA</a>. Zespół organizacyjny nie musi znać go na pamięć, jednak
+            głęboka wiedza na temat regulaminowych podstaw zdecydowanie byłaby
+            pomocna w poprawnej organizacji zawodów.
+          #original_hash: dbd72c2
+          '3': >-
+            Następnie, zespół organizacyjny musi skontaktować się z pobliskim <a
+            target='_blank'
+            href='https://www.worldcubeassociation.org/delegates'>Delegatem
+            WCA</a>. Nadzór WCA jest wymagany, w celu uczynienia zawodów
+            oficjalnie zatwierdzonymi przez organizację. Delegat pomoże w
+            pomyślnej organizacji zawodów.
+          #original_hash: 809f53a
+          '4': >-
+            Spójrz na <a target='_blank'
+            href='https://www.cubingusa.com/cguide.php'>ten poradnik</a> w celu
+            uzyskania dalszych informacji. (W przypadku jakiegokolwiek konfliktu
+            pomiędzy informacjami prezentowanymi w tym dodatkowym źródle wiedzy
+            a regulaminem WCA, regulamin ma pierwszeństwo).
+      '6':
+        #original_hash: 8005a61
+        title: >-
+          Do czego służą konta WCA? Jaka jest różnica pomiędzy kontami WCA a
+          profilami WCA?
+        content:
+          #original_hash: 57a3767
+          '1': >-
+            Masz przypisane WCA ID, kiedy uczestniczysz po raz pierwszy w
+            zawodach oficjalnie uznawanych przez WCA. Kiedy wyniki z nich są
+            opublikowane, twój profil WCA zostaje stworzony, z wynikami z
+            każdych zawodów na których byłeś.
+          #original_hash: c5ad7a3
+          '2': >-
+            Konto WCA pozwalaja ci na udowodnienie nam kim jesteś. Umożliwia
+            między innymi dodanie zdjęcia do twojego profilu WCA, jak również na
+            rejestrowanie się na zawody. Chroni cię przed innymi ludźmi
+            próbującymi podszyć się pod ciebie.
+          #original_hash: 9ff083a
+          '3': '%{current_user_status}'
+      '7':
+        #original_hash: d7ee9bd
+        title: Jak mogę zmienić swoje zdjęcie profilowe?
+        content:
+          #original_hash: e619524
+          '1': >-
+            Najpierw musisz <a
+            href='#how-do-i-connect-my-wca-account-with-my-wca-id'>utworzyć
+            konto WCA i połączyć je ze swoim WCA ID.</a>
+          #original_hash: 56a8f26
+          '2': >-
+            Po połączeniu swojego konta WCA oraz WCA ID, przejdź do <a
+            href='%{profile_edit_path}'>strony edycji swojego profilu</a>, w
+            celu zmiany swojego zdjęcia profilowego.
+      '8':
+        #original_hash: 1d61217
+        title: Jak mogę połączyć moje konto WCA z moim WCA ID?
+        content:
+          #original_hash: 07bb6ec
+          '1': '%{current_user_claim}'
+      '9':
+        #original_hash: 7a4a71d
+        title: >-
+          Jestem zarejestrowany na zawody i chciałbym zapisać się na dodatkową
+          konkurencję, co powinienem zrobić? Mogę przyprowadzić gości?
+        content:
+          #original_hash: 957487d
+          '1': >-
+            Prosimy o kontakt z organizatorem. Możesz odnaleźć informacje
+            kontaktowe na stronie zawodów. Jeżeli nie jesteś pewien, gdzie
+            możesz ją znaleźć, spojrzyj na <a href='/competitions'>listę
+            zawodów</a>.
+      results:
+        #original_hash: 9aae576
+        title: Kiedy wyniki z zawodów WCA są dostępne na stronie?
+        content:
+          #original_hash: 890d879
+          '1': >-
+            Po zakończeniu zawodów, delegat WCA musi dokonać dokładnego
+            sprawdzenia wszystkich kart z wynikami i danych osobowych w celu
+            wyeliminowania potencjalnych błędów. Gdy to zostanie zrobione,
+            wyniki są wysyłane do Zespołu do Spraw Wyników (WRT), który jest
+            odpowiedzialny za upublicznianie wyników oraz utrzymywanie bazy
+            danych WCA. Ostatecznie WRT przesyła wyniki do tej bazy tak szybko
+            jak to możliwe.
+          #original_hash: b6a68ab
+          '2': >-
+            W zależności od wielkości zawodów, jak również osobistego grafiku
+            delegata, wszystko to może trwać jeden dzień lub nawet do tygodnia.
+            Prosimy o cierpliwość.
+          #original_hash: bf8adbe
+          '3': >-
+            Dodatkowo, jeżeli połączyłeś swoje konto WCA ze swoim WCA ID (patrz
+            poniżej), masz możliwość włączyć powiadomienia drogą mailową o
+            przesłaniu twoich wyników <a
+            href='%{preferences_edit_path}'>tutaj</a>.
+      regulations1:
+        #original_hash: 2951eb6
+        title: Czy moja kostka nadaje się do układania na oficjalnych zawodach?
+        content:
+          #original_hash: 5ac78e4
+          '1': "Zapisy dotyczące układanek możesz odnaleźć w <a href='https://www.worldcubeassociation.org/regulations/#3'>3. Artykule Regulaminu</a>. Wszystkie układanki muszą być zaakceptowane przez delegata WCA. Jeżeli nie jesteś pewien, prosimy o zwrócenie się\_z pytaniem do Delegata twoich zawodów. Na wszelki wypadek powinieneś zabrać łamigłówkę zastępczą, w przypadku gdy nie zostaniesz dopuszczony do używania tej pierwszej z nich."
+      regulations2:
+        #original_hash: 48f1234
+        title: Czy mogę używać magnetyczną kostkę na oficjalnych zawodach WCA?
+        content:
+          #original_hash: 024ce81
+          '1': >-
+            Masz pozwolenie na używanie magnetycznych kostek dopóki są one
+            zgodne z <a target='_blank'
+            href='https://www.worldcubeassociation.org/regulations/'>Regulaminem
+            WCA</a>. Prosimy o zwrócenie szczególnej uwagi na <a
+            href='https://www.worldcubeassociation.org/regulations/#3h'>Zapis
+            3h</a>.
+      regulations3:
+        #original_hash: c7460a5
+        title: >-
+          Zgubiłem zaślepkę lub element z mojej kostki. Czy wciąż mogę jej
+          używać?
+        content:
+          #original_hash: 0d76323
+          '1': >-
+            Nie wolno ci używać tej kostki. Łamigłówki nie mogą mieć żadnych
+            uszkodzeń ani innych różnic, które w znaczący sposób odróżniają
+            element od podobnego elementu (spójrz na <a
+            href='https://www.worldcubeassociation.org/regulations/#3j'>Zapis
+            3j</a>).
+      regulations4:
+        #original_hash: 43f9da8
+        title: 'Ile muszę mieć lat, aby móc zarejestrować się na zawody WCA?'
+        content:
+          #original_hash: 984704a
+          '1': >-
+            Nie ma wieku minimalnego. Jednakże powinieneś zapytać swoich
+            rodziców przed zarejestrowaniem się (spójrz na <a
+            href='https://www.worldcubeassociation.org/regulations/#2b'>Zapis
+            2b</a>).
+  about:
+    #original_hash: 9ac918a
+    title: O WCA
+    mission:
+      #original_hash: e4698d4
+      title: Misja
+      paragraphs:
+        #original_hash: 16ad45e
+        '1': >-
+          World Cube Association zarządza zawodami w kostkach znanych jako
+          Kostka Rubika oraz wszystkich innych kostkach manipulowanych przez
+          obracanie ścianek, szerzej znanych jako 'twisty puzzles'.
+          Najsłynniejszą z nich jest Kostka Rubika, wymyśloną przez profesora
+          Rubika z Węgier. Określony zbiór tych kostek jest wybrany jako
+          oficjalne konkurencje WCA.
+        #original_hash: 22c3593
+        '2': >-
+          World Cube Association organizuje zawody na całym świecie, przy
+          wsparciu organizacji regionalnych odpowiedzialnych za organizację
+          zawodów swoich państwach.
+        #original_hash: 20e0550
+        '3': >-
+          Celem World Cube Association jest organizacja <br /><strong>większej
+          liczby zawodów, w większej ilości państw, z większą ilością osób i
+          zabawy, przy wzajemnej równości i uczciwości.</strong>
+        #original_hash: bee3687
+        '4': >-
+          W duchu World Cube Association jest, aby<br /> <strong>ludzie z całego
+          świata dobrze bawili się razem w przyjaznej atmosferze, pomagając
+          sobie wzajemnie i zachowując się jak prawdziwi sportowcy.</strong>
+    structure:
+      #original_hash: 9482c5d
+      title: Struktura
+      #original_hash: d855b50
+      board_html: >-
+        World Cube Association jest prowadzone przez <strong>Zarząd WCA (WCA
+        Board)</strong>, składający się z następujących członków:
+      #original_hash: b0c72a9
+      committees: 'Następujące komitety są odpowiedzialne za działalność WCA:'
+      wdc:
+        #original_hash: c97077a
+        name: Komitet Dyscyplinarny WCA (WDC)
+        #original_hash: 286fdf8
+        description: >-
+          Ten komitet wspiera Zarząd WCA w szczególnych przypadkach, jak
+          domniemane naruszenie Regulaminu WCA. Mogą się z nim kontaktować
+          członkowie WCA w przypadkach ważnych osobistych spraw związanych z
+          zawodami WCA.
+      wrc:
+        #original_hash: 3da1e85
+        name: Komitet Regulacyjny WCA (WRC)
+        #original_hash: 13ada5b
+        description: Ten komitet jest odpowiedzialny za Regulamin WCA.
+      wrt:
+        #original_hash: 67be768
+        name: Zespół do Spraw Wyników WCA (WRT)
+        #original_hash: 439ffae
+        description: >-
+          Ten zespół jest odpowiedzialny za zarządzanie wszystkimi wynikami z
+          zawodów.
+      wst:
+        #original_hash: a14bc62
+        name: Zespół Programistyczny WCA (WST)
+        #original_hash: ec961e4
+        description: >-
+          Ten zespół jest odpowiedzialny za zarządzanie oprogramowaniem WCA
+          (stroną internetową, programami generującymi algorytmy mieszające,
+          narzędziami administracyjnymi).
+      wct:
+        #original_hash: 63a2388
+        name: Zespół Komunikacyjny WCA (WCT)
+        #original_hash: 50fd091
+        description: >-
+          Zespół Komunikacyjny WCA (WCT) pełni rolę nadzorczą i wspiera
+          komunikację WCA ze Społecznością oraz ogółem społeczeńswa. Komunikacja
+          WCA powinna realizować cele WCA i przyczyniać się do ogólnej
+          życzliwości, przejrzystości, integracji, otwartości i wrażliwości.
+      wfc:
+        #original_hash: 9cb13de
+        name: Komitet Finansowy WCA (WFC)
+        #original_hash: 2d4807e
+        description: Ten zespół jest odpowiedzialny za zarządzanie finansami WCA
+      #original_hash: f2ceade
+      delegates_html: >-
+        <strong>Delegaci WCA</strong> to członkowie WCA, którzy są
+        odpowiedzialni za prawidłowy przebieg zawodów, zgodnie z opisaną
+        wcześniej misją, regulaminem i duchem WCA. WCA rozróżnia
+        <strong>Starszych Delegatów WCA</strong>, <strong>Delegatów WCA</strong>
+        oraz <strong>Kandydatów na Delegata WCA</strong> %{see_link}. Poza
+        obowiązkami Delegata WCA, Starszy Delegat WCA jest odpowiedzialny za
+        nadzór nad Delegatami na swoim obszarze. Społeczność może kontaktować
+        się z nim w regionalnych sprawach. Nowi Delegaci uzyskują początkowo
+        status Kandyda na Delegata WCA i muszą wykazać swoją zdolność pomyślnego
+        zarządzania zawodami, zanim otrzymają status Delegata WCA.
+      #original_hash: 27d18ac
+      see_link_html: '(zobacz %{link})'
+      #original_hash: 5b01fcc
+      members_html: >-
+        Wszyscy zawodnicy stają się automatycznie <strong>członkami</strong> WCA
+        na swoich pierwszych zawodach.
+  delegates_page:
+    #original_hash: d8fd3e4
+    title: Delegaci WCA
+    #original_hash: 0a89b0f
+    acknowledges: 'WCA uznaje następujących członków za delegatów oficjalnych zawodów WCA:'
+    table:
+      #original_hash: 709a232
+      name: Imię
+      #original_hash: c3f104d
+      role: Rola
+      #original_hash: 0f21717
+      region: Region
+  regional_organizations:
+    #original_hash: 37b8fdc
+    title: Organizacje Regionalne
+    #original_hash: ba87c07
+    content: 'WCA rozpoznaje następujące organizacje regionalne:'
+    how_to:
+      #original_hash: fc3af12
+      title: Jak zostać Organizacją Regionalną WCA
+      #original_hash: bdf57ff
+      description: >-
+        WCA uznaje wiele organizacji regionalnych na całym świecie. Celem
+        organizacji regionalnej WCA jest organizacja zawodów WCA oraz wspieranie
+        działań WCA w jej regionie. Zachęcamy kraje pragnące utworzyć
+        organizację reginalną, aby wspomogły WCA w swoim regionie przed
+        wysłaniem swojego podania. W celu uzyskania pomocy dotyczącej
+        organizacji zawodów WCA w swoim regionie, prosimy o kontakt z
+        najbliższym delegatem.
+    requirements:
+      #original_hash: 1e04fd7
+      title: Wymagania stawiane Organizacjom Regionalnym WCA
+      list:
+        #original_hash: 22a9f26
+        '1': Aktywna organizacja lub wspieranie Zawodów WCA we własnym regionie
+        #original_hash: 8c5a7fe
+        '2': >-
+          Aktywny wkład w Kontynentalnych Zawodach WCA, które odbywają się na
+          kontynencie danej Organizacji Regionalnej
+        #original_hash: 5913cd0
+        '3': >-
+          Respektowanie i działanie zgodnie z celami określonymi przez Status
+          oraz Regulamin WCA
+        #original_hash: 0c3576b
+        '4': >-
+          Spełnianie wszystkich obowiązujących przepisów określonych w
+          Regulaminie WCA
+        #original_hash: 23cda60
+        '5': Akceptowanie i stosowanie się do wszystkich decyzji Oficjeli WCA
+        #original_hash: 08c6d86
+        '6': >-
+          Przechowywać kopię obecnego Statutu oraz Regulaminu WCA w formacie
+          elektronicznym
+    application_instructions:
+      #original_hash: 4da829b
+      title: Instrukcje dotyczące składania wniosku
+      #original_hash: 7ae038e
+      description: >-
+        W celu ubiegania się o bycie Organizacją Regionalną wymagamy aby dany
+        region wysłał pisemny wniosek do Zarządu WCA zawierający wszystkie
+        szczegóły wymienione poniżej.
+      list:
+        #original_hash: 1a9d544
+        '1': Nazwę danej Organizacji Regionalnej
+        #original_hash: a9bf3f4
+        '2': Oficjalny adres email oraz szczegółowe dane kontaktowe
+        #original_hash: 2a029e9
+        '3': >-
+          Kopię jej obecnego statutu, który jest zgodny ze Statutem i
+          Regulaminem WCA
+        #original_hash: a5a2771
+        '4': Listę członków zarządu
+        #original_hash: 1186ebf
+        '5': >-
+          Jasny opis obszaru który jest objęty zasięgiem danej Organizacji
+          Regionalnej
+        #original_hash: 826e371
+        '6': Raport dotyczący przeszłych i bieżących działań związanych z WCA
+  contact:
+    #original_hash: a34b69f
+    title: Informacje kontaktowe
+    #original_hash: b5c2eaa
+    info_alert_html: >-
+      Przed skontaktowaniem się z którymkolwiek zespołem z tej strony, prosimy o
+      spojrzenie na %{link}!
+    #original_hash: 2b023eb
+    questions_and_comments_html: >-
+      W razie pytań, komentarzy i sugestii dotyczących strony, użyj tego <a
+      href='/contact/website'>formularza kontaktowego</a>. Na zapytania
+      dotyczące określonego obszaru lub zawodów odpowiedzi udzieli ci lokalny
+      %{link}, po skontaktowaniu się z nim.
+    #original_hash: 4a30d30
+    committees_and_teams_html: <u>Komitety i Zespoły</u>
+    board:
+      #original_hash: 90fcc48
+      name_html: Zarząd WCA (WCA Board)
+      #original_hash: 7ee8e36
+      info: >-
+        (organizacja WCA, raporty delegatów, akceptacja zawodów, ogólne
+        zapytania)
+    wct:
+      #original_hash: c53144e
+      info: (komunikacja WCA ze społecznością i ogółem społeczeństwa)
+    wdc:
+      #original_hash: 562e197
+      info: >-
+        (niezależne doradztwo dla Zarządu WCA, niezawisłe dochodzenia,
+        udzielanie rad w ważnych sprawach osobistych)
+    wrc:
+      #original_hash: 4a256f0
+      info: (odpowiedzialność za Regulamin WCA)
+    wrt:
+      #original_hash: 899dc9c
+      info: '(wyniki zawodów, korekty rezultatów)'
+    wst:
+      #original_hash: dfbf427
+      info: (odpowiedzialność za oprogramowanie WCA)
+    wfc:
+      #original_hash: 674291e
+      info: (finanse WCA)
+  score_tools:
+    #original_hash: ea9d41d
+    title: Narzędzia Operujące na Wynikach WCA
+    paragraphs:
+      #original_hash: ec3e0ab
+      '1': >-
+        WCA wysoce poleca używanie <a href="http://cubecomps.com">Cube Comps</a>
+        zarówno przed, jak i w trakcie zawodów. Jest to system online,
+        posiadający możliwość wprowadzania wyników na żywo oraz wiele
+        interesujących funkcjonalności, takich jak drukowanie kart startowych i
+        bardzo efektywny system wprowadzania danych. Jego twórcą jest Luis J.
+        Iáñez i obecnie projekt jest otwartym oprogramowaniem (Open Source).
+      #original_hash: 7438b0d
+      '2': >-
+        Arkusze wyników oraz algorytmy mieszające powinny być przetworzone i
+        sprawdzone pod względem poprawności przy użyciu %{workbook_link} przed
+        wysłaniem ich do Zespołu do Spraw Wyników.
+      #original_hash: 975e59b
+      '3': >-
+        Najnowsza wersja arkusza wyników z zawodów WCA może zostać pobrana <a
+        href="/files/results.xls" target="_blank">tutaj</a>.
+  logo:
+    #original_hash: c72c969
+    title: Logo WCA
+    paragraphs:
+      #original_hash: c092e13
+      '1': >-
+        Logo WCA zaprojektował Justin Eastman podczas konkursu w styczniu 2005
+        roku.<br />Spodobał nam się jego pomysł ze względu na swój design,
+        kolorystykę i fakt, że nie ukazuje konkretnie Kostki Rubika 3x3x3.
+      #original_hash: f228da2
+      '2': >-
+        Posiadamy trzy różne wersje loga: <a href="/files/WCAlogo_XL.jpg">dużą
+        wersję</a> (46 KB, 1756 x 1068 pikseli), <a
+        href="/files/WCAlogo.svg">wersję wektorową</a> oraz <a
+        href="/files/WCAlogo_notext.svg">wersję wektorową bez tekstu</a>.
+      #original_hash: dcb1ad6
+      '3': >-
+        Trójwymiarową wersję loga stworzył Vu Minh Tan z Vietnamu: <a
+        href="/files/WCALogo3D.png">wersja PNG</a> (2.1 MB),  <a
+        href="/files/WCALogo3Dsmall.png">mała wersja PNG</a> (0.25 MB).
+      #original_hash: 545fcd9
+      '4': >-
+        Wszyscy organizatorzy zawodów mogą używać loga WCA na stronach, odzieży,
+        upominkach i dekoracjach (dotyczy tylko oficjalnych zawodów WCA). <br />
+        Wykorzystanie przez inne osoby i w innych celach wymaga zgody <a
+        href="mailto:board@worldcubeassociation.org">Zarządu WCA</a>.
+  workbook_assistant:
+    #original_hash: e442ea4
+    title: WCA Workbook Assistant
+    #original_hash: a7c307f
+    download: Pobierz WCA Workbook Assistant
+    #original_hash: cf1b916
+    last_update: Ostatnia aktualizacja
+    #original_hash: feece00
+    version_history: historia wersji
+    #original_hash: 8f3f4c0
+    header: Jak przetworzyć wyniki i algorytmy mieszające przed wysłaniem ich do WCA
+    step1:
+      #original_hash: c0450b1
+      title: 'Krok 1: Otwórz arkusz z wynikami'
+      #original_hash: 656d70d
+      content_html: >-
+        Otwórz arkusz za pomocą przycisku <em>Open...</em> lub pociągnij
+        odpowiedni plik, upuszczając go na oknie aplikacji.
+    step2:
+      #original_hash: 3ad9881
+      title: 'Krok 2: Dodaj algorytmy mieszające TNoodle'
+      #original_hash: 080acc0
+      content_html: >-
+        Dodaj algorytmy mieszające TNoodle za pomocą przycisku <em>Add...</em>
+        lub przeciągnij odpowiedni plik TNoodle i upuść go na oknie aplikacji.
+        Upewnij się, że używasz pliku .zip lub .json wygenerowanego przez
+        TNoodle.
+      #original_hash: 6cc90b8
+      content2_html: >-
+        Możesz dodać wiele plików z algorytmami mieszającymi, w przypadku gdy
+        zostały wygenerowane fragmentarycznie lub musiano wygenerować dodatkowe
+        algorytmy mieszające podczas zawodów.
+    step3:
+      #original_hash: b2d01b3
+      title: 'Krok 3: Dopasuj algorytmy mieszające do wyników'
+      #original_hash: 36383b1
+      content_html: >-
+        WCA Workbook Assistant automatycznie dopasowuje algorytmy mieszające do
+        rund, które się odbyły. W niektórych przypadkach, na przykład gdy wiele
+        plików z algorytmami mieszającymi zostało wygenerowanych, selekcja musi
+        być dokonana ręcznie ponieważ istnieje kilka możliwości.
+      #original_hash: e869c1e
+      content2_html: >-
+        Ręczny wybór algorytmów mieszających może być dokonany poprzez podwójne
+        kliknięcie komórki <em>Scrambles</em> w panelu przeglądu arkusza.
+      #original_hash: 8f4fdfd
+      content3_html: >-
+        Możliwym jest wybranie tylko jednej rundy spośród plików z algorytmami
+        mieszającymi dla każdej rundy, w której są wyniki. Jeżeli pojawi się
+        sytuacja, w której algorytmy mieszające dla pojedynczej rundy zostały
+        wygenerowane jako oddzielne rundy w TNoodle, możesz użyć przycisku
+        <em>Edit groups...</em>, aby edytować grupy w plikach z algorytmami
+        mieszającymi i przenieść je z jednej rundy do innej lub usunąć je.
+      #original_hash: 94353f2
+      content4_html: >-
+        W tym przykładzie, dodatkowy zbiór algorytmów mieszających został
+        wygenerowany, aby w pierwszej rundzie skewba były dwie grupy zamiast
+        jednej.
+      #original_hash: 68c5b18
+      content5_html: >-
+        Algorytmy mieszające dla dodatkowej grupy mogę być przeciągnięte i
+        upuszczone na rundzie, która była wygenerowana początkowo. To powoduje
+        umieszczenie obu grup w jednej rundzie.
+    step4:
+      #original_hash: ed940d2
+      title: 'Krok 4: Popraw błędy zgłoszone przez aplikację'
+      #original_hash: df2cf58
+      content_html: >-
+        Wyniki są sprawdzane pod kątem błędów we wprowadzaniu danych. Rundy,
+        które będą posiadały błędy, zostaną zaznaczone czerwoną ikoną w panelu
+        przeglądu arkusza.
+      #original_hash: 7fbf6b8
+      content2_html: >-
+        Po wybraniu wiersza z błędami w panelu przeglądu arkusza, aplikacja
+        wyświetli szczegóły w panelu błędów walidacji w lewym dolnym rogu.
+      #original_hash: 0600502
+      content3_html: >-
+        Błędy mogą zostać poprawione poprzez otwarcie arkusza w arkuszu
+        kalkulacyjnym, jego edycję i zapisanie. Zaktualizowany arkusz może być
+        następnie załadowany ponownie do WCA Workbook Assistant poprzez
+        kliknięcie przycisku <em>Refresh</em>. Spowoduje to jedynie
+        przeładowanie wyników, pozostawiając wszystkie inne wprowadzone zmiany
+        nietknięte, na przykład algorytmy mieszające, które zostały dodane.
+    step5:
+      #original_hash: 536ec4d
+      title: 'Krok 5: Wybierz ID zawodów'
+      #original_hash: 5aeb5bd
+      content_html: >-
+        Wybierz poprawne ID zawodów poprzez kliknięcie przycisku
+        <em>Select...</em> obok pola <em>Competition ID</em>.
+      #original_hash: 3acf7d0
+      content2_html: >-
+        Pokaże się okno dialogowe z listą zawodów spośród których należy dokonać
+        wyboru.
+      #original_hash: ceeb6fe
+      content3_html: >-
+        Możesz filtrować listę poprzez wprowadzenie części nazwy danych zawodów
+        lub Delegata WCA.
+      #original_hash: 5ca74eb
+      content4_html: >-
+        Początkowo jedynie zawody, które miały miejsce mniej niż tydzień temu
+        lub odbędą się w czasie nadchodzącego tygodnia, zostaną wyświetlone.
+        Jeżeli masz potrzebę wybrania zawodów spoza tego przedziału czasowego,
+        odznacz <em>Only show current competitions</em>.
+    step6:
+      #original_hash: 52bb1f6
+      title: 'Krok 6: Eksportuj wyniki jako JSON'
+      #original_hash: 6bfee23
+      content_html: >-
+        Zapisz wyniki do pliku JSON klikając przycisk <em>Export results
+        JSON...</em> w prawym dolnym roku.
+    step7:
+      #original_hash: 09fa37d
+      title: 'Krok 7: Wyślij wyniki w formacie JSON do WCA'
+      #original_hash: 9be089f
+      content_html: >-
+        Wyślij maila, dołączając plik JSON wyeksportowany przez WCA Workbook
+        Assistant, na adres <a
+        href="mailto:results@worldcubeassociation.org">results@worldcubeassociation.org</a>
+  relations:
+    relation:
+      #original_hash: 6519fe1
+      title: Relacje
+      #original_hash: 69ba020
+      find_relations: Znajdź powiązanie pomiędzy speedcuberami
+      #original_hash: 5d6056d
+      show_relation: Pokaż mi powiązanie!
+      connectives:
+        #original_hash: f85194e
+        was_at: Był(a) na
+        #original_hash: 8c00243
+        together_with: Razem z
+    messages:
+      #original_hash: 4406a0b
+      invalid_wca_ids: 'Prosimy o podanie dwóch różnych, poprawnych WCA ID.'
+  search_results:
+    index:
+      #original_hash: db98a68
+      competitions: Zawody
+      #original_hash: b37554f
+      people: Osoby
+      #original_hash: 6db75ea
+      advanced_search: Wyszukiwanie zaawanasowane
+      #original_hash: a0ca0c3
+      posts: Posty
+      #original_hash: 9d7ea9c
+      regulations_and_guidelines: Punkty Regulaminu i Wytyczne
+      not_found:
+        #original_hash: b8a7006
+        competitions: Nie znaleziono żadnych zawodów dla
+        #original_hash: 99d4290
+        people: Nie znaleziono żadnych osób dla
+        #original_hash: c6a04aa
+        posts: Nie znaleziono żadnych postów dla
+        #original_hash: 76a6bf1
+        regulations_and_guidelines: 'Nie znaleziono żadnych punktów Regulaminu, ani Wytycznych dla'

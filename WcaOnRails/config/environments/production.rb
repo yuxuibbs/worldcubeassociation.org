@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -22,7 +24,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -49,42 +51,40 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  # config.log_tags = [ :subdomain, :uuid ]
+  config.log_tags = [:request_id]
 
   # Use a different logger for distributed setups.
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :file_store, "tmp/cache/fragments"
+
+  config.action_mailer.perform_caching = false
 
   root_url = URI.parse(ENVied.ROOT_URL)
   config.action_mailer.default_url_options = {
     protocol: root_url.scheme,
     host: root_url.host,
-    port: root_url.port
+    port: root_url.port,
   }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
 
   if ENVied.WCA_LIVE_SITE
-    # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-    # Cloudfront! https://console.aws.amazon.com/cloudfront/home
-    config.action_controller.asset_host = 'https://d1qsrrpnlo9sni.cloudfront.net'
-
     config.action_mailer.smtp_settings = {
-      address: "smtp.mandrillapp.com",
+      address: "email-smtp.us-west-2.amazonaws.com",
       port: 587,
       enable_starttls_auto: true,
-      user_name: ENVied.MANDRILL_USERNAME,
-      password: ENVied.MANDRILL_PASSWORD,
+      user_name: ENVied.SMTP_USERNAME,
+      password: ENVied.SMTP_PASSWORD,
       authentication: 'login',
-      domain: root_url.host
+      domain: root_url.host,
     }
   else
     # When not on the live site, send emails to mailcatcher
     config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
   end
-
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -95,6 +95,16 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Use a different logger for distributed setups.
+  # require 'syslog/logger'
+  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
+
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

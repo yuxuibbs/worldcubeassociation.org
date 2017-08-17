@@ -1,0 +1,33 @@
+<% provide(:title, "Report for #{@competition.name}") %>
+<% provide(:editing_delegate_report, true) %>
+
+<%= render layout: 'nav' do %>
+  <h2>Editing Delegate Report for <%= @competition.name%></h2>
+  <%= simple_form_for @delegate_report, url: delegate_report_path(@competition.id),
+                                        html: { class: "delegate-report" } do |f| %>
+    <%= f.hidden_field :updated_at %>
+
+    <% if @delegate_report.posted? %>
+      <%= f.input :discussion_url %>
+    <% end %>
+    <%= f.input :schedule_url %>
+
+    <%= f.input :equipment, input_html: { class: "markdown-editor" } %>
+    <%= f.input :venue, input_html: { class: "markdown-editor" } %>
+    <%= f.input :organization, input_html: { class: "markdown-editor" } %>
+    <%= f.input :incidents, input_html: { class: "markdown-editor" } %>
+    <%= f.input :remarks, input_html: { class: "markdown-editor" } %>
+
+    <%= f.button :submit, class: "btn-primary" %>
+    <% is_actually_posted = DelegateReport.find(@delegate_report.id).posted? %>
+    <% if !is_actually_posted %>
+      <%= button_tag(type: 'submit',
+                     name: "delegate_report[posted]",
+                     value: true,
+                     class: "btn btn-danger",
+                     data: { confirm: "You are about to post your report, are you sure you want to do this? Once posted, a report cannot be changed." }) do %>
+        Post the report
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

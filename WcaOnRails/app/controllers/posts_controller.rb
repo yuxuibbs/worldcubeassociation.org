@@ -1,13 +1,21 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :rss, :show]
-  before_action -> { redirect_unless_user(:can_create_posts?) }, except: [:index, :rss, :show]
+  before_action -> { redirect_to_root_unless_user(:can_create_posts?) }, except: [:index, :rss, :show]
 
   def index
-    @posts = Post.where(world_readable: true).order(sticky: :desc, created_at: :desc).includes(:author).paginate(page: params[:page])
+    tag = params[:tag]
+    if tag
+      @posts = Post.joins(:post_tags).where('post_tags.tag = ?', tag)
+    else
+      @posts = Post.where(show_on_homepage: true)
+    end
+    @posts = @posts.where(world_readable: true).order(sticky: :desc, created_at: :desc).includes(:author).page(params[:page])
   end
 
   def rss
-    @posts = Post.where(world_readable: true).order(created_at: :desc).includes(:author).paginate(page: params[:page])
+    @posts = Post.where(world_readable: true).order(created_at: :desc).includes(:author).page(params[:page])
 
     # Force responding with xml, regardless of the given HTTP_ACCEPT headers.
     request.format = :xml
@@ -56,7 +64,7 @@ class PostsController < ApplicationController
   end
 
   private def editable_post_fields
-    [:title, :body, :sticky]
+    [:title, :body, :sticky, :tags, :show_on_homepage]
   end
   helper_method :editable_post_fields
 

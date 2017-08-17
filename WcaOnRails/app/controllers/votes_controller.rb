@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class VotesController < ApplicationController
   before_action :authenticate_user!
-  before_action -> { redirect_unless_user(:can_vote_in_poll?) }
+  before_action -> { redirect_to_root_unless_user(:can_vote_in_poll?) }
 
   def vote
     @poll = Poll.find(params[:id])
@@ -8,7 +10,7 @@ class VotesController < ApplicationController
   end
 
   def create
-    @vote = Vote.new(vote_params)
+    @vote = current_user.votes.build(vote_params)
     if @vote.save
       flash[:success] = "Vote saved"
       redirect_to polls_vote_path(@vote.poll.id)
@@ -30,8 +32,6 @@ class VotesController < ApplicationController
   end
 
   def vote_params
-    vote_params = params.require(:vote).permit(:poll_id, :comment, poll_option_ids: [])
-    vote_params[:user_id] = current_user.id
-    return vote_params
+    params.require(:vote).permit(:poll_id, :comment, poll_option_ids: [])
   end
 end

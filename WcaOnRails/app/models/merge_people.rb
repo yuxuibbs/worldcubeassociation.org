@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MergePeople
   include ActiveModel::Model
 
@@ -6,12 +8,12 @@ class MergePeople
 
   def person1_wca_id=(wca_id)
     @person1_wca_id = wca_id
-    @person1 = Person.find_by_id(person1_wca_id)
+    @person1 = Person.find_by_wca_id(person1_wca_id)
   end
 
   def person2_wca_id=(wca_id)
     @person2_wca_id = wca_id
-    @person2 = Person.find_by_id(person2_wca_id)
+    @person2 = Person.find_by_wca_id(person2_wca_id)
   end
 
   validates :person1_wca_id, presence: true
@@ -56,6 +58,13 @@ class MergePeople
     end
   end
 
+  validate :person2_must_not_have_associated_user
+  def person2_must_not_have_associated_user
+    if @person2&.user
+      errors.add(:person2_wca_id, "Must not have an account")
+    end
+  end
+
   def do_merge
     if !valid?
       return false
@@ -66,6 +75,6 @@ class MergePeople
       person2.destroy!
     end
 
-    return true
+    true
   end
 end

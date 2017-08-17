@@ -6,8 +6,9 @@
   <% if @omni_query.blank? %>
     <h3>Try searching for something!</h3>
   <% else %>
-    <% if !@competitions.empty? %>
-      <h2><%= anchorable "Competitions" %></h2>
+    <% query_parts = @omni_query.split %>
+    <% if @competitions.present? %>
+      <h2><%= anchorable t('.competitions') %></h2>
       <table class="table table-nonfluid">
         <tbody>
           <% @competitions.each do |competition| %>
@@ -16,36 +17,39 @@
                 <%= competition.start_date %>
               </td>
               <td>
-                <%= link_to "/results/c.php?i=#{competition.id}" do %>
-                  <%= wca_highlight(competition.name, @omni_query) %>
+                <%= link_to competition_path(competition) do %>
+                  <%= wca_highlight(competition.name, query_parts) %>
                 <% end %>
               </td>
               <td>
-                <%= wca_highlight(competition.countryId, @omni_query) %>,
-                <%= wca_highlight(competition.cityName, @omni_query) %>
+                <%= wca_highlight(competition.countryId, query_parts) %>,
+                <%= wca_highlight(competition.cityName, query_parts) %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= will_paginate @competitions, param_name: 'competitions_page', params: { anchor: "competitions" } %>
+      <%= paginate @competitions, param_name: :competitions_page, params: { anchor: "competitions" } %>
     <% end %>
 
-    <% if !@persons.empty? %>
-      <h2><%= anchorable "People" %></h2>
+    <% if @persons.present? %>
+      <h2>
+        <%= anchorable t('.people') %> |
+        <%= link_to icon("search", t('.advanced_search')), persons_path(search: params[:q]), class: "advanved-search" %>
+      </h2>
       <table class="table table-nonfluid table-vertical-align-middle">
         <tbody>
-          <% @persons.each do |person| %>
+          <% @persons.includes(:user).each do |person| %>
             <tr>
               <td>
                 <%= render "shared/user_avatar", user: (person.user || User.new) %>
               </td>
               <td>
-                <span class="wca-id"><%= wca_highlight(person.wca_id, @omni_query) %></span>
+                <span class="wca-id"><%= wca_highlight(person.wca_id, query_parts) %></span>
               </td>
               <td>
-                <%= link_to "/results/p.php?i=#{person.wca_id}" do %>
-                  <%= wca_highlight(person.name, @omni_query) %>
+                <%= link_to person_path(person.wca_id) do %>
+                  <%= wca_highlight(person.name, query_parts) %>
                 <% end %>
               </td>
               <td>
@@ -55,32 +59,50 @@
           <% end %>
         </tbody>
       </table>
-      <%= will_paginate @persons, param_name: 'people_page', params: { anchor: "people" } %>
+      <%= paginate @persons, param_name: :people_page, params: { anchor: "people" } %>
     <% end %>
 
-    <% if !@posts.empty? %>
-      <h2><%= anchorable "Posts" %></h2>
+    <% if @posts.present? %>
+      <h2><%= anchorable t('.posts') %></h2>
       <% @posts.each do |post| %>
         <div>
           <%= link_to post_path(post.slug) do %>
-            <h4><%= wca_highlight(post.title, @omni_query) %></h4>
+            <h4><%= wca_highlight(post.title, query_parts) %></h4>
           <% end %>
           <blockquote>
-            <%= wca_excerpt(md(post.body), @omni_query) %>
+            <%= wca_excerpt(md(post.body), query_parts) %>
           </blockquote>
         </div>
       <% end %>
-      <%= will_paginate @posts, param_name: 'posts_page', params: { anchor: "posts" } %>
+      <%= paginate @posts, param_name: :posts_page, params: { anchor: "posts" } %>
+    <% end %>
+
+    <% if @regulations.present? %>
+      <h2><%= anchorable t('.regulations_and_guidelines') %></h2>
+      <% @regulations.each do |reg| %>
+        <div>
+          <%= link_to reg["url"] do %>
+            <h4><%= wca_highlight(reg["id"], query_parts) %></h4>
+          <% end %>
+          <blockquote>
+            <%= wca_highlight(reg["content_html"], query_parts) %>
+          </blockquote>
+        </div>
+      <% end %>
+      <%= paginate @regulations, param_name: :regulations_page, params: { anchor: "regulations-and-guidelines" } %>
     <% end %>
 
     <% if @competitions.empty? %>
-      <h2>No competitions found for <%= wca_highlight(@omni_query, @omni_query) %></h2>
+      <h2><%= t '.not_found.competitions' %> <%= wca_highlight(@omni_query, @omni_query) %></h2>
     <% end %>
     <% if @persons.empty? %>
-      <h2>No people found for <%= wca_highlight(@omni_query, @omni_query) %></h2>
+      <h2><%= t '.not_found.people' %> <%= wca_highlight(@omni_query, @omni_query) %></h2>
     <% end %>
     <% if @posts.empty? %>
-      <h2>No posts found for <%= wca_highlight(@omni_query, @omni_query) %></h2>
+      <h2><%= t '.not_found.posts' %> <%= wca_highlight(@omni_query, @omni_query) %></h2>
+    <% end %>
+    <% if @regulations.empty? %>
+      <h2><%= t '.not_found.regulations_and_guidelines' %> <%= wca_highlight(@omni_query, @omni_query) %></h2>
     <% end %>
   <% end %>
 </div>

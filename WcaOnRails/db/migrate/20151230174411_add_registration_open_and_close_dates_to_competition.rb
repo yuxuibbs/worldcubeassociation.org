@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddRegistrationOpenAndCloseDatesToCompetition < ActiveRecord::Migration
   def change
     reversible do |dir|

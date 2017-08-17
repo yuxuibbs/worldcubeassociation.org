@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
@@ -55,4 +57,11 @@ RSpec.configure do |config|
 
   # Make sign_in helper available in feature specs
   config.include SessionHelper, type: :feature
+
+  # Make sign_in helper available in controller specs
+  config.include ApiSignInControllerHelper, type: :controller
+
+  config.include ApplicationHelper
+
+  config.include ActiveJob::TestHelper
 end

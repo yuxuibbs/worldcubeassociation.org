@@ -5,8 +5,8 @@ group :production do
   # "rake secret".
   variable :SECRET_KEY_BASE
   variable :DATABASE_URL
-  variable :MANDRILL_USERNAME
-  variable :MANDRILL_PASSWORD
+  variable :SMTP_USERNAME
+  variable :SMTP_PASSWORD
 end
 
 # Set WCA_LIVE_SITE to enable Google Analytics
@@ -19,6 +19,8 @@ variable :WCA_LIVE_SITE, :boolean, default: false
 # defined (during rake tasks, for instance).
 if defined? Rails::Server
   default_root_url = "http://localhost:#{Rails::Server.new.options[:Port]}"
+elsif Rails.env.test?
+  default_root_url = "http://test.host"
 else
   default_root_url = ""
 end
@@ -27,3 +29,9 @@ variable :ROOT_URL, :string, default: default_root_url
 variable :RECAPTCHA_PUBLIC_KEY, :string, default: ''
 variable :RECAPTCHA_PRIVATE_KEY, :string, default: ''
 variable :NEW_RELIC_LICENSE_KEY, :string, default: ''
+
+variable :GOOGLE_MAPS_API_KEY, :string, default: 'AIzaSyCthnikDc6olZ2lftHfqb_nkRuRrqBp17w'
+variable :GITHUB_BOT_ACCESS_TOKEN, :string, default: ''
+variable :STRIPE_API_KEY, :string, default: 'sk_test_CY2eQJchZKUrPGQtJ3Z60ycA'
+variable :STRIPE_PUBLISHABLE_KEY, :string, default: 'pk_test_N0KdZIOedIrP8C4bD5XLUxOY'
+variable :STRIPE_CLIENT_ID, :string, default: 'ca_A2YDwmyOll0aORNYiOA41dzEWn4xIDS2'

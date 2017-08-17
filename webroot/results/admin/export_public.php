@@ -13,37 +13,38 @@ showChoices();
 if( $chosenExport ){
 
   exportPublic( array(
-    'Results'      => 'SELECT   competitionId, eventId, roundId, pos,
+    'Results'      => 'SELECT   competitionId, eventId, roundTypeId, pos,
                                 best, average,
-                                personName, personId, result.countryId AS personCountryId,
+                                personName, personId, countryId AS personCountryId,
                                 formatId, value1, value2, value3, value4, value5,
                                 regionalSingleRecord, regionalAverageRecord
-                       FROM     Results result, Competitions competition, Events event, Rounds round
-                       WHERE    competition.id=competitionId AND event.id=eventId AND round.id=roundId
-                       ORDER BY competition.year, competition.month, competition.day, competition.id,
-                                event.rank, round.rank, pos, average, best, personName',
+                       FROM     Results',
     'RanksSingle'  => 'SELECT personId, eventId, best, worldRank, continentRank, countryRank FROM RanksSingle',
     'RanksAverage' => 'SELECT personId, eventId, best, worldRank, continentRank, countryRank FROM RanksAverage',
-    'Rounds'       => '*',
+    'Rounds'       => 'SELECT "Sorry for changing the database schema again. Please sign up for https://groups.google.com/forum/#!forum/wca-software-public to receive updates about these sorts of things." as sorry_message',
+    'RoundTypes'   => '*',
     'Events'       => '*',
     'Formats'      => '*',
-    'Countries'    => '*',
+    # This should be set back to '*' after https://github.com/thewca/wca-workbook-assistant/pull/115
+    # is merged and released. Also see the change here: https://github.com/thewca/worldcubeassociation.org/pull/808
+    'Countries'    => 'SELECT id, name, continentId, 0 as latitude, 0 as longitude, 0 as zoom, iso2 FROM Countries',
     'Continents'   => '*',
     'Persons'      => 'SELECT id, subid, name, countryId, gender FROM Persons',
     # To maintain the database export format, we have to build up the
     # wcaDelegate and organiser fields by joining with the users,
     # competition_delegates, and competition_organizers tables.
     'Competitions' => 'SELECT Competitions.id, Competitions.name, Competitions.cityName, Competitions.countryId, Competitions.information, Competitions.year,
-                              Competitions.month, Competitions.day, Competitions.endMonth, Competitions.endDay, Competitions.eventSpecs,
+                              Competitions.month, Competitions.day, Competitions.endMonth, Competitions.endDay, replace(GROUP_CONCAT(DISTINCT competition_events.event_id), ",", " ") as eventSpecs,
                               GROUP_CONCAT(DISTINCT(CONCAT("[{", users_delegates.name, "}{mailto:", users_delegates.email, "}]")) SEPARATOR " ") as wcaDelegate,
                               GROUP_CONCAT(DISTINCT(CONCAT("[{", users_organizers.name, "}{mailto:", users_organizers.email, "}]")) SEPARATOR " ") as organiser,
                               Competitions.venue, Competitions.venueAddress,
-                              Competitions.venueDetails, Competitions.website, Competitions.cellName, Competitions.latitude, Competitions.longitude
+                              Competitions.venueDetails, Competitions.external_website, Competitions.cellName, Competitions.latitude, Competitions.longitude
                               FROM Competitions
+                              LEFT JOIN competition_events ON Competitions.id = competition_events.competition_id
                               LEFT JOIN competition_delegates ON Competitions.id=competition_delegates.competition_id LEFT JOIN users AS users_delegates ON users_delegates.id=competition_delegates.delegate_id
                               LEFT JOIN competition_organizers ON Competitions.id=competition_organizers.competition_id LEFT JOIN users AS users_organizers ON users_organizers.id=competition_organizers.organizer_id
                               WHERE Competitions.showAtAll=1
-                              GROUP BY competition_delegates.competition_id',
+                              GROUP BY Competitions.id',
     'Scrambles'   => '*',
   ) );
 }
@@ -154,6 +155,10 @@ function exportPublic ( $sources ) {
         echo '.';  # shows both Apache and the user that the script is doing stuff and not hanging
       }
     }
+    //Check if any errors while fetching data
+    if (($error = mysql_error()) !== '') {
+      die( '<p>An error occurred while fetching data.<br/>\n(' . $error . ')</p>\n' );
+    }
     //Check if any sql need to be exported
     if ($sqlInserts !== array()) {
       $sql = $sqlStart . "\n" . implode( ",\n", $sqlInserts ) . ";\n";
@@ -207,6 +212,8 @@ function exportPublic ( $sources ) {
   #--- Move new files to public directory
   echo '<p><b>Move new files to public directory</b></p>';
   mySystem( "mv $sqlZipFile $tsvZipFile ../../misc/" );
+  mySystem( "rm -rf ../../misc/WCA_export.sql.zip && ln -s $sqlZipFile ../../misc/WCA_export.sql.zip" );
+  mySystem( "rm -rf ../../misc/WCA_export.tsv.zip && ln -s $tsvZipFile ../../misc/WCA_export.tsv.zip" );
   mySystem( "mv export.html ../../misc/" );
 
   #------------------------------------------

@@ -12,20 +12,6 @@ tr.candidate-delegate {
   font-style: italic;
 }
 
-.avatar-thumbnail {
-  display: inline-block;
-  background-size: cover;
-  width: 50px;
-  height: 50px;
-
-  vertical-align: middle;
-
-  &.avatar-thumbnail-lg {
-    width: 100px;
-    height: 100px;
-  }
-}
-
 .popover-content img {
   max-width: 100%;
   max-height: 100%;
@@ -42,4 +28,40 @@ tr.candidate-delegate {
 
 #avatar_thumbnail {
   cursor: pointer;
+}
+
+.delegates-stats-table {
+  font-size: 13px;
+
+  .board_member {
+    @extend .alert-success;
+  }
+
+  .candidate_delegate {
+    @extend .alert-warning;
+  }
+
+  .senior_delegate {
+    @extend .alert-info;
+  }
+
+  .delegate {
+    max-width: 25%;
+  }
+
+  .position,
+  .region {
+    width: 15%;
+  }
+
+  .first,
+  .last {
+    width: 12%;
+    text-align: center;
+  }
+
+  .total {
+    width: 12%;
+    text-align: center;
+  }
 }

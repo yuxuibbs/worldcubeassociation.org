@@ -1,12 +1,19 @@
-<% if object.errors.any? %>
+<% if f.object&.errors&.any? %>
   <div id="error_explanation">
-    <div class="alert alert-danger">
-      The form contains <%= pluralize(object.errors.count, "error") %>:
+    <%= alert :danger do %>
+      <%= t 'wca.errors.messages.form_error', count: f.object.errors.count %>
       <ul>
-        <% object.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+        <% f.object.errors.each do |attribute, msg| %>
+          <li>
+            <% if f.generated_attribute_inputs&.include?(attribute) %>
+              <a href="#<%= f.id_for(attribute) %>"><strong><%= f.object.class.human_attribute_name(attribute) %></strong></a>
+            <% else %>
+              <strong><%= f.object.class.human_attribute_name(attribute) %></strong>
+            <% end %>
+            <%= msg %>
+        </li>
         <% end %>
       </ul>
-    </div>
+    <% end %>
   </div>
 <% end %>

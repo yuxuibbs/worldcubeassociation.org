@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 class RegulationsController < ApplicationController
   include HighVoltage::StaticPage
 
-  before_filter :ensure_trailing_slash
+  before_action :ensure_trailing_slash
 
   private def page_finder_factory
     IndexPageFinder
   end
 
   private def ensure_trailing_slash
-    desired_url = url_for(params.merge(trailing_slash: true))
+    desired_url = url_for(params.permit!.merge(trailing_slash: true))
     # url_for doesn't always add a trailing slash (it won't add a slash to
     # a url like example.com/index.html, for instance).
     # Only attempt to redirect if the current url does not match the one
@@ -26,7 +28,7 @@ end
 class IndexPageFinder < HighVoltage::PageFinder
   def find
     path = super
-    is_dir = Dir.exists? "app/views/#{path}"
+    is_dir = Dir.exist? "app/views/#{path}"
     if is_dir
       path = File.join(path, "index")
     end

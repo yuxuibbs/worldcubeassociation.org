@@ -14,23 +14,49 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-hover-dropdown
-//= require local_time
-//= require wice_grid
 //= require jquery.are-you-sure
 //= require locationpicker.jquery
-//= require underscore
 //= require selectize
 //= require selectize.do_not_clear_on_blur
 //= require jquery.jcrop
 //= require lodash
 //= require jquery.wca-autocomplete
-//= require jquery.floatThead-slim.js
+//= require jquery.floatThead.js
 //= require cocoon
 //= require moment
+//= require moment/cs.js
+//= require moment/de.js
+//= require moment/es.js
+//= require moment/fr.js
+//= require moment/it.js
+//= require moment/ja.js
+//= require moment/hu.js
+//= require moment/pl.js
+//= require moment/pt.js
+//= require moment/pt-br.js
+//= require moment/zh-cn.js
+//= require moment/zh-tw.js
+//= require moment/nl.js
+//= require moment/ru.js
+//= require moment/da.js
+//= require moment/hr.js
+//= require moment/sl.js
+//= require moment/sk.js
+//= require moment/ro.js
 //= require bootstrap-datetimepicker
-//= require pickers
+//= require bootstrap-table
+//= require extensions/bootstrap-table-mobile
+//= require autosize
+//= require jquery_plugins
+//= require autoNumeric
+//= require currencies-data
+//= require currencies
+//= require jquery.slick
 //= require_self
 //= require_tree .
+
+// Global variables
+var TEXT_INPUT_DEBOUNCE_MS = 250;
 
 
 // Dumping ground for... stuff
@@ -47,28 +73,150 @@ wca.cancelPendingAjaxAndAjax = function(id, options) {
   return wca._pendingAjaxById[id];
 };
 
+wca._googleMapsLoaded = false;
+wca._onGoogleMapsLoaded = function() {
+  wca._googleMapsLoaded = true;
+  wca._googleMapsLoadedListeners.forEach(function(listener) {
+    listener();
+  });
+  wca._googleMapsLoadedListeners = null;
+};
+wca._googleMapsLoadedListeners = [];
+wca.addGoogleMapsLoadedListener = function(listener) {
+  if(wca._googleMapsLoaded) {
+    listener();
+  } else {
+    wca._googleMapsLoadedListeners.push(listener);
+  }
+};
+
+wca.addCompetitionsToMap = function(map, competitions) {
+  competitions.forEach(function(c) {
+    if (c.is_probably_over) {
+      iconImage = 'https://maps.google.com/mapfiles/ms/icons/blue.png';
+    } else {
+      iconImage = 'https://maps.google.com/mapfiles/ms/icons/red.png';
+    }
+
+    c.marker = new google.maps.Marker({
+      map: map,
+      position: {
+        lat: c.latitude_degrees,
+        lng: c.longitude_degrees,
+      },
+      title: c.name,
+      icon: iconImage
+    });
+
+    c.marker.desc = "<a href=" + c.url + ">" + c.name + "</a><br />" + c.marker_date + " - " + c.cityName;
+
+    map.overlappingMarkerSpiderfier.addMarker(c.marker);
+  });
+};
+
+wca.createCompetitionsMap = function(element) {
+  var map = new google.maps.Map(element, {
+    zoom: 2,
+    center: { lat: 0, lng: 0 },
+  });
+
+  map.overlappingMarkerSpiderfier = new OverlappingMarkerSpiderfier(map);
+  var infowindow = new google.maps.InfoWindow();
+  map.overlappingMarkerSpiderfier.addListener('click', function(marker) {
+    infowindow.setContent(marker.desc);
+    infowindow.open(map, marker);
+  });
+
+  return map;
+};
+
+wca.removeMarkers = function(map) {
+  map.overlappingMarkerSpiderfier.getMarkers().forEach(function(marker) {
+    marker.setMap(null);
+  });
+  map.overlappingMarkerSpiderfier.clearMarkers();
+};
+
+wca.renderMarkdownRequest = function(markdownContent) {
+  return wca.cancelPendingAjaxAndAjax('render_markdown', {
+    url: '/render_markdown',
+    data: {
+      'markdown_content': markdownContent,
+    },
+  });
+};
+
+wca.stripHtmlTags = function(text) {
+  return $("<div/>").html(text).text();
+};
+
+wca.datetimepicker = function(){
+  // Copied (and modified by jfly) from
+  // https://github.com/zpaulovics/datetimepicker-rails
+  // We're using keepOpen: true here to allow the user to
+  // "change his mind" and select a different date without
+  // having to click outside and clicking on the input again.
+  $datetimepicker = $('.date_picker.form-control, .datetime_picker.form-control');
+  $datetimepicker.each(function() {
+    var $this = $(this);
+    var datetimepickerOptions = {
+      useStrict: true,
+      keepInvalid: true,
+      useCurrent: false,
+      keepOpen: true,
+      sideBySide: true,
+    };
+    if($this.attr("name") === "user[dob]") {
+      // Don't allow people to choose a birthdate in the future.
+      datetimepickerOptions.maxDate = new Date();
+    } else {
+      // Only show the today button if we're not using dealing with a birthdate,
+      // where the today button can't possibly work because today is after the maxDate
+      // for the datetimepicker.
+      datetimepickerOptions.showTodayButton = true;
+    }
+    $this.datetimepicker(datetimepickerOptions);
+  });
+
+  // Using 'blur' here, because 'change' or 'dp.change' is not fired every time
+  // (see https://github.com/thewca/worldcubeassociation.org/issues/376#issuecomment-180547289).
+  // Also, 'input' gets too annoying, because it flashes at every stroke until you have
+  // a valid date typed.
+  $datetimepicker.off('blur.wcaDateValidation').on('blur.wcaDateValidation', function() {
+    var $this = $(this);
+    var datetimepicker = $this.data("DateTimePicker");
+    var val = $this.val();
+    var valid = val === "" || moment(val, datetimepicker.format(), true).isValid();
+
+    if(valid) {
+      $this.parent().siblings('p').removeClass('alert alert-danger');
+      $this.removeClass('alert-danger');
+    } else {
+      $this.parent().siblings('p').addClass('alert alert-danger');
+      $this.parent().siblings('p').fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200);
+      $this.addClass('alert-danger');
+    }
+  });
+};
+
 $(function() {
   $('.dropdown-toggle').dropdownHover();
   $('form.are-you-sure').areYouSure();
 
-  // Copied (and modified by jfly) from
-  //  https://github.com/zpaulovics/datetimepicker-rails
-  $('.datetimepicker').datetimepicker({
-    showTodayButton: true,
-  });
+  wca.datetimepicker();
+
   $('.datetimerange').each(function() {
-    var $inputGroups = $(this).find('.input-group');
+    var $inputGroups = $(this).find('.date_picker.form-control');
     var $range1 = $inputGroups.eq(0);
     var $range2 = $inputGroups.eq(1);
 
     $range1.on("dp.change", function(e) {
-      var minDate = $range1.data("DateTimePicker").date() || false;
-      $range2.data("DateTimePicker").minDate(minDate);
-    }).trigger("dp.change");
-
-    $range2.on("dp.change", function(e) {
-      var maxDate = $range2.data("DateTimePicker").date() || false;
-      $range1.data("DateTimePicker").maxDate(maxDate);
+      var startDate = $range1.data("DateTimePicker").date() || false;
+      var endDate = $range2.data("DateTimePicker").date();
+      $range2.data("DateTimePicker").minDate(startDate);
+      if (startDate && (!endDate || endDate < startDate)) {
+        $range2.data("DateTimePicker").date(startDate);
+      }
     }).trigger("dp.change");
   });
 
@@ -76,16 +224,15 @@ $(function() {
   $('[data-toggle="popover"]').popover();
   $('input.wca-autocomplete').wcaAutocomplete();
 
+  // Activate currency masks for the relevant fields
+  $('input.wca-currency-mask').wcaSetupCurrencyMask();
+
   var $tablesToFloatHeaders = $('table.floatThead');
   $tablesToFloatHeaders.floatThead({
     zIndex: 999, // Allow bootstrap popups (z-index 1000) to show up on top.
-  });
-  // Workaround for https://github.com/mkoryak/floatThead/issues/263
-  $tablesToFloatHeaders.each(function() {
-    var $table = $(this);
-    $table.closest('.table-responsive').scroll(function(e) {
-      $table.floatThead('reflow');
-    });
+    responsiveContainer: function($table) {
+      return $table.closest(".table-responsive");
+    },
   });
 
   // After a popup actually occurs, there may be some images that need to load.
@@ -134,19 +281,100 @@ $(function() {
   });
 });
 
-// http://stackoverflow.com/a/5603156
-(function($) {
-  $.fn.serializeJSON = function() {
-    var json = {};
-    $.map($(this).serializeArray(), function(n, i) {
-      json[n.name] = n.value;
-    });
-    return json;
-  };
-})(jQuery);
-
 // Polyfill for Math.trunc from
 //  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc#Polyfill
 Math.trunc = Math.trunc || function(x) {
   return x < 0 ? Math.ceil(x) : Math.floor(x);
 };
+
+// Bootstrap-table default options
+$.extend($.fn.bootstrapTable.defaults, {
+  searchTimeOut: TEXT_INPUT_DEBOUNCE_MS,
+  trimOnSearch: false
+});
+
+// Setting up bootstrap-table
+$(function() {
+  $('table[data-toggle="table"]').addClass('bs-table');
+
+  // Hide loading box
+  $('.bs-table').bootstrapTable('hideLoading');
+
+  // It's not necessary when bootstrap-table will be distributed with this merged:
+  // https://github.com/wenzhixin/bootstrap-table/pull/2145
+  // (and the appropriate gem will be updated)
+  // -------------------------------------------------------------------
+  // Triggered when a sort arrow is clicked but before a table is sorted
+  $('table').on('sort.bs.table', function(e, name, order) {
+    // The table column that we are sorting by
+    var field = $(this).floatThead('getRowGroups').eq(0).find('th[data-field="' + name + '"] .sortable');
+    // If it's not the field we are currently sorting by
+    if(!field.is('.asc, .desc')) {
+      // Change the sort order that's set in data-order ('asc' by default)
+      var options = $(this).bootstrapTable('getOptions');
+      options.sortOrder = options.columns[0].find(function(option) { return option.field == name; }).order;
+      // Now the table will be sorted using the order that we set
+    }
+  });
+  // -------------------------------------------------------------------
+
+  // It's not necessary when bootstrap-table will be distributed with this issue solved:
+  // https://github.com/wenzhixin/bootstrap-table/issues/2154
+  // (and the appropriate gem will be updated)
+  // -------------------------------------------------------------------
+  // Prevent bootstrap-table from selecting a row when a link is clicked
+  $('.bs-table td a').on('click', function(e) {
+    e.stopPropagation();
+  });
+  // -------------------------------------------------------------------
+
+  // Set values of checkboxes in a table to corresponding rows ids
+  var initCheckboxesValues = function($table) {
+    $table.find('tr td input[type="checkbox"]').each(function(index) {
+      $(this).val($(this).parents('tr').attr('id'));
+    });
+  };
+  initCheckboxesValues($('.bs-table'));
+  $('table').on('post-body.bs.table', function() {
+    initCheckboxesValues($(this));
+    // Re-apply tooltip on each table body change
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+});
+
+// Setting up autosize
+$(function() {
+  autosize($('textarea:not(.no-autosize)'));
+});
+
+// Helpers
+
+// Executes the given function on the specified page/pages.
+// The given string should have a format: '<controller>#<action>'.
+// The action name preceded by '#' is optional.
+// Could be followed by comma and another pair.
+// Example: 'users#show, users#edit, users#update, competitions'.
+function onPage(controllersWithActions, fun) {
+  controllersWithActions = controllersWithActions.replace(/\s/g, '');
+  controllersWithActions = controllersWithActions.split(',');
+  controllersWithActions = controllersWithActions.map(function(controllerWithAction) { return controllerWithAction.split('#'); });
+  $(function() {
+    if (controllersWithActions.some(function(controllerWithAction) {
+      return controllerWithAction[0] === document.body.dataset.railsControllerName &&
+            (controllerWithAction[1] ? document.body.dataset.railsControllerActionName === controllerWithAction[1] : true);
+    })) {
+      fun();
+    }
+  });
+}
+
+$(function() {
+  $('.wca-local-time').each(function() {
+    var data = $(this).data();
+    var date = new Date(data.utcTime);
+    var formatted = new Intl.DateTimeFormat(data.locale, {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short'
+    }).format(date);
+    $(this).text(formatted);
+  });
+});

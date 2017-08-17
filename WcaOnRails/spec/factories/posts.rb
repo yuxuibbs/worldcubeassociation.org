@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :post do
     body { Faker::Lorem.paragraph }
@@ -5,6 +7,7 @@ FactoryGirl.define do
     slug { title.parameterize }
     sticky false
     world_readable true
+    show_on_homepage true
     author
 
     trait :sticky do

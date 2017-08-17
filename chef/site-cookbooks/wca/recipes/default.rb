@@ -2,11 +2,20 @@ require 'shellwords'
 require 'securerandom'
 
 include_recipe "wca::base"
-include_recipe "nodejs"
-
-unless node.chef_environment.include? "-noregs"
-  include_recipe "wca::regulations"
+apt_repository 'nodejs' do
+  uri 'https://deb.nodesource.com/node_7.x'
+  components ['trusty', 'main']
+  key 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
 end
+package 'nodejs'
+
+apt_repository 'yarn' do
+  uri 'https://dl.yarnpkg.com/debian/'
+  components ['stable', 'main']
+  key 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+end
+package 'yarn'
+
 
 secrets = WcaHelper.get_secrets(self)
 username, repo_root = WcaHelper.get_username_and_repo_root(self)
@@ -45,14 +54,10 @@ if username == "cubing"
   end
 
   ssh_known_hosts_entry 'github.com'
-  chef_env_to_branch = {
-    "staging" => "master",
-    "production" => "production",
-  }
   if !Dir.exists? repo_root
-    branch = chef_env_to_branch[node.chef_environment]
+    branch = "master"
     git repo_root do
-      repository "https://github.com/cubing/worldcubeassociation.org.git"
+      repository "https://github.com/thewca/worldcubeassociation.org.git"
       revision branch
       # See http://lists.opscode.com/sympa/arc/chef/2015-03/msg00308.html
       # for the reason for checkout_branch and "enable_checkout false"
@@ -70,36 +75,44 @@ rails_root = "#{repo_root}/WcaOnRails"
 
 
 #### Mysql
-mysql_service 'default' do
-  version '5.5'
-  initial_root_password secrets['mysql_password']
-  # Force default socket to make rails happy
-  socket "/var/run/mysqld/mysqld.sock"
-  action [:create, :start]
+db = {
+  'user' => 'root',
+}
+if node.chef_environment == "production"
+  # In production mode, we use Amazon RDS.
+  db['host'] = "worldcubeassociation-dot-org.comp2du1hpno.us-west-2.rds.amazonaws.com"
+  package 'mysql-client'
+else
+  # If not in production, then we run a local mysql instance.
+  socket = "/var/run/mysqld/mysqld.sock"
+  db['host'] = 'localhost'
+  db['socket'] = socket
+  mysql_service 'default' do
+    version '5.6'
+    initial_root_password secrets['mysql_password']
+    # Force default socket to make rails happy
+    socket socket
+    action [:create, :start]
+  end
+  mysql_config 'default' do
+    source 'mysql-wca.cnf.erb'
+    notifies :restart, 'mysql_service[default]'
+    action :create
+  end
 end
-mysql_config 'default' do
-  source 'mysql-wca.cnf.erb'
-  notifies :restart, 'mysql_service[default]'
-  action :create
-end
+db_url = "mysql2://#{db['user']}:#{secrets['mysql_password']}@#{db['host']}/cubing"
+
 template "/etc/my.cnf" do
   source "my.cnf.erb"
   mode 0644
   owner 'root'
   group 'root'
   variables({
-    secrets: secrets
+    secrets: secrets,
+    db: db,
   })
 end
 
-
-#### Global logrotate rules
-WCA_LOGROTATE_FREQUENCY = 'daily'
-# Make sure the log files stay under 512 MB, but don't bother
-# rotating if they haven't grown that large.
-WCA_LOGROTATE_MAXSIZE = 512*1024*1024
-WCA_LOGROTATE_SIZE = 512*1024*1024
-WCA_LOGROTATE_ROTATE = 5
 
 #### Ruby and Rails
 # Install native dependencies for gems
@@ -109,34 +122,36 @@ package 'g++'
 package 'libmysqlclient-dev'
 package 'imagemagick'
 
-# We need PhantomJS 2.0 to run some of our tests
-remote_file '/usr/bin/phantomjs' do
-  source 'http://github.com/Pyppe/phantomjs2.0-ubuntu14.04x64/raw/master/bin/phantomjs'
-  owner 'root'
-  group 'root'
-  mode '0777'
-  action :create_if_missing
-end
-
-node.default['brightbox-ruby']['version'] = "2.2"
+ruby_version = File.read("#{repo_root}/WcaOnRails/.ruby-version").match(/\d+\.\d+/)[0]
+node.default['brightbox-ruby']['version'] = ruby_version
 include_recipe "brightbox-ruby"
-gem_package "rails" do
-  version "4.2.1"
-end
 chef_env_to_rails_env = {
   "development" => "development",
-  "development-noregs" => "development",
   "staging" => "production",
   "production" => "production",
 }
 rails_env = chef_env_to_rails_env[node.chef_environment]
 
+LOGROTATE_OPTIONS = ['nodelaycompress', 'compress']
+
 logrotate_app 'rails-wca' do
-  frequency WCA_LOGROTATE_FREQUENCY
-  maxsize WCA_LOGROTATE_MAXSIZE
-  size WCA_LOGROTATE_SIZE
-  rotate WCA_LOGROTATE_ROTATE
   path "#{repo_root}/WcaOnRails/log/production.log"
+  size "512M"
+  maxage 90
+  options LOGROTATE_OPTIONS
+
+  postrotate "[ ! -f #{repo_root}/WcaOnRails/pids/unicorn.pid ] || kill -USR1 `cat #{repo_root}/WcaOnRails/pids/unicorn.pid`"
+end
+
+logrotate_app 'delayed_job-wca' do
+  path "#{repo_root}/WcaOnRails/log/delayed_job.log"
+  size "512M"
+  maxage 30
+  options LOGROTATE_OPTIONS
+
+  # According to https://groups.google.com/forum/#!topic/railsmachine-moonshine/vrfNwrqmzOA,
+  # it looks like we have to restart delayed job after logrotate.
+  postrotate "#{repo_root}/scripts/deploy.sh restart_dj"
 end
 
 # Run mailcatcher in every environment except production.
@@ -170,9 +185,9 @@ bash "build nginx" do
   code <<-EOH
     set -e # exit on error
     cd /tmp
-    wget http://nginx.org/download/nginx-1.8.0.tar.gz
-    tar xvf nginx-1.8.0.tar.gz
-    cd nginx-1.8.0
+    wget http://nginx.org/download/nginx-1.11.8.tar.gz
+    tar xvf nginx-1.11.8.tar.gz
+    cd nginx-1.11.8
     ./configure --sbin-path=/usr/local/sbin --with-http_ssl_module --with-http_auth_request_module --with-http_gzip_static_module --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log
     make
     sudo make install
@@ -210,14 +225,15 @@ directory "/etc/nginx/conf.d" do
   group 'root'
 end
 logrotate_app 'nginx-wca' do
-  frequency WCA_LOGROTATE_FREQUENCY
-  maxsize WCA_LOGROTATE_MAXSIZE
-  size WCA_LOGROTATE_SIZE
-  rotate WCA_LOGROTATE_ROTATE
   path "/var/log/nginx/*.log"
+  size "512M"
+  maxage 30
+  options LOGROTATE_OPTIONS
+
+  postrotate "[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`"
 end
 
-server_name = { "production" => "www.worldcubeassociation.org", "staging" => "staging.worldcubeassociation.org", "development" => "", "development-noregs" => "" }[node.chef_environment]
+server_name = { "production" => "www.worldcubeassociation.org", "staging" => "staging.worldcubeassociation.org", "development" => "" }[node.chef_environment]
 template "/etc/nginx/conf.d/worldcubeassociation.org.conf" do
   source "worldcubeassociation.org.conf.erb"
   mode 0644
@@ -263,7 +279,6 @@ end
 
 
 #### Rails secrets
-db_url = "mysql2://root:#{secrets['mysql_password']}@localhost/cubing"
 template "#{rails_root}/.env.production" do
   source "env.production.erb"
   mode 0644
@@ -272,6 +287,15 @@ template "#{rails_root}/.env.production" do
   variables({
     secrets: secrets,
     db_url: db_url,
+  })
+end
+
+#### phpMyAdmin
+template "#{repo_root}/webroot/results/admin/phpMyAdmin/config.inc.php" do
+  source "phpMyAdmin_config.inc.php.erb"
+  variables({
+    secrets: secrets,
+    db: db,
   })
 end
 
@@ -319,16 +343,19 @@ template "#{repo_root}/webroot/results/includes/_config.php" do
   group username
   variables({
     secrets: secrets,
+    db: db,
   })
 end
 
 #### Initialize rails gems/database
-execute "bundle install --without none" do
+execute "bundle install #{'--deployment --without development test' if rails_env == 'production'} --path /home/#{username}/.bundle" do
+  user username
   cwd rails_root
   environment({
     "RACK_ENV" => rails_env,
   })
 end
+
 if node.chef_environment.start_with?("development")
   db_setup_lockfile = '/tmp/rake-db-setup-run'
   execute "bundle exec rake db:setup" do
@@ -342,9 +369,19 @@ if node.chef_environment.start_with?("development")
   file db_setup_lockfile do
     action :create_if_missing
   end
-else
-  db_dump_folder = "#{repo_root}/secrets/wca_db"
-  execute "#{repo_root}/scripts/db.sh import #{db_dump_folder}"
+elsif node.chef_environment == "staging"
+  db_setup_lockfile = '/tmp/db-development-loaded'
+  execute "bundle exec rake db:load:development" do
+    cwd rails_root
+    environment({
+      "DATABASE_URL" => db_url,
+      "RACK_ENV" => rails_env,
+    })
+    not_if { ::File.exists?(db_setup_lockfile) }
+  end
+  file db_setup_lockfile do
+    action :create_if_missing
+  end
 end
 
 #### Screen

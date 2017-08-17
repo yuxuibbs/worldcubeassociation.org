@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copied from https://github.com/doorkeeper-gem/doorkeeper/wiki/Associate-users-to-OAuth-applications-%28ownership%29#controllers
 class Oauth::ApplicationsController < ApplicationController
   before_action :authenticate_user!
@@ -51,5 +53,4 @@ class Oauth::ApplicationsController < ApplicationController
   private def application_params
     params.require(:doorkeeper_application).permit(:name, :redirect_uri, :scopes)
   end
-
 end

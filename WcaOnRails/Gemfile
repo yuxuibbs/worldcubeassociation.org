@@ -1,58 +1,81 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+# From https://github.com/bundler/bundler/issues/4978#issuecomment-272248627
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'rails'
+gem 'rails-i18n'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'therubyracer'
 
 gem 'sdoc', group: :doc
-gem 'dotenv-rails', :require => 'dotenv/rails-now'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'envied'
 gem 'seedbank'
-
 gem 'jquery-rails'
 gem 'jbuilder'
 gem 'bootstrap-sass'
 gem 'mail_form'
 gem 'simple_form'
 gem 'valid_email'
-gem 'recaptcha', :require => 'recaptcha/rails'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-gem 'local_time'
+gem 'recaptcha', require: 'recaptcha/rails'
+gem 'kaminari'
+gem 'kaminari-i18n'
 gem 'devise'
 gem 'devise-bootstrap-views'
 gem 'doorkeeper'
-gem 'wice_grid'
+gem 'doorkeeper-i18n'
 gem 'strip_attributes'
 gem 'time_will_tell'
-gem 'redcarpet', '~> 3.3'
-gem 'underscore-rails'
+gem 'redcarpet'
+gem 'world-flags', github: 'world-flags/world-flags'
+gem 'bootstrap-table-rails'
+gem 'money-rails'
+gem 'octokit'
+gem 'stripe'
+gem 'oauth2'
 
-# Pointing to jfly/carrierwave-crop which has a workaround for
-#  https://github.com/brianreavis/selectize.js/issues/953
-gem 'selectize-rails', git: "git://github.com/jfly/selectize-rails.git"
+# Pointing to jfly/selectize-rails which has a workaround for
+#  https://github.com/selectize/selectize.js/issues/953
+gem 'selectize-rails', github: 'jfly/selectize-rails'
 
 gem 'high_voltage'
 gem 'carrierwave'
 
 # Pointing to jfly/carrierwave-crop which has a workaround for
 #  https://github.com/kirtithorat/carrierwave-crop/issues/17
-gem 'carrierwave-crop', git: "git://github.com/jfly/carrierwave-crop.git"
+gem 'carrierwave-crop', github: 'jfly/carrierwave-crop'
 
 gem 'mini_magick'
-gem 'system'
 gem 'mysql2'
 gem 'premailer-rails'
 gem 'nokogiri'
 gem 'font-awesome-sass'
 gem 'lodash-rails'
 gem 'cocoon'
-gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
+gem 'momentjs-rails', github: 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
-gem 'table-for'
 gem 'blocks'
+gem 'rack-cors', require: 'rack/cors'
+gem 'api-pagination'
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'i18n-country-translations'
+gem 'http_accept_language'
+gem 'twitter_cldr'
+gem 'jquery-slick-rails'
+gem 'webpacker'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-autosize'
+  gem 'rails-assets-autoNumeric'
+end
 
 group :development, :test do
   gem 'spring'
@@ -60,18 +83,22 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'poltergeist'
   gem 'capybara-screenshot'
 
   gem 'byebug'
-  gem 'web-console'
+  gem 'i18n-tasks'
+  gem 'i18n-spec'
 end
 
 group :development do
-  gem 'pre-commit'
+  gem 'pre-commit', require: false
+  gem 'rubocop', require: false
   gem 'scss_lint', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'web-console'
+  gem 'foreman'
 end
 
 group :test do
@@ -81,11 +108,9 @@ group :test do
   gem 'capybara'
   gem 'oga' # XML parsing library introduced for testing RSS feed
   gem 'database_cleaner'
-
-  # Rails 4 apparently doesn't run after_commit handlers in tests. We need
-  # to test carrierwave's file deletion code, which runs inside of an
-  # after_commit callback, so we have this gem to get it to run in tests.
-  gem 'test_after_commit'
+  gem 'rails-controller-testing'
+  gem 'poltergeist'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
 end
 
 group :production do

@@ -19,46 +19,130 @@ table.table {
   tfoot {
     font-weight: bold;
   }
+
+  // Styling bootstrap sortable table
+  th {
+    &:focus {
+      outline: none;
+    }
+    .sortable {
+      &:hover {
+        cursor: pointer;
+      }
+      &::after {
+        font-family: FontAwesome;
+        content: $fa-var-sort;
+        margin-left: 5px;
+      }
+      &.asc::after {
+        content: $fa-var-sort-asc;
+        color: $blue;
+      }
+      &.desc::after {
+        content: $fa-var-sort-desc;
+        color: $blue;
+      }
+    }
+  }
+}
+
+.avatar-thumbnail {
+  display: inline-block;
+  vertical-align: middle;
+
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+
+  &.avatar-thumbnail-lg {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 .wca-user {
-  white-space: nowrap;
-
+  .info {
+    display: inline-block;
+    vertical-align: middle;
+  }
   .avatar-thumbnail {
-    // Put thumbnail to the left of both name and wca-id.
-    float: left;
     margin-right: 5px;
   }
   .name {
+    white-space: nowrap;
   }
   .wca-id {
-    // Put wca-id on a new line.
-    display: block;
   }
 }
 
-form .event-checkbox .cubing-icon {
-  font-size: 2em;
+.wca-user-link:hover,
+.wca-user-link:focus {
+  text-decoration: none;
+  .info {
+    text-decoration: underline;
+  }
 }
 
-form .event-checkbox-sm .cubing-icon {
+.event-checkbox-sm .cubing-icon {
   font-size: 1em;
 }
 
-table.wca-results {
-  thead tr th {
-    white-space: nowrap;
+table.table-greedy-last-column {
+  white-space: nowrap;
 
-    &:last-child {
-      width: 100%;
+  > thead > tr > th:last-child {
+    width: 100%;
+  }
+  > tbody > tr > td:last-child {
+    width: 100%;
+  }
+}
+
+
+table.with-solves {
+  thead tr th {
+    &.solves {
+      text-align: center;
     }
-    &.position {
+  }
+  tbody tr td {
+    &.solve, {
+      text-align: right;
+      &::before {
+        content: '(';
+        opacity: 0;
+      }
+      &::after {
+        content: ')';
+        opacity: 0;
+      }
+      &.trimmed {
+        &::before {
+          opacity: 1;
+        }
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+table.wca-results {
+  @extend table.with-solves;
+
+  thead tr th {
+    &.pos {
+      text-align: right;
     }
     &.name {
     }
     &.wca-id {
     }
-    &.countryId {
+    &.country {
+    }
+    &.event-count {
+      text-align: right;
     }
     &.average {
       text-align: right;
@@ -74,22 +158,26 @@ table.wca-results {
     }
   }
   tbody tr td {
-    &:last-child {
-      width: 100%;
+    padding: 3px 5px;
+    &.event {
     }
-    &.position {
+    &.pos {
+      text-align: right;
       &.tied-previous {
         @extend .text-muted;
       }
     }
+    &.round {
+    }
     &.name {
-      white-space: nowrap;
     }
     &.wca-id {
       vertical-align: middle;
     }
-    &.countryId {
-      white-space: nowrap;
+    &.country {
+    }
+    &.event-count {
+      text-align: right;
     }
     &.average {
       text-align: right;
@@ -105,16 +193,16 @@ table.wca-results {
     }
   }
 
-  &.wca-results-sort-by-average {
-    .average,
-    .world-rank-average {
+  tbody tr.sort-by-average td {
+    &.average,
+    &.world-rank-average {
       font-weight: bold;
     }
   }
 
-  &.wca-results-sort-by-single {
-    .single,
-    .world-rank-single {
+  tbody tr.sort-by-single td {
+    &.single,
+    &.world-rank-single {
       font-weight: bold;
     }
   }
@@ -153,4 +241,122 @@ table.wca-results {
 // Workaround for funky style from bootstrap-datepicker-rails
 .input-group.date .input-group-addon {
   cursor: initial;
+}
+
+// We need this because input-group will only style its childs correctly
+// if there are at least two of them. Having an empty UTC addon looks
+// weird, and having the input not inside of an input-group div will
+// cause the picker to be aligned weirdly. The input needs to be inside
+// of something with position: relative. This can go away once we have a
+// newer version of the datepicker, which uses allowInputToggle.
+.input-group.date.datetimepicker {
+  width: 100%;
+}
+
+.form-group {
+  .input-group {
+    input.date_picker {
+      border-radius: 4px;
+      width: 100%;
+    }
+  }
+}
+
+// Add a border to .tab-pane to line up nicely with corresponding .nav-tabs.
+// Note, we only want to do this on screensizes where the nav buttons have not
+// yet collapsed.
+.tab-pane {
+  margin-bottom: 10px;
+
+  @media (min-width: $screen-sm) {
+    border: 1px solid #{$nav-tabs-border-color};
+    border-top: 0;
+    padding: 10px;
+  }
+}
+
+
+.f16.flag {
+  vertical-align: middle;
+
+  // Set flag imitations for competitions taking place in multiple countries.
+  &.xe,
+  &.xa,
+  &.xs {
+    background-image: none;
+    display: inline-block;
+    top: 1px;
+    width: 16px;
+    height: 12px;
+    background-color: white;
+    border-radius: 2px;
+  }
+  &.xe {
+    border: 1px solid $blue;
+  }
+  &.xa {
+    border: 1px solid yellow;
+  }
+  &.xs {
+    border: 1px solid red;
+  }
+}
+
+// Textarea resizes dynamically, so changing its size manually is no longer necessary.
+textarea {
+  resize: none;
+}
+
+// Style for event pickers
+.event-checkbox,
+.event-radio {
+  .cubing-icon {
+    font-size: 2em;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+  input[type=checkbox],
+  input[type=radio] {
+    display: none;
+    + span.cubing-icon {
+      color: #ccc;
+    }
+    &:checked + span.cubing-icon {
+      color: black;
+    }
+  }
+
+  &:not(.disabled) {
+    label {
+      cursor: pointer;
+    }
+  }
+}
+
+// _associated_events_picker.html.erb specific styles
+.form-horizontal {
+  .associated-events-label {
+    @extend .col-sm-2, .control-label;
+  }
+
+  .associated-events {
+    @extend .col-sm-9;
+  }
+}
+
+.CodeMirror,
+.CodeMirror-scroll {
+  min-height: 50px;
+}
+
+
+.bs-table-query-fields {
+  margin: 15px 0;
+}
+
+a.plain {
+  color: inherit;
+  text-decoration: none;
 }

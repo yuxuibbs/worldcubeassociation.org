@@ -1,0 +1,176 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Exclude:
+    - 'node_modules/**/*'
+    - 'bin/webpack-dev-server'
+    - 'bin/webpack'
+    - 'bin/yarn'
+    - 'vendor/**/*'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/StringLiterals:
+  # EnforcedStyle: double_quotes
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  # If `comma`, the cop requires a comma after the last argument, but only for
+  # parenthesized method calls where each argument is on its own line.
+  # If `consistent_comma`, the cop requires a comma after the last argument,
+  # for all parenthesized method calls with arguments.
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
+  # If `comma`, the cop requires a comma after the last item in an array or
+  # hash, but only when each item is on its own line.
+  # If `consistent_comma`, the cop requires a comma after the last item of all
+  # non-empty array and hash literals.
+  EnforcedStyleForMultiline: comma
+
+Style/GuardClause:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 23
+
+Metrics/ParameterLists:
+  Max: 5
+  CountKeywordArgs: false
+
+Metrics/PerceivedComplexity:
+  Max: 25
+
+Metrics/LineLength:
+  Max: 245
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Performance/RedundantMatch:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+Style/IfInsideElse:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/InverseMethods:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/NegatedIf:
+  Enabled: false
+
+Style/Next:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/PerlBackrefs:
+  Enabled: false
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+Layout/SpaceAroundOperators:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Style/YodaCondition:
+  Enabled: false

@@ -1,7 +1,19 @@
-require 'file_size_validator'
+# frozen_string_literal: true
 
 class AvatarUploaderBase < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+
+  # Copied from https://makandracards.com/makandra/12323-carrierwave-auto-rotate-tagged-jpegs.
+  process :auto_orient
+  def auto_orient
+    manipulate! do |image|
+      image.tap(&:auto_orient)
+    end
+  end
+
+  def self.missing_avatar_thumb_url
+    @@missing_avatar_thumb_url ||= ActionController::Base.helpers.asset_url("missing_avatar_thumb.png", host: ENVied.ROOT_URL).freeze
+  end
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -29,7 +41,7 @@ class AvatarUploaderBase < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url
-    ActionController::Base.helpers.asset_path("missing_avatar_thumb.png")
+    AvatarUploaderBase.missing_avatar_thumb_url
   end
 
   # Create different versions of your uploaded files:
@@ -48,9 +60,9 @@ class AvatarUploaderBase < CarrierWave::Uploader::Base
   def filename
     if original_filename
       # This is pretty gross. We only want to reuse the existing filename if
-      # a new avatar isn't being uploaded, we look at the *_change attribute to
+      # a new avatar isn't being uploaded, we look at the saved_change_to_* attribute to
       # determine if that happened.
-      if model && model.read_attribute(mounted_as).present? && !model.send(:"#{mounted_as}_change")
+      if model && model.read_attribute(mounted_as).present? && !model.send(:"saved_change_to_#{mounted_as}?")
         model.read_attribute(mounted_as)
       else
         # new filename
@@ -61,7 +73,7 @@ class AvatarUploaderBase < CarrierWave::Uploader::Base
 
   def timestamp
     var = :"@#{mounted_as}_timestamp"
-    model.instance_variable_get(var) or model.instance_variable_set(var, Time.now.to_i)
+    model.instance_variable_get(var) || model.instance_variable_set(var, Time.now.to_i)
   end
 end
 

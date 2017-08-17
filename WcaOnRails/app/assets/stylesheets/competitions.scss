@@ -30,6 +30,10 @@ $competition-nav-padding: 50px;
     .list-group-item a.active {
       color: $list-group-active-bg;
     }
+
+    .list-group-item a:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -49,41 +53,9 @@ $competition-nav-padding: 50px;
 
 }
 
-// Workaround for https://github.com/cubing/icons/issues/8
-.cubing-icon.icon-mmagic::before {
-  content: 'mmagic';
-}
-.cubing-icon.icon-magic::before {
-  content: 'magic';
-}
-.cubing-icon.icon-333mbo::before {
-  content: '333mbo';
-}
-
 // Workaround for https://github.com/cubing/icons/issues/16
 .cubing-icon.fa-fw {
   display: inline-block;
-}
-
-.event-checkbox {
-  label {
-    margin-bottom: 0;
-  }
-  input[type=checkbox] {
-    display: none;
-    + span.cubing-icon {
-      color: #ccc;
-    }
-    &:checked + span.cubing-icon {
-      color: black;
-    }
-  }
-
-  &:not(.disabled) {
-    label {
-      cursor: pointer;
-    }
-  }
 }
 
 $venue-map-wrapper-height: 400px;
@@ -149,4 +121,269 @@ $venue-map-wrapper-height: 400px;
 
 .big-column {
   width: 100%;
+}
+
+#competition-query-form {
+  width: 100%;
+  margin: 20px 0;
+
+  #region,
+  #search-field {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+  }
+
+  .custom-control {
+    width: 100px;
+    @media (max-width: $screen-sm) {
+      display: inline-block;
+    }
+  }
+
+  #clear-all-events,
+  #select-all-events {
+    width: 100px;
+  }
+
+  #state {
+    min-width: 220px;
+    display: block;
+    @media (max-width: $screen-sm) {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  #display {
+    margin-top: 20px;
+  }
+
+  .admin-selectors {
+    display: none;
+  }
+
+  &.admin .admin-selectors {
+    display: inline-block;
+  }
+
+  .delegate-selector {
+    display: inline-block;
+    width: 300px;
+  }
+}
+
+.same-line {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+#search-results {
+  position: relative;
+
+  #loading {
+    display: none;
+    position: absolute;
+    margin: 0 15px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: transparentize(white, 0.5);
+    .spinner-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.competitions-list #loading .spinner-wrapper {
+    top: 30px;
+  }
+
+  &.competitions-list #competitions-map,
+  &.competitions-admin #competitions-map {
+    display: none;
+  }
+
+  &.competitions-map #competitions-list,
+  &.competitions-map #competitions-admin {
+    display: none;
+  }
+
+  #competitions-list {
+
+    li:nth-child(odd) {
+      background-color: $table-bg-accent;
+    }
+
+    li {
+      padding: 5px 10px;
+      font-size: 13px;
+
+      &.break {
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    .date {
+      float: right;
+      font-weight: bold;
+      i {
+        float: left;
+        margin-right: 10px;
+      }
+    }
+
+    .f16.flag {
+      position: relative;
+      top: -1px;
+      margin-right: 5px;
+    }
+
+    .location {
+      display: inline;
+    }
+
+    .venue-link {
+      display: inline;
+
+      p {
+        display: inline;
+      }
+    }
+
+    @media (min-width: $screen-sm) {
+      .competition-link {
+        display: inline-block;
+        margin-right: 20px;
+        /* As of 2016-03-25, this width fits about 93% of the competition names */
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: bottom;
+      }
+
+      .location {
+        margin-left: 20px;
+      }
+    }
+
+    @media (min-width: $screen-lg) {
+      p {
+        display: inline;
+        margin-right: 20px;
+      }
+
+      .date {
+        float: inherit;
+        margin-right: 20px;
+        min-width: 180px;
+        text-align: left;
+        display: inline-block;
+      }
+
+      .competition-link {
+        margin-left: 20px;
+      }
+
+      .location {
+        margin-left: 20px;
+      }
+
+      .venue-link {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+.competition-info {
+  p {
+    margin: 0;
+  }
+
+  dd p {
+    margin-bottom: 0;
+  }
+
+  dd.competition-events-list {
+    font-size: 1.5em;
+  }
+}
+
+.anchor {
+  display: block;
+  height: 40px;
+  margin-top: -40px;
+  visibility: hidden;
+}
+
+#competition-tabs .tab-pane {
+  border: 0;
+  &:target {
+    background-color: inherit;
+  }
+}
+
+table.admin-competitions {
+  font-size: 13px;
+
+  tr.admin-table-header {
+    background-color: #ccc;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  .admin-delegate {
+    width: 230px;
+    vertical-align: middle;
+  }
+
+  .admin-date {
+    width: 130px;
+    max-width: 130px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  .admin-button {
+    width: 50px;
+  }
+}
+
+.alert-orange {
+  @extend .alert-warning;
+  background-color: $orange-bg;
+}
+
+.alert-green {
+  @extend .alert-success;
+  background-color: $green;
+}
+
+.toggle-body {
+  font-weight: normal;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#status {
+  display: block;
+}
+
+#competition-form {
+  .championships .nested-fields {
+    .championship-type {
+      display: inline-block;
+      width: auto;
+    }
+  }
 }

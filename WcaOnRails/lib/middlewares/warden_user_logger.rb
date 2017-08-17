@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Middlewares
   class WardenUserLogger
     def initialize(app, logger:)
@@ -7,8 +9,11 @@ module Middlewares
 
     def call(env)
       warden_user = env['warden'].user
-      response = @app.call(env)
-      @logger.call "[User Id] Request was made by user id: #{warden_user ? warden_user.id : "<not logged in>"}"
+      begin
+        response = @app.call(env)
+      ensure
+        @logger.call "[User Id] Request was made by user id: #{warden_user ? warden_user.id : "<not logged in>"}"
+      end
       response
     end
   end

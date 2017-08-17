@@ -1,119 +1,110 @@
-<% provide(:title, "Register for #{@competition.name}") %>
+<% provide(:title, I18n.t('registrations.new_registration.title', comp: @competition.name)) %>
 
 <%= render layout: "nav" do %>
-  <% if !@competition.registration_opened? %>
-    <% if @competition.registration_not_yet_opened? %>
-      <div class="alert alert-info">
-        Registration will open in <strong><%= distance_of_time_in_words_to_now(@competition.registration_open) %></strong> on <%= wca_local_time(@competition.registration_open) %>.
-      </div>
-    <% end %>
-    <% if @competition.registration_past? %>
-      <div class="alert alert-danger">
-        Registration closed <strong><%= distance_of_time_in_words_to_now(@competition.registration_close) %></strong> ago on <%= wca_local_time(@competition.registration_close) %>.
-      </div>
-    <% end %>
-  <% else %>
-    <div class="alert alert-info">
-      Registration closes in <strong><%= distance_of_time_in_words_to_now(@competition.registration_close) %></strong> on <%= wca_local_time(@competition.registration_close) %>.
-    </div>
+
+  <% opens_in_days = distance_of_time_in_words_to_now(@competition.registration_open) %>
+  <% closes_in_days = distance_of_time_in_words_to_now(@competition.registration_close) %>
+
+  <% if @competition.registration_not_yet_opened? %>
+    <%= alert :info, t('registrations.will_open_html', days: opens_in_days, time: wca_local_time(@competition.registration_open)) %>
+  <%# Don't show this alert if we're showing the registration's details: this message is included in it! %>
+  <% elsif @competition.registration_past? && !@registration&.show_details? %>
+    <%= alert :danger, t('registrations.closed_html', days: closes_in_days, time: wca_local_time(@competition.registration_close)) %>
   <% end %>
 
-  <% if !current_user %>
-    <% if @competition.registration_past? %>
-      <%= link_to "Sign in", competition_register_require_sign_in_path(@competition) %> to check the status of
-      your registration. If you do not yet have a WCA account, you
-      can create one <%= link_to "here", new_user_registration_path, target: "_blank" %>, but it
-      is too late to register for this competition.
-    <% elsif @competition.registration_not_yet_opened? %>
-      <%= link_to "Sign in", competition_register_require_sign_in_path(@competition) %> to check the status of
-      your registration. If you do not yet have a WCA account, you
-      can create one <%= link_to "here", new_user_registration_path, target: "_blank" %>, but it
-      registration is not yet open.
-    <% else %>
-      <%= link_to "Sign in", competition_register_require_sign_in_path(@competition) %> to register for
-      <%= @competition.name %>. If you do not yet have a WCA account, you
-      can create one <%= link_to "here", new_user_registration_path, target: "_blank" %>.
+  <% unless current_user %>
+    <%= alert :info do %>
+      <% if @competition.registration_past? %>
+        <% # i18n-tasks-use t('registrations.please_sign_in_past_html') %>
+        <%= please_sign_in('registrations.please_sign_in_past_html', @competition) %>
+      <% elsif @competition.registration_not_yet_opened? %>
+        <% # i18n-tasks-use t('registrations.please_sign_in_not_yet_open_html') %>
+        <%= please_sign_in('registrations.please_sign_in_not_yet_open_html', @competition) %>
+      <% else %>
+        <% # i18n-tasks-use t('registrations.please_sign_in_html') %>
+        <%= please_sign_in('registrations.please_sign_in_html', @competition, comp: @competition.name) %>
+      <% end %>
     <% end %>
   <% else %>
+    <% user_may_register = current_user.cannot_register_for_competition_reasons.length == 0 %>
+    <% if @registration.show_details? %>
+      <p><%= t 'registrations.greeting', name: current_user.name %></p>
+    <% end %>
 
-    <% if @competition.registration_opened? %>
+    <% if !@registration.new_or_deleted? %>
       <p>
-        Hi, <%= current_user.name %>!
+        <%= t 'registrations.have_registered', comp: @competition.name %>
       </p>
 
-      <% if current_user.cannot_register_for_competition_reasons.length > 0 %>
-        <div class="alert alert-danger">
-          In order to register for this <%= @competition.name %>,
-          you must fix the following problems with your
-          <%= link_to "profile", profile_edit_path %>:
+      <% if !current_user.can_edit_registration?(@registration) %>
+        <%= t 'registrations.contact_organizer' %>
+      <% end %>
+      <hr/>
+    <% elsif @competition.registration_opened? %>
+      <% unless user_may_register %>
+        <%= alert :danger do %>
+          <%= t 'registrations.please_fix_profile_html', comp: @competition.name,
+                profile: link_to(t('registrations.profile'), profile_edit_path) %>
           <ul>
             <% current_user.cannot_register_for_competition_reasons.each do |reason| %>
               <li><%= reason %></li>
             <% end %>
           </ul>
-        </div>
-      <% else %>
-        <div>
-          <% if @registration.new_record? %>
-            You can register for <%= @competition.name %> below.
-          <% else %>
-            You have registered for <%= @competition.name %>.
-            You can see your registration information below.
-            <%# TODO - see https://github.com/cubing/worldcubeassociation.org/issues/269 %>
-            Contact the organizer if you wish to make a change.
-
-            <% if @registration.pending? %>
-              <div class="alert alert-warning">
-                <% waiting_list_info = @registration.waiting_list_info %>
-                You are currently number <%= waiting_list_info.index + 1 %> of <%= waiting_list_info.length %> on the waiting list.
-              </div>
-            <% else %>
-              <div class="alert alert-success">
-                Your registration has been accepted!
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-
-        <%= simple_form_for @registration, url: competition_registrations_path(@competition.id), html: { class: 'form-horizontal are-you-sure no-submit-on-enter' }, wrapper: :horizontal_form,
-          wrapper_mappings: {
-            check_boxes: :horizontal_radio_and_checkboxes,
-            radio_buttons: :horizontal_radio_and_checkboxes,
-            file: :horizontal_file_input,
-            boolean: :horizontal_boolean
-        }  do |f| %>
-          <div class="form-group <%= @registration.errors.has_key?(:events) ? "has-error" : "" %>">
-            <label class="col-sm-2 control-label">Events</label>
-            <div class="col-sm-9">
-              <% @competition.events.each do |event| %>
-                <span class="event-checkbox <%= !@registration.new_record? ? "disabled" : "" %>">
-                  <label>
-                    <%= check_box "registration[event_ids]", event.id, { checked: @registration.events.include?(event), disabled: !@registration.new_record? } %>
-                    <span class="cubing-icon icon-<%= event.id %>" data-toggle="tooltip" data-placement="top" title="<%= event.name %>"></span>
-                  </label>
-                </span>
-              <% end %>
-              <% if @registration.errors.has_key?(:events) %>
-                <span class="help-block">
-                  <%= @registration.errors[:events].join(" ") %>
-                </span>
-              <% end %>
-            </div>
-          </div>
-
-          <%= f.input :guests, disabled: !@registration.new_record? %>
-          <%= f.input :comments, disabled: !@registration.new_record? %>
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <% if @registration.new_record? %>
-                <%= f.submit "Register!", class: "btn btn-success" %>
-              <% end %>
-            </div>
-          </div>
         <% end %>
+      <% else %>
+        <p>
+          <%= t 'registrations.can_register', comp: @competition.name %>
+        </p>
+        <hr/>
+      <% end %>
+    <% end %>
+
+    <% if user_may_register %>
+      <% show_payment_form = @registration.show_payment_form? %>
+      <% if show_payment_form %>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <%= t 'registrations.payment_form.title'%>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <%= render "payment_form" %>
+          </div>
+        </div>
       <% end %>
 
+      <% if @registration.show_details? %>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <%= render "register_panel_title", foldable: show_payment_form do %>
+                <span><%= t 'registrations.panel_title' %></span>
+              <% end %>
+            </h4>
+          </div>
+          <div id="register-panel" class="panel-body <%= "collapse" if show_payment_form %>">
+            <p>
+              <% if @registration.new_or_deleted? %>
+                <%= t('registrations.check_registration_information') %>
+              <% elsif @registration.accepted? %>
+                <%= t('registrations.accepted') %>
+              <% elsif @registration.pending? %>
+                <%= t('registrations.waiting_list') %>
+              <% end %>
+            </p>
+            <hr/>
+            <%= render "register_form" %>
+          </div>
+          <div class="panel-footer">
+            <% if @competition.registration_past? %>
+              <%= t('registrations.closed_html', days: closes_in_days, time: wca_local_time(@competition.registration_close)) %>
+            <% else %>
+              <%= t('registrations.will_close_html', days: closes_in_days, time: wca_local_time(@competition.registration_close)) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

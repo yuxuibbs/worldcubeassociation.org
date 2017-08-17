@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDobGenderCountryToUsers < ActiveRecord::Migration
   def change
     add_column :users, :dob, :date

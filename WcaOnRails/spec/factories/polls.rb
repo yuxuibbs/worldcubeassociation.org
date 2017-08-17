@@ -1,15 +1,16 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :poll do
     question { Faker::Lorem.paragraph }
     multiple false
     deadline { Date.today + 15 }
-    confirmed false
 
     trait :confirmed do
       after(:create) do |poll|
         FactoryGirl.create(:poll_option, poll_id: poll.id)
         FactoryGirl.create(:poll_option, poll_id: poll.id)
-        poll.confirmed = true
+        poll.confirmed_at = Time.now
         poll.save!
       end
     end

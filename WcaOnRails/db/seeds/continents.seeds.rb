@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 sql = "INSERT INTO `Continents` (`id`, `name`, `recordName`, `latitude`, `longitude`, `zoom`) VALUES
 ('_Africa', 'Africa', 'AfR', 213671, 16984850, 3),
 ('_Asia', 'Asia', 'AsR', 34364439, 108330700, 2),
@@ -5,5 +7,4 @@ sql = "INSERT INTO `Continents` (`id`, `name`, `recordName`, `latitude`, `longit
 ('_North America', 'North America', 'NAR', 45486546, -93449700, 3),
 ('_Oceania', 'Oceania', 'OcR', -25274398, 133775136, 3),
 ('_South America', 'South America', 'SAR', -21735104, -63281250, 3);"
-connection = ActiveRecord::Base.connection()
-connection.execute(sql)
+ActiveRecord::Base.connection.execute(sql)

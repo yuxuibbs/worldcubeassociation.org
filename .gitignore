@@ -1,11 +1,29 @@
 # Compiled regulations assets
-WcaOnRails/app/views/regulations/
+WcaOnRails/app/views/regulations/*.*
+WcaOnRails/app/views/regulations/translations/*
+WcaOnRails/app/views/regulations/scrambles/*
+WcaOnRails/app/views/regulations/history/*
+regulations/
+# Except static pages
+!WcaOnRails/app/views/regulations/translations/*.erb
+!WcaOnRails/app/views/regulations/scrambles/*.erb
+!WcaOnRails/app/views/regulations/history/*.erb
 WcaOnRails/app/views/regulations-todelete/
 
-# It appears that Dreamhost automatically creates these files for us. See:
-#  https://discussion.dreamhost.com/thread-127984.html
-webroot/favicon.gif
-webroot/favicon.ico
+# byebug stuff
+.byebug_history
 
 # Vagrant stuff
 .vagrant/
+
+# phpBB mess
+webroot/forum/cache/*
+!webroot/forum/cache/.htaccess
+!webroot/forum/cache/index.html
+webroot/forum/composer.phar
+webroot/forum/config*.php
+webroot/forum/files/*
+webroot/forum/images/avatars/gallery/*
+webroot/forum/images/avatars/upload/*
+webroot/forum/store/*
+

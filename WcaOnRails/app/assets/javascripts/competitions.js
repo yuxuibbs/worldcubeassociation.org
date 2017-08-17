@@ -1,32 +1,76 @@
-$(function() {
-  if(document.body.dataset.railsControllerName !== "competitions") {
-    return;
+onPage('competitions#edit, competitions#update, competitions#admin_edit, competitions#new, competitions#create, competitions#clone_competition', function() {
+  $('input[name="competition[use_wca_registration]"]').on('change', function() {
+    $('.wca-registration-options').toggle(this.checked);
+  }).trigger('change');
+
+  $('input[name="competition[competitor_limit_enabled]"]').on('change', function() {
+    $('.wca-competitor-limit-options').toggle(this.checked);
+  }).trigger('change');
+
+  $('input[name="competition[generate_website]"]').on('change', function() {
+    var generateWebsite = this.checked;
+    $('div.competition_external_website').toggle(!generateWebsite);
+    $('input#competition_external_website').prop('disabled', generateWebsite);
+  }).trigger('change');
+});
+
+// Sets map container height.
+function resizeMapContainer() {
+  var formHeight = $('#competition-query-form').outerHeight(true);
+  var footerHeight = $('.footer').outerHeight(true);
+  var viewHeight = $(window).innerHeight();
+  var mapHeight = viewHeight - footerHeight - formHeight;
+
+  mapHeight = Math.max(300, mapHeight);
+
+  $('#competitions-map').height(mapHeight);
+}
+
+onPage('competitions#index', function() {
+  resizeMapContainer();
+  $(window).on('resize', resizeMapContainer);
+
+  // Bind all/clear cubing event buttons
+  $('#clear-all-events').on('click', function() {
+    $('#events input[type="checkbox"]').prop('checked', false);
+  });
+  $('#select-all-events').on('click', function() {
+    $('#events input[type="checkbox"]').prop('checked', true);
+  });
+
+  // Ajax searching
+  var $form = $('#competition-query-form');
+  function submitForm() {
+    $form.trigger('submit.rails');
   }
 
-  var $competitionSelect = $('#competition_competition_id_to_clone');
-  if($competitionSelect.length > 0) {
-    var selectize = $competitionSelect[0].selectize;
+  $form.on('change', '#events, #region, #state, #display, #status, #delegate', submitForm)
+       .on('click', '#clear-all-events, #select-all-events', submitForm)
+       .on('input', '#search', _.debounce(submitForm, TEXT_INPUT_DEBOUNCE_MS))
+       .on('dp.change','#from_date, #to_date', submitForm);
 
-    var competitionChanged = function() {
-      var competitionId = selectize.getValue();
-      var enteredCompetitionId = selectize.$control_input.val();
-      var $createCompetition = $('#create-competition');
-      $createCompetition.text((enteredCompetitionId || competitionId) ? "Clone competition" : "Create competition");
-      // If they entered something into the competition field, but have not
-      // actually selected a competition, then disable the clone competition button.
-      $createCompetition.prop("disabled", enteredCompetitionId && !competitionId);
-    };
-    competitionChanged();
+  $('#competition-query-form').on('ajax:send', function() {
+    $('#loading').show();
+  });
 
-    selectize.on("change", competitionChanged);
-    selectize.$control_input.on("input", competitionChanged);
-  }
+  $('#competition-query-form').on('ajax:complete', function() {
+    $('#loading').hide();
 
-  var $useWcaRegistrationInput = $('input[name="competition[use_wca_registration]"]');
-  if($useWcaRegistrationInput.length > 0) {
-    var $registrationOptionsAreas = $('.wca-registration-options');
-    $useWcaRegistrationInput.on("change", function() {
-      $registrationOptionsAreas.toggle(this.checked);
-    }).trigger("change");
-  }
+    // Scroll to the top of the form if we are in map mode and screen width is greater than 800px
+    if($('#competitions-map').is(':visible') && $(window).innerWidth() > 800) {
+      var formTop = $('#competition-query-form').offset().top;
+      $('html, body').animate({ scrollTop: formTop - 5 }, 300);
+    }
+  });
+
+  // Necessary hack because Safari fires a popstate event on document load
+  $(window).load(function() {
+    setTimeout(function() {
+      // When back/forward is clicked the url changes since we use pushState,
+      // but the content is not reloaded so we have to do this manually.
+      $(window).on('popstate', function() {
+        location.reload();
+      });
+    }, 0);
+  });
 });
